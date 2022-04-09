@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    ports:
+      - "54329:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+  redis:
+    image: redis
+    ports: 
+      - "63799:6379"
