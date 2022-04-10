@@ -30,12 +30,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_10_032047) do
     t.string "external_id", null: false
     t.string "address"
     t.string "phone"
-    t.boolean "location_lat"
-    t.boolean "location_lng"
-    t.boolean "rating"
     t.string "url", null: false
     t.string "website"
-    t.string "user_ratings_total"
+    t.float "rating"
+    t.integer "user_ratings_total"
+    t.float "location_lat"
+    t.float "location_lng"
     t.jsonb "source_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
