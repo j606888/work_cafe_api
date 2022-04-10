@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     post :signup
     post :login
   end
+
+  namespace :user do
+    resource :me, controller: :me, only: [:show]
+  end
 end
