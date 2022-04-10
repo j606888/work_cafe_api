@@ -15,6 +15,7 @@ gem "bootsnap", require: false
 gem "httparty"
 gem "devise"
 gem "jwt"
+gem "rack-cors"
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"
