@@ -1,23 +1,14 @@
 class GoogleMapService::FetchDetailFromPlaceId < Service
-  HOST = 'https://maps.googleapis.com'
-  PATH = '/maps/api/place/details/json'
-  KEY = ENV['GOOGLE_MAP_API_KEY']
-
   def initialize(place_id:)
     @place_id = place_id
   end
 
   def perform
-    query_string = {
-      place_id: @place_id,
-      key: KEY,
-      language: 'zh-TW'
-    }.to_param
+    res = GoogleMap.new.place_detail(@place_id)
 
-    res = HTTParty.get("#{HOST}#{PATH}?#{query_string}")
     place = ActiveRecord::Base.transaction do
-      place = save_place!(res['result'])
-      save_opening_hours(place, res['result']['opening_hours']['periods'])
+      place = save_place!(res)
+      save_opening_hours(place, res['opening_hours']['periods'])
       place
     end
     place
