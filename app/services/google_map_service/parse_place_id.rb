@@ -21,7 +21,7 @@ class GoogleMapService::ParsePlaceId < Service
     readable_url = CGI.unescape(url)
 
     if readable_url.include?('/maps/place')
-      captured = /maps\/place\/(?<cap>.*),\d+z\//.match(readable_url)
+      captured = /maps\/place\/(?<cap>.*),\d+\.?\d*z\//.match(readable_url)
       detail = captured['cap']
       keyword, location = detail.split('/@')
     else
