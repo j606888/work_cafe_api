@@ -134,6 +134,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jwt (2.3.0)
     kramdown (2.3.2)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -332,6 +333,7 @@ DEPENDENCIES
   httparty
   importmap-rails
   jbuilder
+  jwt
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)

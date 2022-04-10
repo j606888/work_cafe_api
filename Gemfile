@@ -14,6 +14,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem "httparty"
 gem "devise"
+gem "jwt"
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"
