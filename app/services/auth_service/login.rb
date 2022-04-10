@@ -9,10 +9,8 @@ class AuthService::Login < Service
   def perform
     user = query_user_by_email!(@email)
     throw_error unless user.valid_password?(@password)
-      
-    AuthService::Encoder.new(
-      user_id: user.id
-    ).perform
+
+    user
   end
 
   private

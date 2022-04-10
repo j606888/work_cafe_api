@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   namespace :auth do
     post :signup
+    post :login
   end
 end

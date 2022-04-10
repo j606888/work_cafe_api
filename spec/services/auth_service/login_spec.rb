@@ -20,25 +20,12 @@ describe AuthService::Login do
       }
     end
     let(:service) { AuthService::Login.new(**params) }
-    let(:encoder_data) do
-      {
-        access_token: 'access_token',
-        refresh_token: 'refresh_token'
-      }
-    end
-    let(:encoder_service) { double(perform: encoder_data) }
-
-    before(:each) do
-      allow(AuthService::Encoder).to receive(:new).and_return(encoder_service)
-    end
+  
 
     it 'validate email & password' do
       res = service.perform
 
-      expect(AuthService::Encoder).to have_received(:new)
-        .with(user_id: user.id)
-      expect(res[:access_token]).to eq(encoder_data[:access_token])
-      expect(res[:refresh_token]).to eq(encoder_data[:refresh_token])
+      expect(res).to eq(user)
     end
 
     it 'raise error if user not found' do
