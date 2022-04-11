@@ -6,17 +6,17 @@ class GoogleMapService::FetchDetailFromPlaceId < Service
   def perform
     res = GoogleMap.new.place_detail(@place_id)
 
-    place = ActiveRecord::Base.transaction do
-      place = save_place!(res)
-      save_opening_hours(place, res['opening_hours']['periods'])
-      place
+    store = ActiveRecord::Base.transaction do
+      store = save_store!(res)
+      save_opening_hours(store, res['opening_hours']['periods'])
+      store
     end
-    place
+    store
   end
 
   private
-  def save_place!(res)
-    place = Place.find_or_initialize_by(external_id: res['place_id'])
+  def save_store!(res)
+    store = Store.find_or_initialize_by(place_id: res['place_id'])
     params = {
       name: res['name'],
       address: res['formatted_address'],
@@ -29,16 +29,17 @@ class GoogleMapService::FetchDetailFromPlaceId < Service
       website: res['website'],
       source_data: res
     }.compact
+    binding.pry
 
-    place.update!(params)
-    place
+    store.update!(params)
+    store
   end
 
-  def save_opening_hours(place, periods)
-    place.opening_hours.delete_all
+  def save_opening_hours(store, periods)
+    store.opening_hours.delete_all
     periods.each do |period|
       OpeningHour.create!(
-        place: place,
+        store: store,
         open_day: period['open']['day'],
         open_time: period['open']['time'],
         close_day: period['close']['day'],

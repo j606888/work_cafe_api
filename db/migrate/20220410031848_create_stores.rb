@@ -1,8 +1,8 @@
-class CreatePlaces < ActiveRecord::Migration[7.0]
+class CreateStores < ActiveRecord::Migration[7.0]
   def change
-    create_table :places do |t|
+    create_table :stores do |t|
       t.string :name, null: false
-      t.string :external_id, null: false, unique: true
+      t.string :place_id, null: false, unique: true
       t.string :address
       t.string :phone
       t.string :url, null: false

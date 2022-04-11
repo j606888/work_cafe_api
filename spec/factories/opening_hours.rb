@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :opening_hour do
-    association :place
+    association :store
     open_day { 0 }
     open_time { "0800" }
     close_day { 0 }

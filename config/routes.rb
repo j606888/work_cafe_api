@@ -13,5 +13,5 @@ Rails.application.routes.draw do
     resource :me, controller: :me, only: [:show]
   end
 
-  resources :places, only: [:index, :show]
+  resources :stores, only: [:index, :show]
 end

@@ -15,19 +15,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_10_075036) do
   enable_extension "plpgsql"
 
   create_table "opening_hours", force: :cascade do |t|
-    t.bigint "place_id", null: false
+    t.bigint "store_id", null: false
     t.integer "open_day", null: false
     t.string "open_time", limit: 10, null: false
     t.integer "close_day", null: false
     t.string "close_time", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["place_id"], name: "index_opening_hours_on_place_id"
+    t.index ["store_id"], name: "index_opening_hours_on_store_id"
   end
 
-  create_table "places", force: :cascade do |t|
+  create_table "refresh_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token", null: false
+    t.boolean "is_valid", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
     t.string "name", null: false
-    t.string "external_id", null: false
+    t.string "place_id", null: false
     t.string "address"
     t.string "phone"
     t.string "url", null: false
@@ -39,15 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_10_075036) do
     t.jsonb "source_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "refresh_tokens", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "token", null: false
-    t.boolean "is_valid", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,6 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_10_075036) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "opening_hours", "places"
+  add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
 end

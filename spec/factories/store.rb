@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :place do
+  factory :store do
     name { "A room" }
-    external_id { "abc123" }
+    place_id { "abc123" }
     url { "https://google.map.com" }
   end
 end

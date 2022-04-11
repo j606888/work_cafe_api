@@ -1,5 +1,5 @@
 class OpeningHour < ApplicationRecord
-  belongs_to :place
+  belongs_to :store
 
   validates :open_day, :open_time, :close_day, :close_time, presence: true
   validates :open_day, :close_day, numericality: { in: 0..6 }
