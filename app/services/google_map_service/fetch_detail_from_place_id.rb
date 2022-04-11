@@ -29,7 +29,6 @@ class GoogleMapService::FetchDetailFromPlaceId < Service
       website: res['website'],
       source_data: res
     }.compact
-    binding.pry
 
     store.update!(params)
     store
