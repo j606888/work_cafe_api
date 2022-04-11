@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   namespace :user do
     resource :me, controller: :me, only: [:show]
   end
+
+  resources :places, only: [:index, :show]
 end
