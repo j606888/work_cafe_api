@@ -14,5 +14,9 @@ Rails.application.routes.draw do
     resources :map_urls, only: [:index, :create]
   end
 
+  namespace :admin do
+    resources :map_urls, only: [:index]
+  end
+
   resources :stores, only: [:index, :show]
 end

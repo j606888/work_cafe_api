@@ -1,10 +1,12 @@
 class User::MapUrlsController < User::ApplicationController
   def index
-    map_urls = UserService::QueryMapUrls.new(
-      user_id: current_user.id
-    ).perform
+    map_urls = UserService::QueryMapUrls.new(**{
+      user_id: current_user.id,
+      per: params[:per],
+      page: params[:page]
+    }.compact).perform
 
-    render json: map_urls
+    render 'index', locals: { map_urls: map_urls }
   end
 
   def create
