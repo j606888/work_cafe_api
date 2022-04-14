@@ -17,6 +17,7 @@ gem "devise"
 gem "jwt"
 gem "rack-cors"
 gem "kaminari"
+gem "aasm"
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"

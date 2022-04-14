@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_10_075036) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_14_144020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "map_urls", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "url"
+    t.string "keyword"
+    t.string "place_id"
+    t.string "aasm_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_map_urls_on_user_id"
+  end
 
   create_table "opening_hours", force: :cascade do |t|
     t.bigint "store_id", null: false
@@ -63,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_10_075036) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
 end
