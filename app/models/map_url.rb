@@ -2,6 +2,7 @@ class MapUrl < ApplicationRecord
   include AASM
 
   belongs_to :user
+  has_one :store
 
   validates_uniqueness_of :url, scope: :user_id
 

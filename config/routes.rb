@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :map_urls, only: [:index] do
       member do
         post :nearbysearch
+        post :create_store, path: 'create-store'
       end
     end
   end
