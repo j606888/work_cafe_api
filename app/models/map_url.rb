@@ -3,6 +3,8 @@ class MapUrl < ApplicationRecord
 
   belongs_to :user
 
+  validates_uniqueness_of :url, scope: :user_id
+
   aasm do
     state :created, initial: true
     state :accept, :deny

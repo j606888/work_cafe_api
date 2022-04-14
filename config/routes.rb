@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :user do
     resource :me, controller: :me, only: [:show]
+    resources :map_urls, only: [:create]
   end
 
   resources :stores, only: [:index, :show]
