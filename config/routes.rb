@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   # devise_for :users
-  namespace :google_map do
-    post :parse_place_id
-  end
 
   namespace :auth do
     post :signup
@@ -11,6 +8,16 @@ Rails.application.routes.draw do
 
   namespace :user do
     resource :me, controller: :me, only: [:show]
+    resources :map_urls, only: [:index, :create]
+  end
+
+  namespace :admin do
+    resources :map_urls, only: [:index] do
+      member do
+        post :nearbysearch
+        post :create_store, path: 'create-store'
+      end
+    end
   end
 
   resources :stores, only: [:index, :show]

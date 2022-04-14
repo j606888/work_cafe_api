@@ -1,23 +1,50 @@
-class GoogleMapService::FetchDetailFromPlaceId < Service
-  def initialize(place_id:)
+class AdminService::CreatePlaceFromMapUrl < Service
+  def initialize(map_url_id:, name:, place_id:)
+    @map_url_id = map_url_id
+    @name = name
     @place_id = place_id
   end
 
   def perform
-    res = GoogleMap.new.place_detail(@place_id)
+    map_url = query_map_url!(@map_url_id)
+    validate_map_url!(map_url, @name)
 
-    store = ActiveRecord::Base.transaction do
-      store = save_store!(res)
+    res = GoogleMap.new.place_detail(@place_id)
+    ActiveRecord::Base.transaction do
+      store = save_store!(map_url, res)
       save_opening_hours(store, res['opening_hours']['periods'])
+      map_url.do_accept!
+      map_url.update!(place_id: store.place_id)
+
       store
     end
-    store
   end
 
   private
-  def save_store!(res)
+  def query_map_url!(map_url_id)
+    map_url = MapUrl.find_by(id: map_url_id)
+
+    if map_url.nil?
+      raise Service::PerformFailed, "MapUrl with id `#{map_url_id}` not found"
+    end
+
+    map_url
+  end
+
+  def validate_map_url!(map_url, name)
+    if map_url.store.present?
+      raise Service::PerformFailed, "map_url with id `#{map_url.id}` already bind store"
+    end
+
+    if map_url.keyword != name
+      raise Service::PerformFailed, "map_url with id `#{map_url.id}` not match name `#{name}`"
+    end
+  end
+
+  def save_store!(map_url, res)
     store = Store.find_or_initialize_by(place_id: res['place_id'])
     params = {
+      map_url: map_url,
       name: res['name'],
       address: res['formatted_address'],
       phone: res['formatted_phone_number'],
