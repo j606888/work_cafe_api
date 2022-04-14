@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :map_urls, only: [:index]
+    resources :map_urls, only: [:index] do
+      member do
+        post :nearbysearch
+      end
+    end
   end
 
   resources :stores, only: [:index, :show]

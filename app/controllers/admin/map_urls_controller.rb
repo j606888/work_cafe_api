@@ -7,4 +7,11 @@ class Admin::MapUrlsController < Admin::ApplicationController
 
     render 'index', locals: { map_urls: map_urls }
   end
+
+  def nearbysearch
+    res = AdminService::Nearbysearch.new(
+      map_url_id: params.require(:id)
+    ).perform
+    render json: res
+  end
 end
