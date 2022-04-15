@@ -3,5 +3,3 @@ json.stores do
     json.(store, :id, :name, :address, :phone, :rating, :lat, :lng, :url)
   end
 end
-
-json.partial! 'layouts/paging', resources: stores

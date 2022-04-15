@@ -19,7 +19,6 @@ class Admin::MapUrlsController < Admin::ApplicationController
   def create_store
     store = AdminService::CreatePlaceFromMapUrl.new(
       map_url_id: params.require(:id),
-      name: params.require(:name),
       place_id: params.require(:place_id)
     ).perform
 

@@ -17,12 +17,12 @@ class StoresController < ApplicationController
   end
 
   def search_by_location
-    stores = StoreService::SearchByLocation(
-      lat: params.require(:lat),
-      lng: params.require(:lng),
+    stores = StoreService::SearchByLocation.new(
+      lat: params.require(:lat).to_f,
+      lng: params.require(:lng).to_f,
       zoom: params.require(:zoom)
-    )
+    ).perform
 
-    render 'index', locals: { stores: stores }
+    render 'search_by_location', locals: { stores: stores }
   end
 end
