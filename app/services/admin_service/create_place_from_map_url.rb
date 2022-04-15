@@ -11,10 +11,14 @@ class AdminService::CreatePlaceFromMapUrl < Service
 
     res = GoogleMap.new.place_detail(@place_id)
     ActiveRecord::Base.transaction do
+      map_url.do_accept!
+      map_url.update!(
+        place_id: @place_id,
+        source_data: res
+      )
+
       store = save_store!(map_url, res)
       save_opening_hours(store, res['opening_hours']['periods'])
-      map_url.do_accept!
-      map_url.update!(place_id: store.place_id)
 
       store
     end
@@ -42,19 +46,17 @@ class AdminService::CreatePlaceFromMapUrl < Service
   end
 
   def save_store!(map_url, res)
-    store = Store.find_or_initialize_by(place_id: res['place_id'])
+    store = Store.find_or_initialize_by(map_url: map_url)
     params = {
-      map_url: map_url,
       name: res['name'],
       address: res['formatted_address'],
       phone: res['formatted_phone_number'],
-      location_lat: res['geometry']['location']['lat'],
-      location_lng: res['geometry']['location']['lng'],
+      lat: res['geometry']['location']['lat'],
+      lng: res['geometry']['location']['lng'],
       rating: res['rating'],
       user_ratings_total: res['user_ratings_total'],
       url: res['url'],
-      website: res['website'],
-      source_data: res
+      website: res['website']
     }.compact
 
     store.update!(params)
