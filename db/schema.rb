@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_14_160737) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_14_154629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "map_urls", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "url"
-    t.string "keyword"
+    t.string "url", null: false
+    t.string "keyword", null: false
     t.string "place_id"
     t.string "aasm_state"
+    t.jsonb "source_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_map_urls_on_place_id", unique: true
     t.index ["user_id"], name: "index_map_urls_on_user_id"
   end
 
@@ -56,20 +58,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_14_160737) do
   end
 
   create_table "stores", force: :cascade do |t|
+    t.bigint "map_url_id", null: false
     t.string "name", null: false
-    t.string "place_id", null: false
     t.string "address"
     t.string "phone"
     t.string "url", null: false
     t.string "website"
     t.float "rating"
     t.integer "user_ratings_total"
-    t.float "location_lat"
-    t.float "location_lng"
-    t.jsonb "source_data", default: {}
+    t.float "lat"
+    t.float "lng"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "map_url_id", null: false
     t.index ["map_url_id"], name: "index_stores_on_map_url_id"
   end
 
