@@ -5,6 +5,7 @@ class MapUrl < ApplicationRecord
   has_one :store
 
   validates_uniqueness_of :url, scope: :user_id
+  validates_uniqueness_of :place_id, allow_nil: true
 
   aasm do
     state :created, initial: true

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :user do
     resource :me, controller: :me, only: [:show]
     resources :map_urls, only: [:index, :create]
+    resources :stores, only: [:index, :show]
   end
 
   namespace :admin do
@@ -16,9 +17,14 @@ Rails.application.routes.draw do
       member do
         post :nearbysearch
         post :create_store, path: 'create-store'
+        post :deny
       end
     end
   end
 
-  resources :stores, only: [:index, :show]
+  resources :stores, only: [:index, :show] do
+    collection do
+      get :search_by_location, path: 'search-by-location'
+    end
+  end
 end
