@@ -5,7 +5,6 @@ describe AdminService::CreatePlaceFromMapUrl do
     it 'init with desired parameters' do
       AdminService::CreatePlaceFromMapUrl.new(
         map_url_id: 1,
-        name: 'Store name',
         place_id: 'xxx'
       )
     end 
@@ -28,7 +27,6 @@ describe AdminService::CreatePlaceFromMapUrl do
     let(:service) do
       described_class.new(
         map_url_id: map_url.id,
-        name: map_url.keyword,
         place_id: place_id
       )
     end

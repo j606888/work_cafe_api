@@ -1,7 +1,6 @@
 class AdminService::CreatePlaceFromMapUrl < Service
-  def initialize(map_url_id:, name:, place_id:)
+  def initialize(map_url_id:, place_id:)
     @map_url_id = map_url_id
-    @name = name
     @place_id = place_id
   end
 
@@ -39,10 +38,6 @@ class AdminService::CreatePlaceFromMapUrl < Service
     if map_url.store.present?
       raise Service::PerformFailed, "map_url with id `#{map_url.id}` already bind store"
     end
-
-    if map_url.keyword != name
-      raise Service::PerformFailed, "map_url with id `#{map_url.id}` not match name `#{name}`"
-    end
   end
 
   def save_store!(map_url, res)
@@ -66,6 +61,11 @@ class AdminService::CreatePlaceFromMapUrl < Service
   def save_opening_hours(store, periods)
     store.opening_hours.delete_all
     periods.each do |period|
+      close_period = period['close']
+      if close_period.nil?
+        raise Service::PerformFailed, "Store don't have close period"
+      end
+
       OpeningHour.create!(
         store: store,
         open_day: period['open']['day'],
