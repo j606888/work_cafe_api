@@ -25,4 +25,12 @@ class Admin::MapUrlsController < Admin::ApplicationController
 
     render json: store
   end
+
+  def deny
+    AdminService::DenyMapUrl.new(
+      map_url_id: params.require(:id)
+    ).perform
+
+    head :ok
+  end
 end

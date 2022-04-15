@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       member do
         post :nearbysearch
         post :create_store, path: 'create-store'
+        post :deny
       end
     end
   end
