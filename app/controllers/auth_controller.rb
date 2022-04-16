@@ -33,4 +33,15 @@ class AuthController < ApplicationController
   rescue AuthService::Login::EmailOrPasswordInvalid => e
     render status: 400, json: { reason: e.message }
   end
+
+  def refresh
+    token = AuthService::Refresh.new(
+      token: params.require(:refresh_token)
+    ).perform
+
+    render json: {
+      access_token: token[:access_token],
+      refresh_token: token[:refresh_token]
+    }
+  end
 end

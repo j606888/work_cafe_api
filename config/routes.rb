@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :auth do
     post :signup
     post :login
+    post :refresh
   end
 
   namespace :user do
