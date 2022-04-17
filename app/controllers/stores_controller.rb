@@ -13,7 +13,7 @@ class StoresController < ApplicationController
       id: params.require(:id)
     ).perform
 
-    render json: store
+    render 'show', locals: { store: store }
   end
 
   def search_by_location
