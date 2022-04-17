@@ -60,12 +60,9 @@ class AdminService::CreatePlaceFromMapUrl < Service
 
   def save_opening_hours(store, periods)
     store.opening_hours.delete_all
-    periods.each do |period|
-      close_period = period['close']
-      if close_period.nil?
-        raise Service::PerformFailed, "Store don't have close period"
-      end
+    return if store_never_close?(periods)
 
+    periods.each do |period|
       OpeningHour.create!(
         store: store,
         open_day: period['open']['day'],
@@ -74,5 +71,9 @@ class AdminService::CreatePlaceFromMapUrl < Service
         close_time: period['close']['time']
       )
     end
+  end
+
+  def store_never_close?(periods)
+    periods.length == 1 && periods.first['close'].nil?
   end
 end
