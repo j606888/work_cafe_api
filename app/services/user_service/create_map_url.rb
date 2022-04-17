@@ -1,5 +1,5 @@
 class UserService::CreateMapUrl < Service
-  GOOGLE_MAP_PREFIX = "https://www.google.com.tw/maps/place"
+  GOOGLE_MAP_PREFIX = "maps/place"
 
   def initialize(user_id:, url:)
     @user_id = user_id

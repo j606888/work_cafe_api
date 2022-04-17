@@ -5,6 +5,6 @@ class StoreService::QueryAll
   end
 
   def perform
-    Store.all.page(@page).per(@per)
+    Store.all.order(id: :desc).page(@page).per(@per)
   end
 end

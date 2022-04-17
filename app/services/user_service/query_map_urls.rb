@@ -6,6 +6,6 @@ class UserService::QueryMapUrls < Service
   end
 
   def perform
-    MapUrl.where(user_id: @user_id).page(@page).per(@per)
+    MapUrl.where(user_id: @user_id).order(id: :desc).page(@page).per(@per)
   end
 end

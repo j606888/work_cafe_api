@@ -1,6 +1,6 @@
 class AuthService::Encoder < Service
   HMAC_SECRET = ENV['JWT_SECRET_KEY']
-  DEFAULT_EXPIRED_TIME = 10.seconds
+  DEFAULT_EXPIRED_TIME = 1.day
 
   def initialize user_id:
     @user_id = user_id
@@ -41,8 +41,7 @@ class AuthService::Encoder < Service
   end
 
   def expire_at
-    # expire_time = Rails.env.development? ? 1.month : DEFAULT_EXPIRED_TIME
-    expire_time = DEFAULT_EXPIRED_TIME
+    expire_time = Rails.env.development? ? 1.month : DEFAULT_EXPIRED_TIME
 
     (Time.now + expire_time).to_i
   end
