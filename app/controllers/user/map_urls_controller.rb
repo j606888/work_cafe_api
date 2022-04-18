@@ -3,7 +3,8 @@ class User::MapUrlsController < User::ApplicationController
     map_urls = UserService::QueryMapUrls.new(**{
       user_id: current_user.id,
       per: params[:per],
-      page: params[:page]
+      page: params[:page],
+      status: params.require(:status)
     }.compact).perform
 
     render 'index', locals: { map_urls: map_urls }

@@ -19,7 +19,7 @@ describe AdminService::QueryMapUrls do
       expect(res[0]).to eq(map_urls.last)
     end
 
-    context 'when state is provide' do
+    context 'when status is provide' do
       before(:each) do
         map_urls[0].update(aasm_state: 'accept')
         map_urls[2].update(aasm_state: 'accept')
@@ -28,7 +28,7 @@ describe AdminService::QueryMapUrls do
 
       it 'should return the state list' do
         res = described_class.new(
-          state: 'accept'
+          status: 'accept'
         ).perform
 
         expect(res.count).to eq(3)
@@ -40,7 +40,7 @@ describe AdminService::QueryMapUrls do
       it 'should raise error if state invalid' do
         expect do
           described_class.new(
-            state: 'cool'
+            status: 'cool'
           ).perform
         end.to raise_error(Service::PerformFailed)
       end
