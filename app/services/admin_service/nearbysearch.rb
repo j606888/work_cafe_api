@@ -7,7 +7,13 @@ class AdminService::Nearbysearch < Service
     map_url = query_map_url!(@map_url_id)
     keyword, location = parse_from_url(map_url.url)
 
-    GoogleMap.new.place_nearbysearch(keyword, location)
+    res = GoogleMap.new.place_nearbysearch(
+      location: location,
+      keyword: keyword,
+      radius: 10000,
+      language: 'zh-TW'
+    )
+    res['results']
   end
 
   private

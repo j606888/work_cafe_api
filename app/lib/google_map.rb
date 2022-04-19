@@ -15,18 +15,21 @@ class GoogleMap
     response['result']
   end
 
-  def place_nearbysearch(keyword, location, radius:10000, language:'zh-TW')
+  # Only allow one of [type, keyword] appear
+  def place_nearbysearch(location: nil, type: nil, keyword: nil, radius: nil, language: nil, pagetoken: nil)
     api_path = '/maps/api/place/nearbysearch/json'
     args = {
       location: location,
       keyword: keyword,
+      type: type,
       language: language,
-      radius: radius
-    }
+      radius: radius,
+      pagetoken: pagetoken
+    }.compact
 
     url = generate_url_with_api_key(api_path, args)
-    response = send_request(:post, url)
-    response['results']
+    send_request(:post, url)
+    # response['results']
   end
   
   private
