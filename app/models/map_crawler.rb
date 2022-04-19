@@ -1,0 +1,2 @@
+class MapCrawler < ApplicationRecord
+end
