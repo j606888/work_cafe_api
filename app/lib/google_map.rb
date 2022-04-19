@@ -47,7 +47,14 @@ class GoogleMap
       res = HTTParty.post(url)
     end
 
-    raise ReturnStatusInvalid if res['status'] != 'OK'
+    if res['status'] != 'OK'
+      if res['status'] == 'ZERO_RESULTS'
+        raise Service::PerformFailed, 'No result found'
+      end
+
+      raise ReturnStatusInvalid 
+    end
+
     res
   end
 end
