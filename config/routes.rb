@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         post :deny
       end
     end
-    resources :map_crawlers, only: [:index] do
+    resources :map_crawlers, only: [:index, :show] do
       member do
         post :bind
         post :deny

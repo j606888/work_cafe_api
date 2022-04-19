@@ -24,4 +24,9 @@ class Admin::MapCrawlersController < Admin::ApplicationController
 
     head :ok
   end
+
+  def show
+    map_crawler = MapCrawler.find(params.require(:id))
+    render json: map_crawler
+  end
 end
