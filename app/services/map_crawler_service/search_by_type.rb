@@ -1,4 +1,4 @@
-class CrawlerService::SearchByType < Service
+class MapCrawlerService::SearchByType < Service
   # Radius, maximum 50,000 M
   # https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius
   DEFAULT_RADIUS = 3000

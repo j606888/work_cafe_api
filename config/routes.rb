@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         post :deny
       end
     end
+    resources :map_crawlers, only: [:index]
   end
 
   resources :stores, only: [:index, :show] do
