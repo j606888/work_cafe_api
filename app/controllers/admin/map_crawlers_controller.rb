@@ -8,4 +8,20 @@ class Admin::MapCrawlersController < Admin::ApplicationController
 
     render 'index', locals: { map_crawlers: map_crawlers }
   end
+
+  def bind
+    MapCrawlerService::Bind.new(
+      params.require(:id)
+    ).perform
+
+    head :ok
+  end
+
+  def deny
+    MapCrawlerService::Deny.new(
+      params.require(:id)
+    ).perform
+
+    head :ok
+  end
 end

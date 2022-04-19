@@ -1,7 +1,7 @@
 class MapCrawlerService::SearchByType < Service
   # Radius, maximum 50,000 M
   # https://developers.google.com/maps/documentation/places/web-service/search-nearby#radius
-  DEFAULT_RADIUS = 3000
+  DEFAULT_RADIUS = 1000
   MAX_NEXT_PAGE_COUNT = 10
   PLACE_TYPE = 'cafe'
 
