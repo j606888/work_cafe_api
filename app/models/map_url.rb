@@ -2,7 +2,7 @@ class MapUrl < ApplicationRecord
   include AASM
 
   belongs_to :user
-  has_one :store
+  has_one :store, as: :sourceable
 
   validates_uniqueness_of :url, scope: :user_id
   validates_uniqueness_of :place_id, allow_nil: true

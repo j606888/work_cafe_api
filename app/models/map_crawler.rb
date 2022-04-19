@@ -1,6 +1,8 @@
 class MapCrawler < ApplicationRecord
   include AASM
 
+  has_one :store, as: :sourceable
+
   aasm do
     state :created, initial: true
     state :accept, :deny
