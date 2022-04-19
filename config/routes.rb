@@ -26,6 +26,10 @@ Rails.application.routes.draw do
         post :bind
         post :deny
       end
+
+      collection do
+        post :search
+      end
     end
   end
 

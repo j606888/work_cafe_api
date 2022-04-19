@@ -6,6 +6,6 @@ class MapCrawlerService::QueryAll < Service
   end
 
   def perform
-    MapCrawler.where(aasm_state: @status).page(@page).per(@per)
+    MapCrawler.where(aasm_state: @status).order(created_at: :desc).page(@page).per(@per)
   end
 end

@@ -1,5 +1,5 @@
 class StoreService::QueryAll
-  def initialize(page:1, per:10)
+  def initialize(page:1, per:50)
     @page = page
     @per = per
   end

@@ -29,4 +29,12 @@ class Admin::MapCrawlersController < Admin::ApplicationController
     map_crawler = MapCrawler.find(params.require(:id))
     render json: map_crawler
   end
+
+  def search
+    count = MapCrawlerService::SearchByType.new(
+      params.require(:location)
+    ).perform
+
+    render json: { message: "#{count} Place was found" }
+  end
 end
