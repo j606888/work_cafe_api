@@ -1,11 +1,7 @@
-class MapUrl < ApplicationRecord
+class MapCrawler < ApplicationRecord
   include AASM
 
-  belongs_to :user
   has_one :store, as: :sourceable
-
-  validates_uniqueness_of :url, scope: :user_id
-  validates_uniqueness_of :place_id, allow_nil: true
 
   aasm do
     state :created, initial: true
