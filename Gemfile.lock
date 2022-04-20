@@ -93,10 +93,10 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano3-puma (5.2.0)
+    capistrano3-puma (3.1.1)
       capistrano (~> 3.7)
       capistrano-bundler
-      puma (>= 4.0, < 6.0)
+      puma (~> 3.4)
     capybara (3.36.0)
       addressable
       matrix
@@ -220,8 +220,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.6.4)
-      nio4r (~> 2.0)
+    puma (3.10.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
@@ -385,7 +384,7 @@ DEPENDENCIES
   kaminari
   pg (~> 1.1)
   pry-rails
-  puma (~> 5.0)
+  puma (~> 3.10.0)
   rack-cors
   rails (~> 7.0.1)
   redis (~> 4.0)
