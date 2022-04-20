@@ -32,6 +32,10 @@ end
 group :development do
   gem "web-console"
   gem "solargraph"
+  gem "capistrano", "~> 3.17", require: false
+  gem "capistrano-rails", "~> 1.6", require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano3-puma', require: false
 end
 
 group :test do
