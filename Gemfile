@@ -19,6 +19,7 @@ gem "rack-cors"
 gem "kaminari"
 gem "aasm"
 gem "rolify"
+gem 'redis', '~>4.0'
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"
