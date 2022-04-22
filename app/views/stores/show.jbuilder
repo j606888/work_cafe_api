@@ -2,6 +2,6 @@ json.(store, :id, :name, :address, :phone, :url, :website, :rating, :user_rating
 
 source = store.sourceable.source_data
 json.source_data do
-  json.reviews source['reviews']
-  json.opening_hours source['opening_hours']['weekday_text']
+  json.reviews source['reviews'] || []
+  json.opening_hours store_opening_hours(source['opening_hours'])
 end 

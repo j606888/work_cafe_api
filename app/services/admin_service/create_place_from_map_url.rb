@@ -8,19 +8,13 @@ class AdminService::CreatePlaceFromMapUrl < Service
     map_url = query_map_url!(@map_url_id)
     validate_map_url!(map_url, @name)
 
-    res = GoogleMap.new.place_detail(@place_id)
-    ActiveRecord::Base.transaction do
-      map_url.do_accept!
-      map_url.update!(
-        place_id: @place_id,
-        source_data: res
-      )
+    map_url.update!(place_id: @place_id)
 
-      store = save_store!(map_url, res)
-      save_opening_hours(store, res['opening_hours']['periods'])
-
-      store
-    end
+    StoreService::CreateFromGoogleApi.new(
+      source_type: 'MapUrl',
+      source_id: map_url.id
+    ).perform
+    map_url.do_accept!
   end
 
   private
@@ -38,42 +32,5 @@ class AdminService::CreatePlaceFromMapUrl < Service
     if map_url.store.present?
       raise Service::PerformFailed, "map_url with id `#{map_url.id}` already bind store"
     end
-  end
-
-  def save_store!(map_url, res)
-    store = Store.find_or_initialize_by(map_url: map_url)
-    params = {
-      name: res['name'],
-      address: res['formatted_address'],
-      phone: res['formatted_phone_number'],
-      lat: res['geometry']['location']['lat'],
-      lng: res['geometry']['location']['lng'],
-      rating: res['rating'],
-      user_ratings_total: res['user_ratings_total'],
-      url: res['url'],
-      website: res['website']
-    }.compact
-
-    store.update!(params)
-    store
-  end
-
-  def save_opening_hours(store, periods)
-    store.opening_hours.delete_all
-    return if store_never_close?(periods)
-
-    periods.each do |period|
-      OpeningHour.create!(
-        store: store,
-        open_day: period['open']['day'],
-        open_time: period['open']['time'],
-        close_day: period['close']['day'],
-        close_time: period['close']['time']
-      )
-    end
-  end
-
-  def store_never_close?(periods)
-    periods.length == 1 && periods.first['close'].nil?
   end
 end
