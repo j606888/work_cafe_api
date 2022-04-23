@@ -10,15 +10,8 @@ Rails.application.routes.draw do
   namespace :user do
     resource :me, controller: :me, only: [:show]
     resources :map_urls, only: [:index, :create]
-    # resources :stores, only: [:index, :show]
-    resources :stores, only: [] do
-      member do
-        post :toggle_favorite, path: 'toggle-favorite'
-      end
-
-      collection do
-        get :favorites
-      end
+    resources :favorites, only: [:index, :show] do
+      post :toggle, on: :collection
     end
   end
 
