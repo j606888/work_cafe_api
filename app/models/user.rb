@@ -7,5 +7,5 @@ class User < ApplicationRecord
 
   has_many :refresh_tokens
   has_many :favorites
-  has_many :favorite_stores, through: :favorites
+  has_many :favorite_stores, through: :favorites, source: :store
 end
