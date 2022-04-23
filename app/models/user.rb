@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :refresh_tokens
   has_many :favorites
   has_many :favorite_stores, through: :favorites, source: :store
+  has_many :hidden
+  has_many :hidden_stores, through: :hiddens, source: :store
 end
