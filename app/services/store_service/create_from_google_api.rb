@@ -43,6 +43,7 @@ class StoreService::CreateFromGoogleApi < Service
 
   def save_store!(source, res)
     store = Store.find_or_initialize_by(sourceable: source)
+
     params = {
       name: res['name'],
       address: res['formatted_address'],
@@ -52,11 +53,21 @@ class StoreService::CreateFromGoogleApi < Service
       rating: res['rating'],
       user_ratings_total: res['user_ratings_total'],
       url: res['url'],
-      website: res['website']
+      website: res['website'],
+      city: parse_address(res, 'administrative_area_level_1'),
+      district: parse_address(res, 'administrative_area_level_3')
     }.compact
 
     store.update!(params)
     store
+  end
+
+  def parse_address(res, type)
+    components = res['address_components']
+    target = components.find { |c| c['types'] == [type, 'political'] }
+    return if target.nil?
+
+    target['long_name']
   end
 
   def save_opening_hours(store, periods)

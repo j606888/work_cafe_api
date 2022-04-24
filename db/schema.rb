@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_23_164310) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_24_072517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_23_164310) do
     t.datetime "updated_at", null: false
     t.string "sourceable_type"
     t.bigint "sourceable_id"
+    t.string "city"
+    t.string "district"
     t.index ["sourceable_type", "sourceable_id"], name: "index_stores_on_sourceable"
   end
 

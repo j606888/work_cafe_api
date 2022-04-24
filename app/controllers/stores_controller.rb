@@ -1,6 +1,8 @@
 class StoresController < ApplicationController
   def index
     stores = StoreService::QueryAll.new(**{
+      city: params[:city],
+      districts: params[:districts],
       page: params[:page],
       per: params[:per]
     }.compact).perform

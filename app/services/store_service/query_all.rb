@@ -1,10 +1,22 @@
 class StoreService::QueryAll
-  def initialize(page:1, per:50)
+  def initialize(city: nil, districts: [], page:1, per:50)
+    @city = city
+    @districts = districts
     @page = page
     @per = per
   end
 
   def perform
-    Store.all.order(id: :desc).page(@page).per(@per)
+    stores = Store.all.order(id: :desc)
+
+    if @city.present?
+      stores = stores.where(city: @city)
+    end
+
+    if @districts.present?
+      stores = stores.where(district: @districts)
+    end
+
+    stores.page(@page).per(@per)
   end
 end
