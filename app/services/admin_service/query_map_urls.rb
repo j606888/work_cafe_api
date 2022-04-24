@@ -1,7 +1,7 @@
 class AdminService::QueryMapUrls < Service
   VALID_STATUS = ['created', 'accept', 'deny']
 
-  def initialize(page:1, per:10, status:'created')
+  def initialize(page:1, per:10, status:nil)
     @page = page
     @per = per
     @status = status
