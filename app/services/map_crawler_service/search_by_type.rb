@@ -11,7 +11,8 @@ class MapCrawlerService::SearchByType < Service
   end
 
   def perform
-    count = 0
+    crawled_count = 0
+    duplicate_count = 0
 
     res = GoogleMap.new.place_nearbysearch(
       location: @location,
@@ -20,8 +21,9 @@ class MapCrawlerService::SearchByType < Service
       radius: DEFAULT_RADIUS,
     )
     places = res['results']
+    crawled_count += places.length
+    duplicate_count += count_duplicate_map_crawlers(places)
     create_map_crawlers(places)
-    count += places.length
 
     next_page_token = res['next_page_token']
 
@@ -30,12 +32,17 @@ class MapCrawlerService::SearchByType < Service
       res = GoogleMap.new.place_nearbysearch(
         pagetoken: next_page_token
       )
-      create_map_crawlers(res['results'])
-      count += res['results'].length
+      places = res['results']
+      crawled_count += places.length
+      duplicate_count += count_duplicate_map_crawlers(places)
+      create_map_crawlers(places)
       next_page_token = res['next_page_token']
     end
 
-    count
+    {
+      crawled_count: crawled_count,
+      duplicate_count: duplicate_count
+    }
   end
 
   private
@@ -51,6 +58,10 @@ class MapCrawlerService::SearchByType < Service
         source_data: place
       )
     end
+  end
 
+  def count_duplicate_map_crawlers(places)
+    places_ids = places.map { |place| place['place_id'] }
+    MapCrawler.where(place_id: places_ids).count
   end
 end
