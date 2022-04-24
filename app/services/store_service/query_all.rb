@@ -7,7 +7,7 @@ class StoreService::QueryAll
   end
 
   def perform
-    stores = Store.all.order(id: :desc)
+    stores = Store.includes(:opening_hours)
 
     if @city.present?
       stores = stores.where(city: @city)
@@ -17,6 +17,6 @@ class StoreService::QueryAll
       stores = stores.where(district: @districts)
     end
 
-    stores.page(@page).per(@per)
+    stores.order(id: :desc).page(@page).per(@per)
   end
 end
