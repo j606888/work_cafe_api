@@ -1,4 +1,4 @@
-class User::HiddenController < User::ApplicationController
+class User::HiddensController < User::ApplicationController
   def index
     stores = UserService::QueryHiddenStores.new(
       user_id: current_user.id
@@ -10,7 +10,7 @@ class User::HiddenController < User::ApplicationController
   def create
     UserService::HideStore.new(**{
       user_id: current_user.id,
-      store_id: params.require(:store_id)
+      store_id: params.require(:store_id),
       reason: params[:reason]
     }.compact).perform
 
