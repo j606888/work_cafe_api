@@ -9,7 +9,6 @@ describe StoreService::QueryAll do
 
   describe '#perform' do
     let!(:stores) { FactoryBot.create_list :store, 5 }
-    # let(:params) { {} }
     let(:service) { described_class.new }
 
     it 'query all' do
