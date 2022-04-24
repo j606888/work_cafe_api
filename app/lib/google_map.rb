@@ -31,6 +31,17 @@ class GoogleMap
     send_request(:post, url)
     # response['results']
   end
+
+  def place_photo(photo_reference, maxwidth: 400)
+    api_path = '/maps/api/place/photo'
+    args = {
+      photo_reference: photo_reference,
+      maxwidth: maxwidth
+    }
+
+    url = generate_url_with_api_key(api_path, args)    
+    send_request(:get, url)
+  end
   
   private
   def generate_url_with_api_key(api_path, args={})
@@ -48,6 +59,10 @@ class GoogleMap
       res = HTTParty.get(url)
     else
       res = HTTParty.post(url)
+    end
+
+    if res.headers['content-type'].include?('image')
+      return res
     end
 
     if res['status'] != 'OK'
