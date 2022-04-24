@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:index, :show] do
       post :toggle, on: :collection
     end
+    resources :hiddens, only: [:index, :create]
   end
 
   namespace :admin do
