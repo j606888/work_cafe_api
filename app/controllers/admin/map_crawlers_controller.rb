@@ -3,7 +3,10 @@ class Admin::MapCrawlersController < Admin::ApplicationController
     map_crawlers = MapCrawlerService::QueryAll.new(**{
       page: params[:page],
       per: params[:per],
-      status: params[:status]
+      status: params[:status],
+      lat: params[:lat],
+      lng: params[:lng],
+      radius: params[:radius]
     }.compact).perform
 
     render 'index', locals: { map_crawlers: map_crawlers }
