@@ -7,6 +7,11 @@ class Service
     end
   end
 
+  def self.call(...)
+    new(...).perform
+  end
+
+
   def perform
     raise "#{self.class.name} should implement #perform"
   end

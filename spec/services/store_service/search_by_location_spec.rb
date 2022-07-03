@@ -6,42 +6,45 @@ describe StoreService::SearchByLocation do
       StoreService::SearchByLocation.new(
         lat: 23.03192,
         lng: 120.24213,
-        zoom: 18
+        max_distance: 3000
       )
     end
   end
 
   describe '#perform' do
-    let(:lat) { 23.03192 }
-    let(:lng) { 120.24213 }
-    let!(:nearby_stores) do
-      3.times.map do |i|
-        FactoryBot.create :store, {
-          lat: lat + 0.001 * i,
-          lng: lng - 0.001 * i
-        }
+    let(:locations) do
+      [
+        [22.9811008, 120.2163941],
+        [23.0004588, 120.1984473],
+        [22.9990311, 120.19648],
+        [22.9829323, 120.2165171]
+      ]
+    end
+    let!(:stores) do
+      locations.map do |location|
+        create :store, lat: location.first, lng: location.last
       end
     end
-    let!(:far_stores) do
-      5.times.map do |i|
-        FactoryBot.create :store, {
-          lat: lat + 0.001 * i + 0.04,
-          lng: lng - 0.001 * i
-        }
-      end
+    let(:params) do
+      {
+        lat: 22.9811008,
+        lng: 120.2163941
+      }
     end
-    let(:service) do
-      described_class.new(
-        lat: lat,
-        lng: lng
-      )
-    end
+    let(:service) { described_class.new(**params) }
 
-    it 'should only query the nearby store' do
+    it 'query nearby stores' do
+      params[:max_distance] = 2000
+
       res = service.perform
 
-      expect(res.length).to eq(3)
-      expect(res).to eq(nearby_stores)
+      expect(res.length).to eq(2)
+    end
+
+    it 'return list with distance sorted' do
+      res = service.perform
+
+      expect(res.map(&:distance)).to eq([0, 204, 2833, 2855])
     end
   end
 end
