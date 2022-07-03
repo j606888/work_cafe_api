@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -87,6 +87,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "store_sources", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "place_id", null: false
+    t.string "aasm_state", null: false
+    t.string "create_type", null: false
+    t.jsonb "source_data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_store_sources_on_place_id", unique: true
   end
 
   create_table "stores", force: :cascade do |t|
