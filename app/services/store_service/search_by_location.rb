@@ -1,38 +1,25 @@
 class StoreService::SearchByLocation < Service
-  # 1度 100km
-  # 0.1度 10km
-  # 0.03度 3km
-  DEFAULT_RANGE = 0.03
-  def initialize(lat:, lng:, zoom:nil)
+  def initialize(lat:, lng:, max_distance: 10000)
     @lat = lat
     @lng = lng
-    @zoom = zoom
+    @max_distance = max_distance
   end
 
   def perform
-    min_lat, max_lat = cal_range(@lat)
-    min_lng, max_lng = cal_range(@lng)
-
     sql = <<-SQL
-      SELECT id FROM stores
-      WHERE (lat BETWEEN :min_lat AND :max_lat)
-      AND (lng BETWEEN :min_lng AND :max_lng)
+      SELECT *, earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
+      FROM stores
+      WHERE earth_box(ll_to_earth (:lat, :lng), :max_distance) @> ll_to_earth (lat, lng)
+        AND earth_distance(ll_to_earth (:lat, :lng), ll_to_earth (lat, lng)) < :max_distance
+      ORDER BY distance
       LIMIT 50
     SQL
-    query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, {
-      min_lat: min_lat,
-      max_lat: max_lat,
-      min_lng: min_lng,
-      max_lng: max_lng
-    }])
-    rows = ActiveRecord::Base.connection.query(query)
-    store_ids = rows.map(&:first)
-
-    Store.where(id: store_ids)
-  end
-
-  private
-  def cal_range(middle)
-    [middle - DEFAULT_RANGE, middle + DEFAULT_RANGE]
+    arg = {
+      lat: @lat,
+      lng: @lng,
+      max_distance: @max_distance
+    }
+    query = ActiveRecord::Base.sanitize_sql_array([sql, arg])
+    Store.find_by_sql(query)
   end
 end
