@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
 
   create_table "store_sources", force: :cascade do |t|
     t.integer "user_id"
+    t.string "name", null: false
     t.string "place_id", null: false
     t.string "aasm_state", null: false
     t.string "create_type", null: false
@@ -141,6 +142,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "wish_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_wish_lists_on_store_id"
+    t.index ["user_id"], name: "index_wish_lists_on_user_id"
+  end
+
   add_foreign_key "favorites", "stores"
   add_foreign_key "favorites", "users"
   add_foreign_key "hiddens", "stores"
@@ -148,4 +158,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "wish_lists", "stores"
+  add_foreign_key "wish_lists", "users"
 end

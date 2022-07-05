@@ -8,5 +8,5 @@ class Store < ApplicationRecord
 
   validates :name, :url, presence: true
 
-  VALID_SOURCEABLE_TYPE = ['MapUrl', 'MapCrawler']
+  VALID_SOURCEABLE_TYPE = ['MapUrl', 'MapCrawler', 'StoreSource']
 end

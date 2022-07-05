@@ -9,5 +9,13 @@ class StoreSource < ApplicationRecord
   aasm do
     state :created, initial: true
     state :binded, :rejected
+
+    event :do_bind do
+      transitions from: :created, to: :binded
+    end
+  
+    event :do_rejected do
+      transitions from: :created, to: :rejected
+    end
   end
 end
