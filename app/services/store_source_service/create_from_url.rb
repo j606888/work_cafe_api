@@ -3,8 +3,7 @@ class StoreBlacklistException < StandardError; end
 class StoreSourceService::CreateFromUrl < Service
   GOOGLE_MAP_PREFIX = "maps/place"
 
-  def initialize(user_id:, url:)
-    @user_id = user_id
+  def initialize(url:)
     @url = url
   end
 
@@ -16,14 +15,11 @@ class StoreSourceService::CreateFromUrl < Service
     store_source = create_store_source(place)
 
     if should_auto_pass?(place.types)
-      # TODO, these should be done in another service
-      detail = google_map_detail(place.place_id)
-      store = create_store(store_source, detail)
-      save_opening_hours(store, detail.open_periods)
-
-      store_source.do_bind
-      store_source.update!(source_data: detail.data)
+      StoreSourceService::CreateStore.call(store_source_id: store_source.id)
     end
+
+    store_source.reload
+    store_source
   end
 
   private
@@ -57,62 +53,20 @@ class StoreSourceService::CreateFromUrl < Service
   end
 
   def create_store_source(place)
-    store_source = StoreSource.find_or_initialize_by(place_id: place.place_id)
-    store_source.update!(
+    if StoreSource.exists?(place_id: place.place_id)
+      raise Service::PerformFailed, "Place with place_id `#{place.place_id}` already exist"
+    end
+
+    StoreSource.create!(
+      place_id: place.place_id,
       name: place.name,
       source_data: place.data,
       create_type: 'user'
     )
-    store_source
   end
 
   def should_auto_pass?(types)
     types.include?('cafe')
   end
 
-  def google_map_detail(place_id)
-    GoogleMapPlace.detail(place_id)
-  end
-
-  def create_store(store_source, detail)
-    # photo = GoogleMapPlace.photo('something')
-
-    store = Store.find_or_initialize_by(
-      sourceable_type: 'StoreSource',
-      sourceable_id: store_source.id,
-    )
-    store.update!(
-      name: detail.name,
-      address: detail.address,
-      phone: detail.phone,
-      url: detail.url,
-      website: detail.website,
-      rating: detail.rating,
-      user_ratings_total: detail.user_ratings_total,
-      lat: detail.lat,
-      lng: detail.lng,
-      city: detail.city,
-      district: detail.district,
-    )
-    store
-  end
-
-  def save_opening_hours(store, periods)
-    return if periods.blank? || store_never_close?(periods)
-    store.opening_hours.delete_all
-
-    periods.each do |period|
-      OpeningHour.create!(
-        store: store,
-        open_day: period['open']['day'],
-        open_time: period['open']['time'],
-        close_day: period['close']['day'],
-        close_time: period['close']['time']
-      )
-    end
-  end
-
-  def store_never_close?(periods)
-    periods.length == 1 && periods.first['close'].nil?
-  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_05_155041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -90,7 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
   end
 
   create_table "store_sources", force: :cascade do |t|
-    t.integer "user_id"
     t.string "name", null: false
     t.string "place_id", null: false
     t.string "aasm_state", null: false
