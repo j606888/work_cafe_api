@@ -16,7 +16,6 @@ class GoogleMapPlace
 
       def response(url)
         result = HTTParty.post(url).parsed_response
-        
         raise ZeroResultsException, "Google did not return ay results" if result['status'] == STATUS_ZERO_RESULTS
         # raise InvalidResponseException, "Google returned an error status: #{result['status']}" if result['status'] != STATUS_OK
 

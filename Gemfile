@@ -29,6 +29,7 @@ group :development, :test do
   gem "faker"
   gem "dotenv-rails"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "webmock"
 end
 
 group :development do

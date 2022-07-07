@@ -6,7 +6,15 @@ class GoogleMapPlace
       @data = data
     end
 
-     def lat
+    def name
+      @data['name']
+    end
+
+    def place_id
+      @data['place_id']
+    end
+
+    def lat
       @data.dig('geometry', 'location', 'lat').to_s
     end
 
@@ -14,21 +22,14 @@ class GoogleMapPlace
       @data.dig('geometry', 'location', 'lng').to_s
     end
 
-    def place_id
-      @data['place_id']
-    end
-
     def photos
-      @data['photos']
+      @data['photos'].map { |photo| photo['photo_reference'] }
     end
 
     def url
       @data['url']
     end
 
-    def name
-      @data['name']
-    end
 
     def website
       @data['website']
