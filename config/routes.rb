@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :map_crawlers, only: [:create]
     resources :map_urls, only: [:index] do
       member do
         post :nearbysearch

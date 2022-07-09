@@ -11,7 +11,7 @@ RSpec.describe User::MapUrlsController, type: :controller do
     end
 
     before do
-      mock_auth
+      mock_user
       allow(MapUrlService::Create).to receive(:call).and_return(map_url)
     end
 
