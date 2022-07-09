@@ -8,11 +8,14 @@ class StoreService::Create < Service
 
     detail = GoogleMapPlace.detail(@place_id)
     validate_detail!(detail, @place_id)
-    store = create_store!(detail)
-    create_store_source!(store, detail)
-    OpeningHourService::Create.call(store_id: store.id)
 
-    store
+    ActiveRecord::Base.transaction do
+      store = create_store!(detail)
+      create_store_source!(store, detail)
+      OpeningHourService::Create.call(store_id: store.id)
+
+      store
+    end
   end
 
   private

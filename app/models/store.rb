@@ -4,7 +4,7 @@ class Store < ApplicationRecord
   has_many :favorite_users, through: :favorites, source: :user
   has_many :hiddens
   has_many :hidden_users, through: :hiddens, source: :user
-  has_one :store_source
+  has_one :store_source, dependent: :destroy
 
   validates :name, :url, presence: true
 end
