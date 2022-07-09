@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -33,6 +33,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_hiddens_on_store_id"
     t.index ["user_id"], name: "index_hiddens_on_user_id"
+  end
+
+  create_table "map_crawl_records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.float "lat"
+    t.float "lng"
+    t.integer "radius"
+    t.integer "total_found", default: 0
+    t.integer "new_store_count", default: 0
+    t.integer "repeat_store_count", default: 0
+    t.integer "blacklist_store_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_map_crawl_records_on_user_id"
   end
 
   create_table "map_crawlers", force: :cascade do |t|
@@ -140,6 +154,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
   add_foreign_key "favorites", "users"
   add_foreign_key "hiddens", "stores"
   add_foreign_key "hiddens", "users"
+  add_foreign_key "map_crawl_records", "users"
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"

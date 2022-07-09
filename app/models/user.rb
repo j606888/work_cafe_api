@@ -10,4 +10,6 @@ class User < ApplicationRecord
   has_many :favorite_stores, through: :favorites, source: :store
   has_many :hiddens
   has_many :hidden_stores, through: :hiddens, source: :store
+  has_many :map_crawl_records
+  has_many :map_urls
 end
