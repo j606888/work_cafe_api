@@ -11,10 +11,10 @@ class User::MapUrlsController < User::ApplicationController
   end
 
   def create
-    map_url = UserService::CreateMapUrl.new(
+    map_url = MapUrlService::Create.call(
       user_id: current_user.id,
       url: params.require(:url)
-    ).perform
+    )
 
     render json: map_url
   end
