@@ -49,13 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_155041) do
   create_table "map_urls", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "url", null: false
-    t.string "keyword", null: false
+    t.string "keyword"
     t.string "place_id"
-    t.string "aasm_state"
+    t.string "decision"
     t.jsonb "source_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["place_id"], name: "index_map_urls_on_place_id", unique: true
     t.index ["user_id"], name: "index_map_urls_on_user_id"
   end
 
@@ -141,15 +140,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_155041) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "wish_lists", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "store_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_wish_lists_on_store_id"
-    t.index ["user_id"], name: "index_wish_lists_on_user_id"
-  end
-
   add_foreign_key "favorites", "stores"
   add_foreign_key "favorites", "users"
   add_foreign_key "hiddens", "stores"
@@ -157,6 +147,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_155041) do
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
-  add_foreign_key "wish_lists", "stores"
-  add_foreign_key "wish_lists", "users"
 end
