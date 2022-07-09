@@ -1,5 +1,5 @@
 class MapUrl < ApplicationRecord
-  VALID_DECISIONS = %w[blacklist search_fail success rejected waiting]
+  VALID_DECISIONS = %w[parse_failed blacklist search_fail success rejected waiting already_exist]
  
   belongs_to :user
 
