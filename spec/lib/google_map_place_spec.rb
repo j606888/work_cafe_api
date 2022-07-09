@@ -101,7 +101,7 @@ describe GoogleMapPlace, type: :lib do
         to_return(body: response, headers: { content_type: 'application/json'})
 
       res = described_class.cafe_search(**params)
-      expect(res.next_page_token).to eq("AeJbb3eQGkxYsIBnp87AbxwzL_6xTCO-uTla1oeMqqmWZ70GAFMasf1F2_sf1Ee-ldK1Uhkq0qs7Wyhb5_t0cmxNrp-L3Yc6itgbz1c-LtLIE0wBrOd0Vr2_E8L3lR-rgj7TszC573UzvyFxOAEgutaE6Il4bE7u5jlfjeB9u9RK4Hi3ZBz2lALVstKrpSav_b70-aDr-RHmrK3UAaG34Lz7XAktcRb4ZTEYzsLIntcBcMzCv4iJ2blLxPIkfebQ0eMJYoafKr1TLbyyJetbI91GNgQZZyhj_cx7d8PU9FJv4X86OJXSgPfdJ7Bb8u1UgvhWpnPx1jX80PicADKqPnyziaCMAGWhnkj0sfalOorE1CwA-BDLA-ulA7hlVdn2JzVH96D7RQsE5D4X-662WagnCwIO4ZlUY9CmTwex2dJhKcnyYa43pBxL")
+      expect(res.next_page_token).to eq(nil)
       expect(res.places).to match_array(
         [
           {:place_id=>"ChIJKQvNlYl2bjQRGZCMHUi--u4", :name=>"Gan Dan Cafe"},
@@ -120,9 +120,7 @@ describe GoogleMapPlace, type: :lib do
           {:place_id=>"ChIJP1Mra4l2bjQRMvTvyle_pCw", :name=>"ALFEE Coffee 台南艾咖啡"},
           {:place_id=>"ChIJKSejlIl2bjQR0R5HFKGTPSU", :name=>"Laos Coffee"},
           {:place_id=>"ChIJI1Ek6Il2bjQRQwgo6OUUle4", :name=>"Daybreak 18 Teahouse"},
-          {:place_id=>"ChIJ4WPHYop2bjQRC7MQAwdVR-Y", :name=>"茶の魔手-台南成功店"},
           {:place_id=>"ChIJ-cosJWd2bjQR6MgmBgBySNw", :name=>"CT Life小日子"},
-          {:place_id=>"ChIJ6RfABox2bjQRIiiDjUc3e_k", :name=>"帕里諾咖啡 PANINO CAFE'"},
           {:place_id=>"ChIJfR36xGN2bjQRj3Vx8oMdgV0", :name=>"意的咖啡名店"}
         ]
       )
