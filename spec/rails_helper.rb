@@ -72,3 +72,15 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+def mock_auth
+  allow(controller).to receive(:current_user).and_return(user)
+end
+
+def stub_auth(user)
+  jwt = AuthService::Encoder.call(user_id: user.id)[:access_token]
+
+  {
+    "Authorization" => "Bearer #{jwt}"
+  }
+end

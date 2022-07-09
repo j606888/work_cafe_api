@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_113415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -49,13 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
   create_table "map_urls", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "url", null: false
-    t.string "keyword", null: false
+    t.string "keyword"
     t.string "place_id"
-    t.string "aasm_state"
+    t.string "decision"
     t.jsonb "source_data", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["place_id"], name: "index_map_urls_on_place_id", unique: true
     t.index ["user_id"], name: "index_map_urls_on_user_id"
   end
 
@@ -89,7 +88,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "store_sources", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.jsonb "source_data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_sources_on_store_id"
+  end
+
   create_table "stores", force: :cascade do |t|
+    t.string "place_id", null: false
     t.string "name", null: false
     t.string "address"
     t.string "phone"
@@ -97,16 +105,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
     t.string "website"
     t.float "rating"
     t.integer "user_ratings_total"
+    t.string "image_url"
     t.float "lat"
     t.float "lng"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "sourceable_type"
-    t.bigint "sourceable_id"
     t.string "city"
     t.string "district"
-    t.string "image_url"
-    t.index ["sourceable_type", "sourceable_id"], name: "index_stores_on_sourceable"
+    t.index ["place_id"], name: "index_stores_on_place_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -137,4 +143,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_034430) do
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "store_sources", "stores"
 end

@@ -1,0 +1,44 @@
+
+{
+  "html_attributions": [],
+  "results": [
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 23.000143, "lng": 120.2036748 },
+        "viewport": {
+          "northeast": { "lat": 23.00147672989272, "lng": 120.2050813798927 },
+          "southwest": { "lat": 22.99877707010728, "lng": 120.2023817201073 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "鴨母聊·亞捷咖啡",
+      "opening_hours": { "open_now": true },
+      "photos": [
+        {
+          "height": 810,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/107432419679482903988\">A Google User</a>"
+          ],
+          "photo_reference": "AeJbb3fRAf_OOGW60jfAsROCG3MzkVM3lXyWhiBs9R3xYZgQAjhqJ4UKDIyXp8muMUktr7rBFQaggcq-IPlYreDt-BaHS0b1i_RC9SF-wEubIScv3dmZQnjL8eOUEX26KfpA3G1gbb9A97IKiEPsIsijtaUlhYbL-fniptIyNbl6pJV7pzq1",
+          "width": 1440
+        }
+      ],
+      "place_id": "ChIJ93sCR2B2bjQRxHwccpKTVvg",
+      "plus_code": {
+        "compound_code": "2623+3F North District, Tainan City",
+        "global_code": "7QM22623+3F"
+      },
+      "price_level": 1,
+      "rating": 4.9,
+      "reference": "ChIJ93sCR2B2bjQRxHwccpKTVvg",
+      "scope": "GOOGLE",
+      "types": ["cafe", "store", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 246,
+      "vicinity": "No. 33號, Zhangbei St, North District"
+    }
+  ],
+  "status": "OK"
+}

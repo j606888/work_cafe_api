@@ -1,0 +1,248 @@
+{
+  "html_attributions": [],
+  "result": {
+    "address_components": [
+      {
+        "long_name": "16之3號",
+        "short_name": "16之3號",
+        "types": ["street_number"]
+      },
+      {
+        "long_name": "大學路18巷",
+        "short_name": "大學路18巷",
+        "types": ["route"]
+      },
+      {
+        "long_name": "大學里",
+        "short_name": "大學里",
+        "types": ["administrative_area_level_4", "political"]
+      },
+      {
+        "long_name": "東區",
+        "short_name": "東區",
+        "types": ["administrative_area_level_3", "political"]
+      },
+      {
+        "long_name": "台南市",
+        "short_name": "台南市",
+        "types": ["administrative_area_level_1", "political"]
+      },
+      {
+        "long_name": "台灣",
+        "short_name": "TW",
+        "types": ["country", "political"]
+      },
+      { "long_name": "701", "short_name": "701", "types": ["postal_code"] }
+    ],
+    "adr_address": "<span class=\"postal-code\">701</span><span class=\"country-name\">台灣</span><span class=\"region\">台南市</span><span class=\"locality\">東區</span><span class=\"street-address\">大學里大學路18巷16之3號</span>",
+    "business_status": "OPERATIONAL",
+    "formatted_address": "701台灣台南市東區大學路18巷16之3號",
+    "formatted_phone_number": "06 275 0384",
+    "geometry": {
+      "location": { "lat": 22.9948962, "lng": 120.2207877 },
+      "viewport": {
+        "northeast": { "lat": 22.9962469802915, "lng": 120.2221751802915 },
+        "southwest": { "lat": 22.99354901970849, "lng": 120.2194772197085 }
+      }
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+    "icon_background_color": "#FF9E67",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+    "international_phone_number": "+886 6 275 0384",
+    "name": "國境之南CAFÉ",
+    "opening_hours": {
+      "open_now": false,
+      "periods": [
+        {
+          "close": { "day": 0, "time": "2200" },
+          "open": { "day": 0, "time": "1100" }
+        },
+        {
+          "close": { "day": 2, "time": "2200" },
+          "open": { "day": 2, "time": "1130" }
+        },
+        {
+          "close": { "day": 3, "time": "2200" },
+          "open": { "day": 3, "time": "1130" }
+        },
+        {
+          "close": { "day": 4, "time": "2200" },
+          "open": { "day": 4, "time": "1130" }
+        },
+        {
+          "close": { "day": 5, "time": "2200" },
+          "open": { "day": 5, "time": "1130" }
+        },
+        {
+          "close": { "day": 6, "time": "2200" },
+          "open": { "day": 6, "time": "1100" }
+        }
+      ],
+      "weekday_text": [
+        "星期一: 休息",
+        "星期二: 11:30 – 22:00",
+        "星期三: 11:30 – 22:00",
+        "星期四: 11:30 – 22:00",
+        "星期五: 11:30 – 22:00",
+        "星期六: 11:00 – 22:00",
+        "星期日: 11:00 – 22:00"
+      ]
+    },
+    "photos": [
+      {
+        "height": 3456,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116341072070629149536\">國境之南CAFÉ</a>"
+        ],
+        "photo_reference": "AeJbb3fWpsh_zf814gE8erXxvlNnagFutyOUEbX1T4ETbwC91zgTIRHt3tqSp-G8tAaK_hpkVLyzZyrGvnRYOiCFHty3Lpv5-6RtVB8U-8ABFXud8MQnLsEjBBI5q_fcD4kfwphz-NolNzA8rpr8iEzD3dGegVl_T1L0DjvkpwyBwE5zikZC",
+        "width": 4608
+      },
+      {
+        "height": 4160,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116341072070629149536\">國境之南CAFÉ</a>"
+        ],
+        "photo_reference": "AeJbb3edtQ76ydIzwDGD64-orXH2NxNcdm6VVltOrpwTygx3DeG8A8P-igFidb8Ip4ZFtJhjwihOK5-Zm0yHUko4PCYeKd6NNud1Qy-dIXffoWyl-h09Z4XImqjNblC4bUpoId119DZ0KrK5Vmf-xRzZkBt47ErGNZp9qj-OiPbaP8VQS7qX",
+        "width": 4160
+      },
+      {
+        "height": 565,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116341072070629149536\">國境之南CAFÉ</a>"
+        ],
+        "photo_reference": "AeJbb3deqy_ZXWJELSJllYztK73mxIJQS93_Khbzdaivht_bHrphw7QKpIck449sxMDMrrgn0HG2-Bg7sYjZsT29jcesvrmyL6xQeMRhIFaTyrrJGruq6U_keuXPVufi96irrOlpxvsGr1vzsjc2TCLuvKShkpvUgaA5sMj4cM5_dtocQzCF",
+        "width": 565
+      },
+      {
+        "height": 3024,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/113969450464864148811\">蘇安妞</a>"
+        ],
+        "photo_reference": "AeJbb3fkSylVx7YcJy8kZ3LJf4lvk2BMy7mDc5r3CP1GCJQQRC9stNps1-EcjSvQTHoI0ihVMFs4ItpS5LFa5BaCK7ge2ncim0N9hpqpydNBuE4J9l1ZqOx4EWcLjGGcoaza7LmMZ7wDBMGeii8jqM_Ozi7KmRQguN3tBd-r77OhuhMNKiI",
+        "width": 4032
+      },
+      {
+        "height": 3024,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116220231144774763668\">侯阿丁</a>"
+        ],
+        "photo_reference": "AeJbb3fzysGEGBkaDLx3tp6mOSJ3E7fWtV0Ag2AzHgxxiL_3nE8HSQfTp9uIWnl7cOV9XWFio4Cu57lSFvcZspIxS6Ue4ANYk3UOKLJiOBlS0_dV5L2SxtI2oyUnvEkMdzxtIrj1U0QkZ4tqWHpmB4vZNl49b6uqslXMN6bsQw77Nww_Qa2a",
+        "width": 4032
+      },
+      {
+        "height": 3456,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/113496636648653286942\">王澤文</a>"
+        ],
+        "photo_reference": "AeJbb3d3Oo5kw_1HIngSreovyWz5XycO6SskSB-qOZyKxJo9xKXdhaZs3EGx50a6cLytCu0XJ8V578F86i6IceZybyJ5p24MW3IhaZV2ZDUcQj3co-wA-JbWBO0GEEgo9eEKjSVWe-QZFkBK20pzoyyETm-zkoJdq7dfYyxjSahhIi6zyM4H",
+        "width": 4608
+      },
+      {
+        "height": 4032,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/112699242560930214473\">Chi Wang</a>"
+        ],
+        "photo_reference": "AeJbb3carnN1M3dfJwB_m0sxx8r3Ugwg62Fc-UOJjgo_E3K-mQHhh4Qzz2eHwwIl9CnYCAcfbShjUeeA1t6XHV10RXPq6mKUe1WtB3Pavv9gq9y2htJ6kcLdVTsC5-05YmPLoScyzhvlkn5HBpfMJqXVK79_ksHgrdBlnqmOcPZoYHJM3o2c",
+        "width": 3024
+      },
+      {
+        "height": 4032,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/116220231144774763668\">侯阿丁</a>"
+        ],
+        "photo_reference": "AeJbb3frNNmZPaCOLtV5USms2DhvpGZi6dfO8nvggUDkHyqS3AsWBDx2jNJcLr1w_IR2hd4hQhGAWF5UKZBhlp57_cCpOMXViayD6uUxM2lE57V2uexYwHEKMRs1c7LB0v72aIJPgjooRBlLeaxHvrS4HPUdfBqeU8JNRfCpDjYYPIIBKJgl",
+        "width": 3024
+      },
+      {
+        "height": 2160,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/103993551425662875737\">陳淑華</a>"
+        ],
+        "photo_reference": "AeJbb3edVzcOuk1uCLo0Px9V1NHNtCBfjL3dj7SovfFgWaSsAIg8bVCv2us2Cv85OiFK3vpXJWiE0abxWv-KCDCBlC-UYC_IqaJuCFaj0UOX-jde8OTj_vGko6bSmqoxBf2Z831-Wrph4fzwqoI8iPlvMqx_KayCWPyUq1BcFRibBdI8guaI",
+        "width": 3840
+      },
+      {
+        "height": 1920,
+        "html_attributions": [
+          "<a href=\"https://maps.google.com/maps/contrib/112185884621157905559\">hisayosi ezoe</a>"
+        ],
+        "photo_reference": "AeJbb3dr4Qn5zoAzTqmXk82JSyLVFywewRrsfiup9GZI8jgQU7lbSwoo9rXmj04zioFYUJF8EoVU3t_-i4Lq4C_kIpoBmtyzpwN6NNNIr3PcSaYDbJEjAYm5Pc4WDggLSslC451JAHF0y_dD64q7XjtVgdoYOZhWW8MRgiEtL2fDQCt3uNEn",
+        "width": 1080
+      }
+    ],
+    "place_id": "ChIJ7fkKoZN2bjQRl6TdcFGT-vo",
+    "plus_code": {
+      "compound_code": "X6VC+X8 台灣台南市東區",
+      "global_code": "7QJ2X6VC+X8"
+    },
+    "rating": 4.2,
+    "reference": "ChIJ7fkKoZN2bjQRl6TdcFGT-vo",
+    "reviews": [
+      {
+        "author_name": "Yu Yun Cheng",
+        "author_url": "https://www.google.com/maps/contrib/117292283022740113656/reviews",
+        "language": "zh-Hant",
+        "profile_photo_url": "https://lh3.googleusercontent.com/a-/AFdZucoKb9OwYfEpXVRddbguTS_jvpqqJGNf6WCwslTD_vM=s128-c0x00000000-cc-rp-mo-ba5",
+        "rating": 2,
+        "relative_time_description": "1 個月前",
+        "text": "用餐環境優雅溫馨，餐點簡單，雖然便宜，但是調味方面有待加強，小菜質地偏軟爛、米飯偏濕，飲料好喝、水果（鳳梨）很甜很好吃",
+        "time": 1653958915
+      },
+      {
+        "author_name": "Hanya",
+        "author_url": "https://www.google.com/maps/contrib/110245582851362341845/reviews",
+        "language": "zh-Hant",
+        "profile_photo_url": "https://lh3.googleusercontent.com/a-/AFdZucrS5tihEA99_NuuEjyIzXne2oRwY3oJcLds86rFCg=s128-c0x00000000-cc-rp-mo",
+        "rating": 5,
+        "relative_time_description": "1 個月前",
+        "text": "燉牛肉，好吃，蔬菜超多，價格便宜！口味蠻養身的",
+        "time": 1652627470
+      },
+      {
+        "author_name": "程珮珺",
+        "author_url": "https://www.google.com/maps/contrib/106156662952321325972/reviews",
+        "language": "zh-Hant",
+        "profile_photo_url": "https://lh3.googleusercontent.com/a/AItbvmkDWg38jGTxfkoPw7dEq00adL81x9r0quP_4LKp=s128-c0x00000000-cc-rp-mo",
+        "rating": 1,
+        "relative_time_description": "4 個月前",
+        "text": "餐點裡面出現煮熟的蜘蛛，可能店家沒注意到。\n鬆餅顏色很深，而且吃起來發苦。\n店裡沒其它桌客人。",
+        "time": 1645857425
+      },
+      {
+        "author_name": "Jay Tsai",
+        "author_url": "https://www.google.com/maps/contrib/116045578049144919831/reviews",
+        "language": "zh-Hant",
+        "profile_photo_url": "https://lh3.googleusercontent.com/a-/AFdZucp0f1ywJXthatFzcI0uY8DaV4x2OUuyc5Sg-_xzZg=s128-c0x00000000-cc-rp-mo-ba4",
+        "rating": 5,
+        "relative_time_description": "7 個月前",
+        "text": "2021/11/27 辣椒雞真的不錯\n小店溫馨",
+        "time": 1638014423
+      },
+      {
+        "author_name": "葉呢喃",
+        "author_url": "https://www.google.com/maps/contrib/102048038596150368456/reviews",
+        "language": "zh-Hant",
+        "profile_photo_url": "https://lh3.googleusercontent.com/a/AItbvmm3v4AB9WoaxCOvp6hWQxo-Yw3pVInUSMXFNTMs=s128-c0x00000000-cc-rp-mo",
+        "rating": 3,
+        "relative_time_description": "8 個月前",
+        "text": "泡菜鍋：泡菜味沒出來、肉片4-5片+豆腐2小塊+蠻多種蔬菜，沒有一般火鍋會有的餃類丸子類。整體來說口味清淡，沾醬也很簡單，3樣小配菜裡的滷冬瓜不錯，附餐飲料也不錯喝。\n牛腩鍋：與泡菜鍋一樣，肉少、極清淡。\n同行的孩子們點了香椿時蔬燉飯、蘋果咖哩燻雞義大利麵；口味清甜，燻雞的肉片也蠻少，馬鈴薯不夠熟軟。\n總結：覺得比較適合偏愛蔬食、口味清淡的人。老闆很親切自然：）店內氛圍不錯，洗手間乾淨。",
+        "time": 1634476138
+      }
+    ],
+    "types": [
+      "cafe",
+      "book_store",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "store",
+      "establishment"
+    ],
+    "url": "https://maps.google.com/?cid=18084929231654855831",
+    "user_ratings_total": 109,
+    "utc_offset": 480,
+    "vicinity": "東區大學路18巷16之3號",
+    "website": "https://www.facebook.com/%E5%9C%8B%E5%A2%83%E4%B9%8B%E5%8D%97%E5%92%96%E5%95%A1%E9%A4%A8-South-of-the-border-cafe-130395073693005/"
+  },
+  "status": "OK"
+}

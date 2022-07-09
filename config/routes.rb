@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post :toggle, on: :collection
     end
     resources :hiddens, only: [:index, :create]
+    resources :store_sources, path: 'store-sources', only: [:create]
   end
 
   namespace :admin do

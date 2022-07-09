@@ -25,7 +25,7 @@ describe UserService::QueryHiddenStores do
     it 'should query hidden stores' do
       res = service.perform
       expect(res.count).to eq(3)
-      expect(res.pluck(:id)).to eq(hiddens.first(3).pluck(:id))
+      expect(res.pluck(:id)).to eq(hiddens.first(3).pluck(:store_id))
     end
   end
 end
