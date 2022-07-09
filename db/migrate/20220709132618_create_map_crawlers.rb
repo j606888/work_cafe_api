@@ -1,6 +1,6 @@
-class CreateMapCrawlRecords < ActiveRecord::Migration[7.0]
+class CreateMapCrawlers < ActiveRecord::Migration[7.0]
   def change
-    create_table :map_crawl_records do |t|
+    create_table :map_crawlers do |t|
       t.references :user, null: false, foreign_key: true
       t.float :lat
       t.float :lng

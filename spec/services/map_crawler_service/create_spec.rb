@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe MapCrawlRecordService::Create do
+describe MapCrawlerService::Create do
   def mock_google_place_cafe
     allow(GoogleMapPlace).to receive(:cafe_search).and_return(double(**mock_cafe_search))
   end
@@ -57,17 +57,17 @@ describe MapCrawlRecordService::Create do
     expect(StoreService::Create).to have_received(:call).with(place_id: 'ChIJQVhy5GB2bjQRbCKCXlnzXX0')
   end
 
-  it "create MapCrawlRecord" do
-    map_crawl_record = service.perform
+  it "create MapCrawler" do
+    map_crawler = service.perform
 
-    expect(map_crawl_record.user_id).to eq(user.id)
-    expect(map_crawl_record.lat).to eq(22.9994438)
-    expect(map_crawl_record.lng).to eq(120.2048099)
-    expect(map_crawl_record.radius).to eq(1000)
-    expect(map_crawl_record.total_found).to eq(3)
-    expect(map_crawl_record.new_store_count).to eq(3)
-    expect(map_crawl_record.repeat_store_count).to eq(0)
-    expect(map_crawl_record.blacklist_store_count).to eq(0)
+    expect(map_crawler.user_id).to eq(user.id)
+    expect(map_crawler.lat).to eq(22.9994438)
+    expect(map_crawler.lng).to eq(120.2048099)
+    expect(map_crawler.radius).to eq(1000)
+    expect(map_crawler.total_found).to eq(3)
+    expect(map_crawler.new_store_count).to eq(3)
+    expect(map_crawler.repeat_store_count).to eq(0)
+    expect(map_crawler.blacklist_store_count).to eq(0)
   end
 
   context "when store_name is blacklist" do
@@ -77,12 +77,12 @@ describe MapCrawlRecordService::Create do
     end
 
     it "count as #blacklist_store_count" do
-      map_crawl_record = service.perform
+      map_crawler = service.perform
 
-      expect(map_crawl_record.total_found).to eq(3)
-      expect(map_crawl_record.new_store_count).to eq(2)
-      expect(map_crawl_record.repeat_store_count).to eq(0)
-      expect(map_crawl_record.blacklist_store_count).to eq(1)
+      expect(map_crawler.total_found).to eq(3)
+      expect(map_crawler.new_store_count).to eq(2)
+      expect(map_crawler.repeat_store_count).to eq(0)
+      expect(map_crawler.blacklist_store_count).to eq(1)
     end
   end
 
@@ -92,12 +92,12 @@ describe MapCrawlRecordService::Create do
     end
 
     it "count as #repeat_store_count" do
-      map_crawl_record = service.perform
+      map_crawler = service.perform
 
-      expect(map_crawl_record.total_found).to eq(3)
-      expect(map_crawl_record.new_store_count).to eq(2)
-      expect(map_crawl_record.repeat_store_count).to eq(1)
-      expect(map_crawl_record.blacklist_store_count).to eq(0)
+      expect(map_crawler.total_found).to eq(3)
+      expect(map_crawler.new_store_count).to eq(2)
+      expect(map_crawler.repeat_store_count).to eq(1)
+      expect(map_crawler.blacklist_store_count).to eq(0)
     end
   end
 
@@ -115,12 +115,12 @@ describe MapCrawlRecordService::Create do
     end
 
     it "create more stores" do
-      map_crawl_record = service.perform
+      map_crawler = service.perform
 
-      expect(map_crawl_record.total_found).to eq(6)
-      expect(map_crawl_record.new_store_count).to eq(6)
-      expect(map_crawl_record.repeat_store_count).to eq(0)
-      expect(map_crawl_record.blacklist_store_count).to eq(0)
+      expect(map_crawler.total_found).to eq(6)
+      expect(map_crawler.new_store_count).to eq(6)
+      expect(map_crawler.repeat_store_count).to eq(0)
+      expect(map_crawler.blacklist_store_count).to eq(0)
     end
   end
 end

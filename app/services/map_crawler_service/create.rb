@@ -1,4 +1,4 @@
-class MapCrawlRecordService::Create < Service
+class MapCrawlerService::Create < Service
   MAX_LOOP_COUNT = 5
 
   def initialize(user_id:, lat:, lng:, radius:)
@@ -41,7 +41,7 @@ class MapCrawlRecordService::Create < Service
       raise Service::PerformFailed, "Over max loop count" if loop_count > MAX_LOOP_COUNT
     end
 
-    MapCrawlRecord.create!(
+    MapCrawler.create!(
       user_id: @user_id,
       lat: @lat,
       lng: @lng,

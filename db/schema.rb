@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
     t.index ["user_id"], name: "index_hiddens_on_user_id"
   end
 
-  create_table "map_crawl_records", force: :cascade do |t|
+  create_table "map_crawlers", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.float "lat"
     t.float "lng"
@@ -46,18 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
     t.integer "blacklist_store_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_map_crawl_records_on_user_id"
-  end
-
-  create_table "map_crawlers", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "aasm_state"
-    t.string "place_id", null: false
-    t.float "lat", null: false
-    t.float "lng", null: false
-    t.jsonb "source_data", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_map_crawlers_on_user_id"
   end
 
   create_table "map_urls", force: :cascade do |t|
@@ -154,7 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
   add_foreign_key "favorites", "users"
   add_foreign_key "hiddens", "stores"
   add_foreign_key "hiddens", "users"
-  add_foreign_key "map_crawl_records", "users"
+  add_foreign_key "map_crawlers", "users"
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
