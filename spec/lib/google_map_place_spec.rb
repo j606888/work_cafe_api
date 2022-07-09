@@ -63,4 +63,26 @@ describe GoogleMapPlace, type: :lib do
       ])
     end
   end
+
+  describe '#detail' do
+    let(:response) { File.open('spec/fixtures/google_map_nearbysearch.json').read }
+    let(:params) do
+      {
+        location: '23.0036324,120.2070514',
+        keyword: '鴨母聊·亞捷咖啡',
+        radius: 3000
+      }
+    end
+
+    it 'return the respones from nearbysearch' do
+      stub_request(:post, "https://maps.googleapis.com/maps/api/place/nearbysearch/json").
+        with(query: hash_including({})).
+        to_return(body: response, headers: { content_type: 'application/json'})
+
+      res = described_class.nearbysearch(**params)
+      expect(res.name).to eq('鴨母聊·亞捷咖啡')
+      expect(res.place_id).to eq('ChIJ93sCR2B2bjQRxHwccpKTVvg')
+      expect(res.types).to eq(["cafe", "store", "food", "point_of_interest", "establishment"])
+    end
+  end
 end
