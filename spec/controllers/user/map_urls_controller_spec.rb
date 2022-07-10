@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe User::MapUrlsController, type: :controller do
+  describe 'GET :index' do
+    let!(:user) { create(:user) }
+    let!(:map_urls) { create_list :map_url, 5 }
+
+    before do
+      mock_user
+      allow(MapUrlService::Query).to receive(:call).and_return(map_urls)
+    end
+
+    it "pass params to service" do
+      get :index
+
+      expect(response.status).to eq(200)
+      expect(MapUrlService::Query).to have_received(:call)
+        .with(
+          user_id: user.id
+        )
+    end
+  end
+  
   describe 'POST :create' do
     let!(:user) { create(:user) }
     let!(:map_url) { build(:map_url) }

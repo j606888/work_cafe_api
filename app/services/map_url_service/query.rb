@@ -21,6 +21,6 @@ class MapUrlService::Query < Service
       map_urls = map_urls.where(decision: @decision)
     end
 
-    map_urls
+    map_urls.page(@page).per(@per)
   end
 end

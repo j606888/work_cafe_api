@@ -1,8 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe "MapUrl", type: :request do
+  let!(:user) { create :user }
+
+  describe "GET /user/map_urls" do
+    let!(:map_urls) { create_list :map_url, 5, user: user }
+
+    it "query map_urls" do
+      get "/user/map_urls", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash['paging']).to eq({
+        'current_page' => 1,
+        'total_count' => 5,
+        'total_pages' => 1
+      })
+      res_hash['map_urls'].reverse.each_with_index do |map_url, i|
+        expect_data = map_urls[i].as_json(
+          only: [:id, :decision, :url, :keyword, :place_id, :created_at, :updated_at]
+        )
+        expect(map_url).to eq(expect_data)
+      end
+    end
+  end
+
   describe "POST /user/map_urls" do
-    let!(:user) { create :user }
     let(:url) { "https://www.google.com.tw/maps/place/%E9%B4%A8%E6%AF%8D%E8%81%8A%C2%B7%E4%BA%9E%E6%8D%B7%E5%92%96%E5%95%A1/@23.0001479,120.2014808,17z/data=!4m5!3m4!1s0x346e766047027bf7:0xf8569392721c7cc4!8m2!3d23.000143!4d120.2036748?hl=zh-TW" }
 
     before do

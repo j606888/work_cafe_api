@@ -1,7 +1,6 @@
 json.map_urls do
   json.array!(map_urls) do |map_url|
-    json.(map_url, :id, :user_id, :url, :keyword, :place_id, :created_at, :updated_at)
-    json.status map_url.aasm_state
+    json.(map_url, :id, :url, :keyword, :decision, :place_id, :created_at, :updated_at)
   end
 end
 
