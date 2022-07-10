@@ -1,0 +1,698 @@
+{
+  "html_attributions": [],
+  "results": [
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9941693, "lng": 120.2066692 },
+        "viewport": {
+          "northeast": { "lat": 22.99548263029151, "lng": 120.2080765802915 },
+          "southwest": { "lat": 22.9927846697085, "lng": 120.2053786197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Gan Dan Cafe",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/113119056010377102209\">李信衡</a>"
+          ],
+          "photo_reference": "AeJbb3fUukRzyUcj-jMehKwCDltZ42jer79lQe96Q2NLV_HEqxGPUuRDBMZzzEW3QuHzNZQE-5S0FNPQV0a90KyxobjMQQBSZOSlfzXj9JTrRfUbekQihROUzrNOoUXyYB7haQtFTu5bGiq7Exon0b6FEVKAhjMEM0y0VxfUy0rUUhQn_OI",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJKQvNlYl2bjQRGZCMHUi--u4",
+      "plus_code": {
+        "compound_code": "X6V4+MM West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V4+MM"
+      },
+      "price_level": 1,
+      "rating": 4.4,
+      "reference": "ChIJKQvNlYl2bjQRGZCMHUi--u4",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "store", "establishment"],
+      "user_ratings_total": 720,
+      "vicinity": "No. 13號, Lane 4, Section 2, Minquan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 23.00180809999999, "lng": 120.1994436 },
+        "viewport": {
+          "northeast": { "lat": 23.00317018029149, "lng": 120.2007537302915 },
+          "southwest": { "lat": 23.00047221970849, "lng": 120.1980557697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+      "icon_background_color": "#909CE1",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hotel_pinlet",
+      "name": "Golden Tulip Glory Fine Hotel Tainan",
+      "photos": [
+        {
+          "height": 2268,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/108561625612839546422\">榮美金鬱金香酒店 GOLDEN TULIP GLORY FINE HOTEL - TAINAN</a>"
+          ],
+          "photo_reference": "AeJbb3dVurjVBdcCNBIZyr_BSFpdyBPm5d9MWPlxO7i1MBOoKi6WQgrVEKhLjepI-XG4UaLlrBfH9KSOX0GeTqMJLpa1e1QCRmk_xJbD-DVuYaq-NizrJuWEXI8laCdqp_ssqGUp_nZpx54RWWwicRv1kUdMjrzcANazt1I1fSXoa8ODOBzh",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJM6N9rGB2bjQRkY1hO7ff48A",
+      "plus_code": {
+        "compound_code": "252X+PQ North District, Tainan City, Taiwan",
+        "global_code": "7QM2252X+PQ"
+      },
+      "rating": 4.2,
+      "reference": "ChIJM6N9rGB2bjQRkY1hO7ff48A",
+      "scope": "GOOGLE",
+      "types": [
+        "gym",
+        "cafe",
+        "bar",
+        "lodging",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "health",
+        "establishment"
+      ],
+      "user_ratings_total": 1654,
+      "vicinity": "No. 50號, Section 3, Hai'an Road, North District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.99943, "lng": 120.201275 },
+        "viewport": {
+          "northeast": { "lat": 23.0007977302915, "lng": 120.2025874302915 },
+          "southwest": { "lat": 22.9980997697085, "lng": 120.1998894697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "卡加米亞casamia cafe",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 831,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/106755067972513583550\">卡加米亞casamia cafe</a>"
+          ],
+          "photo_reference": "AeJbb3d94R1mp69FSVPztbKt0j2oGSN9v_ouNVAxMWuWQlHKulolVRP951tA-QXdayjddclVrhnpPjmxV1YhfBBQ5eYdoi0MAIoWlMl4A5OAf8UlR-t_QBq2ioG0pT5Bs1RMyhA6gAxfdWO5XsMCIxJOzFS1kChTus9qp2_083pTy08lxWZZ",
+          "width": 1477
+        }
+      ],
+      "place_id": "ChIJQVhy5GB2bjQRbCKCXlnzXX0",
+      "plus_code": {
+        "compound_code": "X6X2+QG West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6X2+QG"
+      },
+      "price_level": 2,
+      "rating": 4.4,
+      "reference": "ChIJQVhy5GB2bjQRbCKCXlnzXX0",
+      "scope": "GOOGLE",
+      "types": [
+        "cafe",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "user_ratings_total": 347,
+      "vicinity": "No. 426號, Section 2, Ximen Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9922921, "lng": 120.1997279 },
+        "viewport": {
+          "northeast": { "lat": 22.9936406802915, "lng": 120.2010799802915 },
+          "southwest": { "lat": 22.99094271970849, "lng": 120.1983820197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Shuangquan Black Tea",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/115483249749547748389\">洪靖雲</a>"
+          ],
+          "photo_reference": "AeJbb3ek0hVWir8CrLKN5T07wn57S0COkINjoaEgjsggQNXbBX7XNXCv17stJBUG1CQZFvoHyB0BlcbM_tgr6K00-ohboVsbsLishPK1F1paL5e52KCyZlsK-JAX-dqiBbkxiozLDBu1InOtt-ALTyi_hZFQRd2xfqD8UawYIjaCxFLdz06I",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJhwhoW2N2bjQRsQRMoD4STa4",
+      "plus_code": {
+        "compound_code": "X5RX+WV West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X5RX+WV"
+      },
+      "price_level": 1,
+      "rating": 3.7,
+      "reference": "ChIJhwhoW2N2bjQRsQRMoD4STa4",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 1892,
+      "vicinity": "No. 2號, Lane 131, Zhongzheng Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9989862, "lng": 120.211369 },
+        "viewport": {
+          "northeast": { "lat": 23.0003415802915, "lng": 120.2126696802915 },
+          "southwest": { "lat": 22.9976436197085, "lng": 120.2099717197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Tian Zaixin Cafe",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 4032,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/114182624247050946138\">Yen Ju Chen</a>"
+          ],
+          "photo_reference": "AeJbb3cFE6eFBxcKvh3_cAzxOlRfKAUKao-Hsy8wEIE3gmXgd6u1_tpyJfWQHqSptW17-FWJhiYnQTwtb0wNXtXamuqmOB8iaZJyWksTJD97W-xFCm4VMojWUtPHfmRBnaQETgytjZHSwcAADoBNJSgEONHSGiELl4xeK-Q3IKyA1Oy8XKV8",
+          "width": 3024
+        }
+      ],
+      "place_id": "ChIJxRCBpYx2bjQRC4PhjOObSjY",
+      "plus_code": {
+        "compound_code": "X6X6+HG North District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6X6+HG"
+      },
+      "price_level": 2,
+      "rating": 4.6,
+      "reference": "ChIJxRCBpYx2bjQRC4PhjOObSjY",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 642,
+      "vicinity": "No. 12號, Lane 58, Beizhong Street, North District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9954968, "lng": 120.2102274 },
+        "viewport": {
+          "northeast": { "lat": 22.9968359302915, "lng": 120.2115580802915 },
+          "southwest": { "lat": 22.99413796970849, "lng": 120.2088601197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "STARBUCKS Tainan Shop",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 2992,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/113152032530656041654\">Guo DNA</a>"
+          ],
+          "photo_reference": "AeJbb3e-c1VVwSX_EDGsi7rPkbjGPjwz5vDZ3wcBFcKnDcAvm88jV30xr_TcdgqmQv0cclOpkCnQxwpvWlPs0vBcc17RsStUoT1m6MI78mlpch9Z-3RPKtODpGJ-PgHD4pwGhTWp9IiFGS2V7pciCD5Xj6foMCfo2FG4P5KSTKVLM2I2RfKV",
+          "width": 5312
+        }
+      ],
+      "place_id": "ChIJyeyC9It2bjQRJ3ooaDY30IU",
+      "plus_code": {
+        "compound_code": "X6W6+53 West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6W6+53"
+      },
+      "price_level": 2,
+      "rating": 4.3,
+      "reference": "ChIJyeyC9It2bjQRJ3ooaDY30IU",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "store", "establishment"],
+      "user_ratings_total": 286,
+      "vicinity": "No. 166, Zhongshan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9952582, "lng": 120.2022968 },
+        "viewport": {
+          "northeast": { "lat": 22.9966128302915, "lng": 120.2036475802915 },
+          "southwest": { "lat": 22.9939148697085, "lng": 120.2009496197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "倫敦唐寧街十號",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3064,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117347621100845170199\">Song-yang Tong</a>"
+          ],
+          "photo_reference": "AeJbb3cJqVYLxlHQdCnjTiLPtqq1qs2Nbcg74fmCl9N4cN-RBfTdhMv-ILwlHg9Cvds5JOIr29J7tjG9cvH9Q44wpcbgMRrQe7K3mw2cWBP3mdBiXtlbKCbuGFeIqzvZ_eZUGlxex-NqCc-iOCAQHSB0zNb5IBSdTrvz-wN6AvwabKtgy9fs",
+          "width": 4592
+        }
+      ],
+      "place_id": "ChIJCW1KM2J2bjQRTzRcbj-PJBk",
+      "plus_code": {
+        "compound_code": "X6W2+4W West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6W2+4W"
+      },
+      "price_level": 2,
+      "rating": 3.9,
+      "reference": "ChIJCW1KM2J2bjQRTzRcbj-PJBk",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 415,
+      "vicinity": "No. 180號, Section 2, Minquan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9931048, "lng": 120.2075486 },
+        "viewport": {
+          "northeast": { "lat": 22.9944498302915, "lng": 120.2088936802915 },
+          "southwest": { "lat": 22.9917518697085, "lng": 120.2061957197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "小巷裡的拾壹號",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 4032,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/105455175637058882468\">小巷裡的拾壹號</a>"
+          ],
+          "photo_reference": "AeJbb3dZHJSQOaNDFg0HEBeZ2j60jji7TinUYgt665jxn6rQnAQ8YYcHTrhYjzStt8ekl7z7vwpuW25Hylbq3NL6uNvVV8vkRZG0-kfjVgNuPimbQJsRgOsIbRcK8Mw16LMJVWJMmAYdNolYqfGyYMVhA-6LRGAL4loRJeEwvaHvpbrVu5zf",
+          "width": 3024
+        }
+      ],
+      "place_id": "ChIJFU-rqIl2bjQRyyL1zmacA-w",
+      "plus_code": {
+        "compound_code": "X6V5+62 West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V5+62"
+      },
+      "price_level": 2,
+      "rating": 4.6,
+      "reference": "ChIJFU-rqIl2bjQRyyL1zmacA-w",
+      "scope": "GOOGLE",
+      "types": [
+        "cafe",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "user_ratings_total": 674,
+      "vicinity": "No. 11號, Lane 143, Weimin Street, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9971751, "lng": 120.2018721 },
+        "viewport": {
+          "northeast": { "lat": 22.99847158029151, "lng": 120.2032004802915 },
+          "southwest": { "lat": 22.9957736197085, "lng": 120.2005025197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "ITSO",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/109697464283284798992\">Zhuang Zhuang</a>"
+          ],
+          "photo_reference": "AeJbb3eDxkgygHYjnvopO72er7UqxZoLxoDOOg-aIPxR9d4dICgC9H7Z9qnYH6bXUCOirCfYNIN_Z8Aj_d_KH26u4bGMaQPXbTt3orp30PiQ1TxT89zN-pfvXuRVXfQfxMZLd6Vw975WtOmfjH-Qpq3SfIdoNMmaaJkrmLuSAM-WOkQY46lh",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJZfZad2F2bjQRnjbW5fnsKzE",
+      "plus_code": {
+        "compound_code": "X6W2+VP West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6W2+VP"
+      },
+      "rating": 4.3,
+      "reference": "ChIJZfZad2F2bjQRnjbW5fnsKzE",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 148,
+      "vicinity": "No. 222號, Section 2, Minzu Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9993048, "lng": 120.2115791 },
+        "viewport": {
+          "northeast": { "lat": 23.0006610802915, "lng": 120.2128957802915 },
+          "southwest": { "lat": 22.99796311970849, "lng": 120.2101978197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "雨露微亮 everiridescent",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 622,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/107996237003321900204\">雨露微亮 everiridescent</a>"
+          ],
+          "photo_reference": "AeJbb3eiWKMaoTCZyz4i_GNZ3NoZdNhBmG7zHhNIt_0QO2OQDrKsY_-iNYuwxz1q2f9_UhL6EHGJgYVhoOdJgClQzHUZwuKd6AVQtFCWTwhjnpCA4ZogZe2hPkpBMdNbV9Qzaf06LEkoZS5bLPQ7v6wzNRX3c-aUP_DphTj0t5G5MBB_eo9I",
+          "width": 960
+        }
+      ],
+      "place_id": "ChIJPyVjsYx2bjQRLo1DaoZpW2E",
+      "plus_code": {
+        "compound_code": "X6X6+PJ North District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6X6+PJ"
+      },
+      "price_level": 2,
+      "rating": 4.9,
+      "reference": "ChIJPyVjsYx2bjQRLo1DaoZpW2E",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 202,
+      "vicinity": "No. 64號, Fubei Street, North District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.994314, "lng": 120.2015056 },
+        "viewport": {
+          "northeast": { "lat": 22.9956790302915, "lng": 120.2028006302915 },
+          "southwest": { "lat": 22.9929810697085, "lng": 120.2001026697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "My Beverages",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/115318662871894377744\">miss 楊</a>"
+          ],
+          "photo_reference": "AeJbb3fTzy_tNW1oUKhMrqOMs3_nzFM5p3qHkM-KZF3BKj1k8HNK1verSEK3WkEkOjdnUWHtD5rT-vQZ4fsd5CDw923f92xDkwM7x0QdQ9aUqpAoThnm_XzphJTL0hOId-X8l3qjh5f2lxdBFYjwnNU0k4ij_RKE8vz-riEnBxkZ_gW-Pcwo",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJd4-t8ox2bjQR3VsxHRBKnHk",
+      "plus_code": {
+        "compound_code": "X6V2+PJ West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V2+PJ"
+      },
+      "price_level": 1,
+      "rating": 4.7,
+      "reference": "ChIJd4-t8ox2bjQR3VsxHRBKnHk",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "store", "establishment"],
+      "user_ratings_total": 203,
+      "vicinity": "No. 142-1號, Section 2, Yongfu Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9944454, "lng": 120.2013191 },
+        "viewport": {
+          "northeast": { "lat": 22.99577878029151, "lng": 120.2027195302915 },
+          "southwest": { "lat": 22.9930808197085, "lng": 120.2000215697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "Suehiro-cho maid cafe",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 2240,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117844831750844901304\">Ann</a>"
+          ],
+          "photo_reference": "AeJbb3fQ3Fbeo4Cam02DYKd0DwufQo_ko-Dmlh-BkuY8jOEV68rM6ftkn4oAmbiTJ1Nl1en3MDmI-mFeEIBzGVDnBO1F7OoGHjjsC29MEciiUC1-fkh0qPuZRgHaWYhjYezvlrg-oSDQNIeVnD6rf_SG9Ad9-kMxTAjU7YFCYcsxU96B_QX3",
+          "width": 4000
+        }
+      ],
+      "place_id": "ChIJoYY-W2N2bjQRL-cmd9pDwCs",
+      "plus_code": {
+        "compound_code": "X6V2+QG West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V2+QG"
+      },
+      "price_level": 2,
+      "rating": 4.2,
+      "reference": "ChIJoYY-W2N2bjQRL-cmd9pDwCs",
+      "scope": "GOOGLE",
+      "types": [
+        "restaurant",
+        "cafe",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 288,
+      "vicinity": "No. 141號, Section 2, Yongfu Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9945027, "lng": 120.2052364 },
+        "viewport": {
+          "northeast": { "lat": 22.9957703802915, "lng": 120.2065550302915 },
+          "southwest": { "lat": 22.9930724197085, "lng": 120.2038570697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color": "#7B9EB0",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name": "B.B.ART",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 4608,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/116110837017427369495\">洪穎尚</a>"
+          ],
+          "photo_reference": "AeJbb3c4Dxbt51eNp78eWVyWlikCQHzz61FrBRjnwx_2bVhOPJ-Ku0NcMGx8_KBMe0SI60kBDq0wzpnF2M-Gen0n9v7S7FHHMLozt1U1y09SWi7PlmOF8uRZ8zc8jLf_RRoPsYoyfzFOsA14TnMjnUUcSqgWLUMTcyMd0aTVlpE_d2k2k1FJ",
+          "width": 3456
+        }
+      ],
+      "place_id": "ChIJBwhM54l2bjQRbGGXC4JkHzQ",
+      "plus_code": {
+        "compound_code": "X6V4+R3 West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V4+R3"
+      },
+      "rating": 4.6,
+      "reference": "ChIJBwhM54l2bjQRbGGXC4JkHzQ",
+      "scope": "GOOGLE",
+      "types": [
+        "art_gallery",
+        "cafe",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 229,
+      "vicinity": "No. 48號, Section 2, Minquan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9934535, "lng": 120.2093014 },
+        "viewport": {
+          "northeast": { "lat": 22.9947980802915, "lng": 120.2106731802915 },
+          "southwest": { "lat": 22.9921001197085, "lng": 120.2079752197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "ALFEE Coffee 台南艾咖啡",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3024,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/107348006150916585533\">Audi Hsu</a>"
+          ],
+          "photo_reference": "AeJbb3ej_Q6NvoIfJudRjJU6QmxNE-_NLbVryXowD5uSX4xMQ2H_bh0X8E_3pWYb4ivOhapfikdxcNq0toX_pNjiAl2pjlJlqwLlrBznDSFEDn7dqWDKKsmzRMhC6lG_3Mt-_hswuh6ETmJHnIDQFx4Uc6h5yGmK5BaBhoHs8qE5t1s8ujFW",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJP1Mra4l2bjQRMvTvyle_pCw",
+      "plus_code": {
+        "compound_code": "X6V5+9P West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V5+9P"
+      },
+      "price_level": 1,
+      "rating": 4.5,
+      "reference": "ChIJP1Mra4l2bjQRMvTvyle_pCw",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "store", "establishment"],
+      "user_ratings_total": 299,
+      "vicinity": "1樓, No. 15號, Xihua South Street, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9943608, "lng": 120.2068266 },
+        "viewport": {
+          "northeast": { "lat": 22.9956500802915, "lng": 120.2081463802915 },
+          "southwest": { "lat": 22.9929521197085, "lng": 120.2054484197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Laos Coffee",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 3665,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/118327213791789510511\">Y妹Y笨</a>"
+          ],
+          "photo_reference": "AeJbb3eOBocpsZjRo_suKygHjR_-MBYThH_p75-0ic8-itYxxDnfYo9k228on-qsW6CUujV5J9aIeX8icQ5iAFZLRxHi8xMlfDTnzF1nfQkT0QYZa-QAg8DrR6NeJXSKMq3bORXbVZ7SiXOnSfNUNoe5j4pkj6w9F-xC--mBMsYM4Hrixs3G",
+          "width": 2877
+        }
+      ],
+      "place_id": "ChIJKSejlIl2bjQR0R5HFKGTPSU",
+      "plus_code": {
+        "compound_code": "X6V4+PP West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V4+PP"
+      },
+      "price_level": 1,
+      "rating": 4.5,
+      "reference": "ChIJKSejlIl2bjQR0R5HFKGTPSU",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 346,
+      "vicinity": "No. 60, Lane 79, Zhongshan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9943556, "lng": 120.206025 },
+        "viewport": {
+          "northeast": { "lat": 22.9955750802915, "lng": 120.2073236802915 },
+          "southwest": { "lat": 22.9928771197085, "lng": 120.2046257197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "Daybreak 18 Teahouse",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 2268,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/113492126401872480319\">Roger H.</a>"
+          ],
+          "photo_reference": "AeJbb3fYc9Vd08m4usxj177PMeYZwbcw3vyx25fuitPFCFwSji8N3n6sD7MAYS7N8phL8nhYPz_8sROxr2-_k78XiZpjkdJk1ZNsrO9xdjTBn0sRBq0EcBe3S3ujSlqg1F_Y5mNGZxNdt7XAwzxQJfDKX7QAtLv1_Gq5kPsdZ74o6XqqVdSA",
+          "width": 4032
+        }
+      ],
+      "place_id": "ChIJI1Ek6Il2bjQRQwgo6OUUle4",
+      "plus_code": {
+        "compound_code": "X6V4+PC West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6V4+PC"
+      },
+      "price_level": 2,
+      "rating": 4.4,
+      "reference": "ChIJI1Ek6Il2bjQRQwgo6OUUle4",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "user_ratings_total": 400,
+      "vicinity": "No. 30, Section 2, Minquan Road, West Central District"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 23.0004588, "lng": 120.1984473 },
+        "viewport": {
+          "northeast": { "lat": 23.0017777302915, "lng": 120.1998806802915 },
+          "southwest": { "lat": 22.9990797697085, "lng": 120.1971827197085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name": "CT Life小日子",
+      "opening_hours": { "open_now": false },
+      "photos": [
+        {
+          "height": 422,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/112783303280073977124\">CT life X 小日子( 現場候位 . 週一及最後一個周日店休)</a>"
+          ],
+          "photo_reference": "AeJbb3dQV72huXn3N5RlgsxSQeJNpTaUaMg0AFsWSTMDMC0mR2M5GqYfyOWywoWGmEtZ9MUpq5hw0xnXNKREFnYsRZBxx2m2brBTJGkM3IqD7113t59ejwqxxYcZ5eWYSN4LUwTkUp_nKTPYpp39lOo6EZyPPYhx1D5-cgssuJRRvuTlH-jp",
+          "width": 750
+        }
+      ],
+      "place_id": "ChIJ-cosJWd2bjQR6MgmBgBySNw",
+      "plus_code": {
+        "compound_code": "252X+59 West Central District, Tainan City, Taiwan",
+        "global_code": "7QM2252X+59"
+      },
+      "price_level": 2,
+      "rating": 4.3,
+      "reference": "ChIJ-cosJWd2bjQR6MgmBgBySNw",
+      "scope": "GOOGLE",
+      "types": [
+        "cafe",
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 416,
+      "vicinity": "1樓, No. 401號, Section 2, Hai'an Road, West Central District"
+    },
+
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": { "lat": 22.9957863, "lng": 120.2011831 },
+        "viewport": {
+          "northeast": { "lat": 22.9970610302915, "lng": 120.2024964302915 },
+          "southwest": { "lat": 22.99436306970849, "lng": 120.1997984697085 }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/cafe-71.png",
+      "icon_background_color": "#FF9E67",
+      "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/cafe_pinlet",
+      "name": "意的咖啡名店",
+      "opening_hours": { "open_now": false },
+      "place_id": "ChIJfR36xGN2bjQRj3Vx8oMdgV0",
+      "plus_code": {
+        "compound_code": "X6W2+8F West Central District, Tainan City, Taiwan",
+        "global_code": "7QJ2X6W2+8F"
+      },
+      "reference": "ChIJfR36xGN2bjQRj3Vx8oMdgV0",
+      "scope": "GOOGLE",
+      "types": ["cafe", "food", "point_of_interest", "establishment"],
+      "vicinity": "No. 222號, Section 2, Minquan Road, West Central District"
+    }
+  ],
+  "status": "OK"
+}

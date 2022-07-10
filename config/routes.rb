@@ -18,21 +18,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :map_crawlers, only: [:create]
     resources :map_urls, only: [:index] do
       member do
         post :nearbysearch
         post :create_store, path: 'create-store'
         post :deny
-      end
-    end
-    resources :map_crawlers, only: [:index, :show] do
-      member do
-        post :bind
-        post :deny
-      end
-
-      collection do
-        post :search
       end
     end
   end

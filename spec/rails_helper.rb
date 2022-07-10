@@ -64,6 +64,10 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
+
+  config.before(:each, type: :controller) do
+    request.headers['Content-Type'] = 'application/json'
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -73,8 +77,12 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-def mock_auth
+def mock_user
   allow(controller).to receive(:current_user).and_return(user)
+end
+
+def mock_admin
+  allow(controller).to receive(:current_admin).and_return(user)
 end
 
 def stub_auth(user)
@@ -84,3 +92,13 @@ def stub_auth(user)
     "Authorization" => "Bearer #{jwt}"
   }
 end
+
+def stub_admin(admin)
+  admin.add_role(:admin)
+  jwt = AuthService::Encoder.call(user_id: admin.id)[:access_token]
+
+  {
+    "Authorization" => "Bearer #{jwt}"
+  }
+end
+

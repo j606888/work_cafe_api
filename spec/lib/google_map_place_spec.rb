@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe GoogleMapPlace, type: :lib do
   describe '#detail' do
-    let(:response) { File.open('spec/fixtures/google_map_detail.json').read }
+    let(:response) { File.read('spec/fixtures/google_map_detail.json') }
     let(:place_id) { 'ChIJ7fkKoZN2bjQRl6TdcFGT-vo' }
 
     it 'return the respones from detail' do
@@ -65,7 +65,7 @@ describe GoogleMapPlace, type: :lib do
   end
 
   describe '#detail' do
-    let(:response) { File.open('spec/fixtures/google_map_nearbysearch.json').read }
+    let(:response) { File.read('spec/fixtures/google_map_nearbysearch.json') }
     let(:params) do
       {
         location: '23.0036324,120.2070514',
@@ -83,6 +83,47 @@ describe GoogleMapPlace, type: :lib do
       expect(res.name).to eq('鴨母聊·亞捷咖啡')
       expect(res.place_id).to eq('ChIJ93sCR2B2bjQRxHwccpKTVvg')
       expect(res.types).to eq(["cafe", "store", "food", "point_of_interest", "establishment"])
+    end
+  end
+
+  describe '#cafe_search' do
+    let(:response) { File.read('spec/fixtures/google_map_cafe_search.json') }
+    let(:params) do
+      {
+        location: '22.9994438,120.2048099',
+        radius: 1000
+      }
+    end
+
+    it 'return the response from cafe_search' do
+      stub_request(:post, "https://maps.googleapis.com/maps/api/place/nearbysearch/json").
+        with(query: hash_including({})).
+        to_return(body: response, headers: { content_type: 'application/json'})
+
+      res = described_class.cafe_search(**params)
+      expect(res.next_page_token).to eq(nil)
+      expect(res.places).to match_array(
+        [
+          {:place_id=>"ChIJKQvNlYl2bjQRGZCMHUi--u4", :name=>"Gan Dan Cafe"},
+          {:place_id=>"ChIJM6N9rGB2bjQRkY1hO7ff48A", :name=>"Golden Tulip Glory Fine Hotel Tainan"},
+          {:place_id=>"ChIJQVhy5GB2bjQRbCKCXlnzXX0", :name=>"卡加米亞casamia cafe"},
+          {:place_id=>"ChIJhwhoW2N2bjQRsQRMoD4STa4", :name=>"Shuangquan Black Tea"},
+          {:place_id=>"ChIJxRCBpYx2bjQRC4PhjOObSjY", :name=>"Tian Zaixin Cafe"},
+          {:place_id=>"ChIJyeyC9It2bjQRJ3ooaDY30IU", :name=>"STARBUCKS Tainan Shop"},
+          {:place_id=>"ChIJCW1KM2J2bjQRTzRcbj-PJBk", :name=>"倫敦唐寧街十號"},
+          {:place_id=>"ChIJFU-rqIl2bjQRyyL1zmacA-w", :name=>"小巷裡的拾壹號"},
+          {:place_id=>"ChIJZfZad2F2bjQRnjbW5fnsKzE", :name=>"ITSO"},
+          {:place_id=>"ChIJPyVjsYx2bjQRLo1DaoZpW2E", :name=>"雨露微亮 everiridescent"},
+          {:place_id=>"ChIJd4-t8ox2bjQR3VsxHRBKnHk", :name=>"My Beverages"},
+          {:place_id=>"ChIJoYY-W2N2bjQRL-cmd9pDwCs", :name=>"Suehiro-cho maid cafe"},
+          {:place_id=>"ChIJBwhM54l2bjQRbGGXC4JkHzQ", :name=>"B.B.ART"},
+          {:place_id=>"ChIJP1Mra4l2bjQRMvTvyle_pCw", :name=>"ALFEE Coffee 台南艾咖啡"},
+          {:place_id=>"ChIJKSejlIl2bjQR0R5HFKGTPSU", :name=>"Laos Coffee"},
+          {:place_id=>"ChIJI1Ek6Il2bjQRQwgo6OUUle4", :name=>"Daybreak 18 Teahouse"},
+          {:place_id=>"ChIJ-cosJWd2bjQR6MgmBgBySNw", :name=>"CT Life小日子"},
+          {:place_id=>"ChIJfR36xGN2bjQRj3Vx8oMdgV0", :name=>"意的咖啡名店"}
+        ]
+      )
     end
   end
 end

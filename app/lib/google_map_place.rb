@@ -8,8 +8,12 @@ class GoogleMapPlace
   end
 
   # GoogleMapPlace.nearbysearch(location: '22.9811008,120.2163941', type: 'cafe', radius: 2000)
-  def self.nearbysearch(location: nil, type: nil, keyword: nil, radius: nil, pagetoken: nil)
-    Nearbysearch.find(location, type, keyword, radius, pagetoken)
+  def self.nearbysearch(location: nil, keyword: nil, radius: nil)
+    Nearbysearch.find(location, keyword, radius)
+  end
+
+  def self.cafe_search(location: nil, radius: nil, pagetoken: nil)
+    CafeSearch.find(location, radius, pagetoken)
   end
 
   def self.photo(photo_reference, maxwidth: 400)

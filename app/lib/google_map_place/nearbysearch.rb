@@ -18,16 +18,13 @@ class GoogleMapPlace
       @data['types']
     end
 
-    def self.find(location, type, keyword, radius, pagetoken)
+    def self.find(location, keyword, radius)
       args = {
         location: location,
-        type: type,
         keyword: keyword,
         radius: radius,
-        pagetoken: pagetoken
-      }.compact
+      }
       result = GoogleMapPlace::Api.query(:nearbysearch_service, args)['results'].first
-
       Nearbysearch.new(result)
     end
   end
