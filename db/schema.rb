@@ -94,7 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_145522) do
   create_table "store_photos", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.string "random_key", null: false
-    t.string "image_url", null: false
+    t.string "image_url"
     t.string "photo_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
