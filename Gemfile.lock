@@ -158,6 +158,8 @@ GEM
       i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    google-id-token (1.4.2)
+      jwt (>= 1)
     hashdiff (1.0.1)
     httparty (0.20.0)
       mime-types (~> 3.0)
@@ -402,6 +404,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  google-id-token
   httparty
   importmap-rails
   jbuilder

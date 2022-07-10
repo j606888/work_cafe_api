@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_10_032604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -118,6 +118,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
     t.index ["place_id"], name: "index_stores_on_place_id", unique: true
   end
 
+  create_table "third_party_logins", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "email", null: false
+    t.string "provider", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_third_party_logins_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
@@ -148,4 +157,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_09_132618) do
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "store_sources", "stores"
+  add_foreign_key "third_party_logins", "users"
 end

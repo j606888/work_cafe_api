@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     post :signup
     post :login
     post :refresh
+    post :google, action: 'google_sign_in'
   end
 
   namespace :user do

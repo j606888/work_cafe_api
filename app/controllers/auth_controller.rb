@@ -44,4 +44,18 @@ class AuthController < ApplicationController
       refresh_token: token[:refresh_token]
     }
   end
+
+  def google_sign_in
+    user = AuthService::GoogleSignIn.call(
+      credential: params.require(:credential)
+    )
+    token = AuthService::Encoder.call(
+      user_id: user.id
+    )
+
+    render json: {
+      access_token: token[:access_token],
+      refresh_token: token[:refresh_token]
+    }
+  end
 end

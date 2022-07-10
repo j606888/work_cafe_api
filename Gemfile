@@ -21,6 +21,7 @@ gem "aasm"
 gem "rolify"
 gem 'redis', '~>4.0'
 gem 'aws-sdk-s3', '~> 1'
+gem 'google-id-token'
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"
