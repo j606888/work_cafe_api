@@ -1,13 +1,14 @@
 class AuthService::GoogleSignIn < Service
   CLIENT_ID = ENV['GOOGLE_SIGN_IN_API_KEY']
-  def initialize(token:)
-    @token = token
+
+  def initialize(credential:)
+    @credential = credential
   end
 
   def perform
-    jwt_object = decode_token!(@token)
+    jwt_object = decode_token!(@credential)
     aud = jwt_object.dig(0, 'aud')
-    payload = check_payload!(@token, aud)
+    payload = check_payload!(@credential, aud)
 
     third_party_login = ThirdPartyLogin.find_by(email: payload[:email])
     return third_party_login.user if third_party_login.present?
@@ -20,15 +21,15 @@ class AuthService::GoogleSignIn < Service
 
   private
 
-  def decode_token!(token)
-    JWT.decode(@token, nil, false)
+  def decode_token!(credential)
+    JWT.decode(credential, nil, false)
   rescue JWT::DecodeError => e
-    raise Service::PerformFailed, "jwt with token `#{token}` decode failed"
+    raise Service::PerformFailed, "jwt with token `#{credential}` decode failed"
   end
 
-  def check_payload!(token, aud)
+  def check_payload!(credential, aud)
     validator = GoogleIDToken::Validator.new
-    payload = validator.check(token, aud, CLIENT_ID)
+    payload = validator.check(credential, aud, CLIENT_ID)
 
     {
       email: payload['email'],

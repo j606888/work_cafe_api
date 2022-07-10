@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AuthService::GoogleSignIn do
-  let(:service) { described_class.new(token: 'some-token') }
+  let(:service) { described_class.new(credential: 'some-token') }
   let(:jwt_object) do
     [ { 'aud' => 'some-aud' } ]
   end
@@ -20,7 +20,7 @@ describe AuthService::GoogleSignIn do
   end
 
   it "init service with required attr" do
-    described_class.new(token: 'some-token')
+    described_class.new(credential: 'some-token')
   end
 
   it "create and return user" do
