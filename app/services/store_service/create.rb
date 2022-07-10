@@ -13,6 +13,7 @@ class StoreService::Create < Service
       store = create_store!(detail)
       create_store_source!(store, detail)
       OpeningHourService::Create.call(store_id: store.id)
+      StoreService::FetchPhoto.call(store_id: store.id)
 
       store
     end

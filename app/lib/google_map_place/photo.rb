@@ -5,9 +5,7 @@ class GoogleMapPlace
         photo_reference: photo_reference,
         maxwidth: maxwidth
       }
-      result = GoogleMapPlace::Api.query(:photo_service, args)
-
-      # Detail.new(result)
+      GoogleMapPlace::Api.query(:photo_service, args)
     end
   end
 end
