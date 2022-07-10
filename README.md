@@ -2,5 +2,4 @@
 
 ### Todo
 
-* Google Map place photo API will also charge, need to save in own place
-* Delete `StoreService::CreateFromGoogleApi`
+* Decide rule for photo, when 1 photo when all

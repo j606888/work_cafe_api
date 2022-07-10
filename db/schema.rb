@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_10_032604) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_10_145522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -91,6 +91,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_032604) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "store_photos", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.string "random_key", null: false
+    t.string "image_url"
+    t.string "photo_reference"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_photos_on_store_id"
+  end
+
   create_table "store_sources", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.jsonb "source_data", default: {}, null: false
@@ -156,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_032604) do
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "store_photos", "stores"
   add_foreign_key "store_sources", "stores"
   add_foreign_key "third_party_logins", "users"
 end
