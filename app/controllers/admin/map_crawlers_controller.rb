@@ -9,4 +9,13 @@ class Admin::MapCrawlersController < Admin::ApplicationController
 
     render json: map_crawler
   end
+
+  def index
+    map_crawlers = MapCrawlerService::Query.call(
+      lat: params.require(:lat).to_f,
+      lng: params.require(:lng).to_f
+    )
+
+    render json: map_crawlers
+  end
 end
