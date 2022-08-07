@@ -21,7 +21,7 @@ class StoreService::FetchPhoto < Service
     s3.put_object(
       bucket: S3_BUCKET,
       key: key,
-      body: photo.body,
+      body: photo,
       content_type: 'image/jpeg'
     )
 
