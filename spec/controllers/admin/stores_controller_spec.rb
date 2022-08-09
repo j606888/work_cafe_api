@@ -8,7 +8,8 @@ RSpec.describe Admin::StoresController, type: :controller do
       {
         page: 2,
         per: 2,
-        cities: ['台南市']
+        cities: ['台南市'],
+        rating: 3.5
       }
     end
 
@@ -25,7 +26,8 @@ RSpec.describe Admin::StoresController, type: :controller do
         .with(
           page: params[:page],
           per: params[:per],
-          cities: params[:cities]
+          cities: params[:cities],
+          rating: params[:rating]
         )
     end
   end

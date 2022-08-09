@@ -5,7 +5,8 @@ class Admin::StoresController < Admin::ApplicationController
     stores = StoreService::Query.call(**{
       page: helpers.to_integer(params[:page]),
       per: helpers.to_integer(params[:per]),
-      cities: params[:cities]
+      cities: params[:cities],
+      rating: helpers.to_float(params[:rating])
     }.compact)
 
     render 'index', locals: { stores: stores }

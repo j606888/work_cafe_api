@@ -45,4 +45,24 @@ describe StoreService::Query do
       expect(res.map(&:id)).to eq([stores[0], stores[2], stores[3]].reverse.map(&:id))
     end
   end
+
+  context 'when rating is provide' do
+    before do
+      stores[0].update!(rating: 1)
+      stores[1].update!(rating: 2.5)
+      stores[2].update!(rating: 2.7)
+      stores[3].update!(rating: 3.6)
+      stores[4].update!(rating: 4.6)
+      stores[5].update!(rating: 4.9)
+    end
+
+    it 'return over_rating' do
+      params[:rating] = 4.5
+
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res.map(&:id)).to eq([stores[4], stores[5]].reverse.map(&:id))
+    end
+  end
 end
