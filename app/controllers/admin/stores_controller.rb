@@ -8,6 +8,6 @@ class Admin::StoresController < Admin::ApplicationController
       cities: params[:cities]
     }.compact)
 
-    render json: stores
+    render 'index', locals: { stores: stores }
   end
 end
