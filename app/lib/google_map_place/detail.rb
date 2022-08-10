@@ -56,7 +56,7 @@ class GoogleMapPlace
     end
 
     def district
-      parse_address('administrative_area_level_3')
+      parse_address('administrative_area_level_2') || parse_address('administrative_area_level_3')
     end
 
     def parse_address(type)

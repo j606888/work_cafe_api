@@ -1,5 +1,6 @@
 class MapCrawlerService::Query < Service
-  DEFAULT_LIMIT = 20
+  DEFAULT_LIMIT = 50
+
   def initialize(lat:, lng:, limit: DEFAULT_LIMIT)
     @lat = lat
     @lng = lng
