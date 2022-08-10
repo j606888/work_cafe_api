@@ -65,4 +65,50 @@ describe StoreService::Query do
       expect(res.map(&:id)).to eq([stores[4], stores[5]].reverse.map(&:id))
     end
   end
+
+  context 'when order is provide' do
+    it 'order desc' do
+      params[:order] = 'desc'
+
+      res = service.perform
+
+      expect(res.map(&:id)).to eq(stores.reverse[0..9].map(&:id))
+    end
+
+    it 'order asc' do
+      params[:order] = 'asc'
+
+      res = service.perform
+
+      expect(res.map(&:id)).to eq(stores[0..9].map(&:id))
+    end
+
+    it 'raise error if order invalid' do
+      params[:order] = 'super'
+
+      expect { service.perform }.to raise_error(Service::PerformFailed)
+    end
+  end
+
+  context 'when order_by is provide' do
+    before do
+      stores[0].update!(user_ratings_total: 30)
+      stores[1].update!(user_ratings_total: 10)
+      stores[2].update!(user_ratings_total: 20)
+    end
+
+    it 'order_by user_ratings_total and nulls last' do
+      params[:order_by] = 'user_ratings_total'
+
+      res = service.perform
+
+      expect(res[0..2].map(&:id)).to eq([stores[0], stores[2], stores[1]].map(&:id))
+    end
+
+    it 'raise error if order_by is invalid' do
+      params[:order_by] = "magic"
+
+      expect { service.perform }.to raise_error(Service::PerformFailed)
+    end
+  end
 end

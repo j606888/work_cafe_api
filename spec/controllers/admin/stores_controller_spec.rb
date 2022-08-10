@@ -9,7 +9,9 @@ RSpec.describe Admin::StoresController, type: :controller do
         page: 2,
         per: 2,
         cities: ['台南市'],
-        rating: 3.5
+        rating: 3.5,
+        order: 'desc',
+        order_by: 'asc'
       }
     end
 
@@ -27,7 +29,9 @@ RSpec.describe Admin::StoresController, type: :controller do
           page: params[:page],
           per: params[:per],
           cities: params[:cities],
-          rating: params[:rating]
+          rating: params[:rating],
+          order: params[:order],
+          order_by: params[:order_by]
         )
     end
   end

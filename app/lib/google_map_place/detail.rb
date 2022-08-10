@@ -56,6 +56,7 @@ class GoogleMapPlace
     end
 
     def district
+      # 澎湖 is 2
       parse_address('administrative_area_level_3')
     end
 
