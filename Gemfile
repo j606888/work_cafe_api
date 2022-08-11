@@ -22,6 +22,7 @@ gem "rolify"
 gem 'redis', '~>4.0'
 gem 'aws-sdk-s3', '~> 1'
 gem 'google-id-token'
+gem 'sidekiq'
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"
@@ -48,4 +49,5 @@ group :test do
   gem "webdrivers"
   gem 'database_cleaner-active_record'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'rspec-sidekiq'
 end
