@@ -18,7 +18,7 @@ class MapCrawlerService::Create < Service
       location: "#{@lat},#{@lng}",
       radius: @radius
     )
-    
+
     loop_count = 0
     loop do
       response.places.each do |place|
