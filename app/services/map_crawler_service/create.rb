@@ -13,32 +13,36 @@ class MapCrawlerService::Create < Service
     new_store_count = 0
     repeat_store_count = 0
     blacklist_store_count = 0
-
-    response = GoogleMapPlace.cafe_search(
-      location: "#{@lat},#{@lng}",
-      radius: @radius
-    )
-
     loop_count = 0
-    loop do
-      response.places.each do |place|
-        total_found += 1
+    
+    begin
+      response = GoogleMapPlace.cafe_search(
+        location: "#{@lat},#{@lng}",
+        radius: @radius
+      )
 
-        if name_is_blacklisted?(place[:name])
-          blacklist_store_count += 1
-        elsif place_id_exist?(place[:place_id])
-          repeat_store_count += 1
-        else
-          new_store_count += 1
-          StoreService::Create.call(place_id: place[:place_id])
+      loop do
+        response.places.each do |place|
+          total_found += 1
+
+          if name_is_blacklisted?(place[:name])
+            blacklist_store_count += 1
+          elsif place_id_exist?(place[:place_id])
+            repeat_store_count += 1
+          else
+            new_store_count += 1
+            StoreService::Create.call(place_id: place[:place_id])
+          end
         end
+
+        response = response.next_page
+        break if response.nil?
+
+        loop_count += 1
+        raise Service::PerformFailed, "Over max loop count" if loop_count > MAX_LOOP_COUNT
       end
-
-      response = response.next_page
-      break if response.nil?
-
-      loop_count += 1
-      raise Service::PerformFailed, "Over max loop count" if loop_count > MAX_LOOP_COUNT
+    rescue GoogleMapPlace::ZeroResultsException
+      puts "No Store found"
     end
 
     MapCrawler.create!(

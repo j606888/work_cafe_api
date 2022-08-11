@@ -10,5 +10,6 @@ class MapCrawlerService::CreateWorker
       lng: lng,
       radius: radius
     )
+    puts "Done"
   end
 end
