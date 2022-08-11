@@ -32,6 +32,6 @@ describe MapCrawlerService::Query do
     res = service.perform
 
     expect(res.length).to eq(4)
-    expect(res.map(&:id)).to eq([6,7,8,5])
+    expect(res.map(&:id)).to eq([map_crawlers[1],map_crawlers[2],map_crawlers[3],map_crawlers[0]].map(&:id))
   end
 end

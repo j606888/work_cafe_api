@@ -2,14 +2,14 @@ class Admin::MapCrawlersController < Admin::ApplicationController
   skip_before_action :authenticate_admin!
 
   def create
-    map_crawler = MapCrawlerService::Create.call(
-      user_id: User.last.id,
-      lat: params.require(:lat),
-      lng: params.require(:lng),
-      radius: params.require(:radius)
+    MapCrawlerService::CreateWorker.perform_async(
+      User.last.id,
+      params.require(:lat),
+      params.require(:lng),
+      params.require(:radius)
     )
 
-    render json: map_crawler
+    head :ok
   end
 
   def index

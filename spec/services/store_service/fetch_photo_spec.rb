@@ -16,9 +16,10 @@ describe StoreService::FetchPhoto do
   end
   let(:mock_s3) { double(put_object: true) }
   let(:service) { described_class.new(store_id: store.id) }
+  let(:mock_body) { double(body: 'image-content') }
 
   before do
-    allow(GoogleMapPlace).to receive(:photo).and_return(double(body: 'image-content'))
+    allow(GoogleMapPlace).to receive(:photo).and_return(mock_body)
     allow(Aws::S3::Client).to receive(:new).and_return(mock_s3)
   end
 
@@ -44,7 +45,7 @@ describe StoreService::FetchPhoto do
     expect(mock_s3).to have_received(:put_object).with(
       bucket: described_class::S3_BUCKET,
       key: "stores/#{store.place_id}.jpeg",
-      body: 'image-content',
+      body: mock_body,
       content_type: 'image/jpeg'
     )
   end

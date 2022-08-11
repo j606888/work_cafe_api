@@ -125,6 +125,7 @@ GEM
     childprocess (4.1.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
+    connection_pool (2.2.5)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -304,6 +305,9 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-sidekiq (3.1.0)
+      rspec-core (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.11.0)
     rubocop (1.27.0)
       parallel (~> 1.10)
@@ -324,6 +328,10 @@ GEM
       rubyzip (>= 1.2.2)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
+    sidekiq (6.5.4)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.5.0)
     solargraph (0.44.3)
       backport (~> 1.2)
       benchmark
@@ -418,8 +426,10 @@ DEPENDENCIES
   redis (~> 4.0)
   rolify
   rspec-rails (~> 5.0.0)
+  rspec-sidekiq
   selenium-webdriver
   shoulda-matchers (~> 5.0)
+  sidekiq
   solargraph
   sprockets-rails
   stimulus-rails

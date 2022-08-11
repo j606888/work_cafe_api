@@ -14,19 +14,19 @@ RSpec.describe Admin::MapCrawlersController, type: :controller do
 
     before do
       mock_admin
-      allow(MapCrawlerService::Create).to receive(:call).and_return(map_crawler)
+      allow(MapCrawlerService::CreateWorker).to receive(:perform_async)
     end
 
     it "pass params to service" do
       post :create, params: params
 
       expect(response.status).to eq(200)
-      expect(MapCrawlerService::Create).to have_received(:call)
+      expect(MapCrawlerService::CreateWorker).to have_received(:perform_async)
         .with(
-          user_id: user.id,
-          lat: params[:lat],
-          lng: params[:lng],
-          radius: params[:radius]
+          user.id,
+          params[:lat],
+          params[:lng],
+          params[:radius]
         )
     end
   end
