@@ -21,7 +21,14 @@ class Admin::StoresController < Admin::ApplicationController
     opening_hours = OpeningHourService::QueryByStore.call(
       store_id: store.id
     )
+    is_open_now = StoreService::IsOpenNow.call(
+      store_id: store.id
+    )
 
-    render 'show', locals: { store: store, opening_hours: opening_hours }
+    render 'show', locals: {
+      store: store,
+      opening_hours: opening_hours,
+      is_open_now: is_open_now
+    }
   end
 end

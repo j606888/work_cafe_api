@@ -32,6 +32,7 @@ RSpec.describe "Stores", type: :request do
   describe "GET /admin/stores/:id" do
     let!(:user) { create :user }
     let!(:store) { create :store }
+    let(:saturday) { Time.new(2022, 8, 13, 15, 0, 0, "+08:00") }
     let(:id) { store.place_id }
 
     def create_opening_hours(weekday, periods)
@@ -48,6 +49,7 @@ RSpec.describe "Stores", type: :request do
       create_opening_hours(0, ['0900', '1200'])
       create_opening_hours(0, ['1500', '1800'])
       create_opening_hours(1, ['0900', '1800'])
+      allow(Time).to receive(:now).and_return(saturday)
     end
 
     it "return store with opening hours" do
@@ -72,6 +74,7 @@ RSpec.describe "Stores", type: :request do
         {"label"=>"星期五", "periods"=>[]},
         {"label"=>"星期六", "periods"=>[]}
       ])
+      expect(res_hash['is_open_now']).to be(false)
     end
   end
 end

@@ -1,7 +1,6 @@
 class StoreService::QueryOne < Service
   include QueryHelpers::QueryStore
 
-
   def initialize(place_id:)
     @place_id = place_id
   end
