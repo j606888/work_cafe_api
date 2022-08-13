@@ -35,4 +35,26 @@ RSpec.describe Admin::StoresController, type: :controller do
         )
     end
   end
+
+  describe 'GET :show' do
+    let!(:user) { create(:user) }
+    let(:store) { create :store }
+    let(:params) do
+      {
+        id: store.place_id
+      }
+    end
+
+    before do
+      mock_admin
+      allow(StoreService::QueryOne).to receive(:call).and_return(store)
+      allow(OpeningHourService::QueryByStore).to receive(:call).and_return([])
+    end
+
+    it "pass params to service" do
+      get :show, params: params
+
+      expect(response.status).to eq(200)
+    end
+  end
 end

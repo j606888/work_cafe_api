@@ -28,4 +28,50 @@ RSpec.describe "Stores", type: :request do
       })
     end
   end
+
+  describe "GET /admin/stores/:id" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let(:id) { store.place_id }
+
+    def create_opening_hours(weekday, periods)
+      create :opening_hour, {
+        store: store,
+        open_day: weekday,
+        open_time: periods[0],
+        close_day: weekday,
+        close_time: periods[1]
+      }
+    end
+
+    before do
+      create_opening_hours(0, ['0900', '1200'])
+      create_opening_hours(0, ['1500', '1800'])
+      create_opening_hours(1, ['0900', '1800'])
+    end
+
+    it "return store with opening hours" do
+      get "/admin/stores/#{id}", headers: stub_admin(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash['id']).to eq(store.id)
+      expect(res_hash['place_id']).to eq(store.place_id)
+      expect(res_hash['opening_hours']).to eq([
+        {
+          "label"=>"星期日",
+          "periods"=>[{"start"=>"09:00", "end"=>"12:00"}, {"start"=>"15:00", "end"=>"18:00"}]
+        },
+        {
+          "label"=>"星期一",
+          "periods"=>[{"start"=>"09:00", "end"=>"18:00"}]
+        },
+        {"label"=>"星期二", "periods"=>[]},
+        {"label"=>"星期三", "periods"=>[]},
+        {"label"=>"星期四", "periods"=>[]},
+        {"label"=>"星期五", "periods"=>[]},
+        {"label"=>"星期六", "periods"=>[]}
+      ])
+    end
+  end
 end
