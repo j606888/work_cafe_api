@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   rescue_from Service::PerformFailed, with: :handle_perform_fail
   rescue_from ActionController::ParameterMissing, with: :handle_param_missing
   rescue_from ActiveRecord::RecordInvalid, with: :handle_record_invalid
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
   rescue_from AASM::InvalidTransition, with: :handle_aasm_invalid
 
   private
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   def handle_record_invalid(e)
     render status: 409, json: { reason: e.message }
+  end
+
+  def handle_record_not_found(e)
+    render status: 404, json: { reason: e.message }
   end
 
   def handle_aasm_invalid(e)
