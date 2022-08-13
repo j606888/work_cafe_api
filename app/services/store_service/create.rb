@@ -54,6 +54,7 @@ class StoreService::Create < Service
       lng: detail.lng,
       city: detail.city,
       district: detail.district,
+      permanently_closed: detail.permanently_closed
     )
   end
 end

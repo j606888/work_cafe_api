@@ -35,4 +35,38 @@ RSpec.describe Admin::StoresController, type: :controller do
         )
     end
   end
+
+  describe 'GET :show' do
+    let!(:user) { create(:user) }
+    let(:store) { create :store }
+    let(:params) do
+      {
+        id: store.place_id
+      }
+    end
+
+    before do
+      mock_admin
+      allow(StoreService::QueryOne).to receive(:call).and_return(store)
+      allow(StoreService::IsOpenNow).to receive(:call).and_return(true)
+      allow(OpeningHourService::QueryByStore).to receive(:call).and_return([])
+    end
+
+    it "pass params to service" do
+      get :show, params: params
+
+      expect(response.status).to eq(200)
+    end
+
+    it 'call required services' do
+      get :show, params: params
+
+      expect(StoreService::QueryOne).to have_received(:call)
+        .with(place_id: params[:id])
+      expect(StoreService::IsOpenNow).to have_received(:call)
+        .with(store_id: store.id)
+      expect(OpeningHourService::QueryByStore).to have_received(:call)
+        .with(store_id: store.id)
+    end
+  end
 end

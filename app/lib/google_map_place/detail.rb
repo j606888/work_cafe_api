@@ -59,6 +59,10 @@ class GoogleMapPlace
       parse_address('administrative_area_level_2') || parse_address('administrative_area_level_3')
     end
 
+    def permanently_closed
+      @data['permanently_closed'].present?
+    end
+
     def parse_address(type)
       components = @data['address_components']
       target = components.find { |c| c['types'] == [type, 'political'] }
