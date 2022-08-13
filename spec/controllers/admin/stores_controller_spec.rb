@@ -36,6 +36,35 @@ RSpec.describe Admin::StoresController, type: :controller do
     end
   end
 
+  describe 'GET :location' do
+    let!(:user) { create(:user) }
+    let(:stores) { build_list :store, 3 }
+    let(:params) do
+      {
+        lat: 23.003043,
+        lng: 120.216569,
+        limit: 5
+      }
+    end
+
+    before do
+      mock_admin
+      allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
+    end
+
+    it "pass params to service" do
+      get :location, params: params
+
+      expect(response.status).to eq(200)
+      expect(StoreService::QueryByLocation).to have_received(:call)
+        .with(
+          lat: params[:lat],
+          lng: params[:lng],
+          limit: params[:limit]
+        )
+    end
+  end
+
   describe 'GET :show' do
     let!(:user) { create(:user) }
     let(:store) { create :store }

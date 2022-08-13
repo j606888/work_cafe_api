@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :map_crawlers, path: 'map-crawlers', only: [:create, :index]
-    resources :stores, only: [:index, :show]
+    resources :stores, only: [:index, :show] do
+      collection do
+        get :location
+      end
+    end
   end
 
   resources :stores, only: [:index, :show] do
