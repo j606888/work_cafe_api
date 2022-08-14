@@ -14,4 +14,13 @@ describe BlacklistService::Query do
     expect(res.length).to eq(10)
     expect(res).to eq(blacklists)
   end
+
+  it 'filter out is_delete blacklist' do
+    blacklists[0].update!(is_delete: true)
+
+    res = service.perform
+
+    expect(res.length).to eq(9)
+    expect(res).to eq(blacklists[1..])
+  end
 end

@@ -15,8 +15,14 @@ describe BlacklistService::Delete do
     )
   end
 
-  it 'delete  blacklist' do
-    expect { service.perform }.to change { Blacklist.count }.by(-1)
+  it 'delete blacklist' do
+    blacklist = Blacklist.last
+    expect(blacklist.is_delete).to be(false)
+
+    service.perform
+
+    blacklist.reload
+    expect(blacklist.is_delete).to be(true)
   end
 
   it 'raise error if blacklist not found' do

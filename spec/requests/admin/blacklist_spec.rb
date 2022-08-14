@@ -45,7 +45,8 @@ RSpec.describe "Blacklist", type: :request do
       delete "/admin/blacklists/#{id}", headers: stub_admin(user)
 
       expect(response.status).to eq(200)
-      expect(Blacklist.count).to eq(0)
+      blacklist.reload
+      expect(blacklist.is_delete).to be(true)
     end
   end
 end

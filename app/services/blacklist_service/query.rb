@@ -7,7 +7,7 @@ class BlacklistService::Query < Service
 
   def perform
     validate_limit!(@limit)
-    Blacklist.limit(@limit)
+    Blacklist.where(is_delete: false).limit(@limit)
   end
 
   private

@@ -9,6 +9,6 @@ class BlacklistService::Delete < Service
       raise Service::PerformFailed, "Blacklist with id `#{@id}` not found"
     end
 
-    blacklist.destroy
+    blacklist.update!(is_delete: true)
   end
 end
