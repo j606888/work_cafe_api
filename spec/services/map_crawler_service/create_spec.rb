@@ -71,6 +71,8 @@ describe MapCrawlerService::Create do
   end
 
   context "when store_name is blacklist" do
+    let!(:blacklist) { create :blacklist, keyword: '鮮自然' }
+
     before do
       mock_cafe_search[:places][0][:name] = "台南中華鮮自然"
       mock_google_place_cafe

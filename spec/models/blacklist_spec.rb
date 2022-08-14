@@ -9,4 +9,21 @@ RSpec.describe Blacklist, type: :model do
     invalid = build :blacklist, keyword: blacklist.keyword
     expect(invalid).not_to be_valid
   end
+
+  describe '#self.keywords' do
+    it 'return [] by default' do
+      res = described_class.keywords
+
+      expect(res).to eq([])
+    end
+
+    it 'return all keywords' do
+      blacklists = create_list :blacklist, 3
+
+      res = described_class.keywords
+
+      expect(res.length).to eq(3)
+      expect(res).to eq(blacklists.map(&:keyword))
+    end
+  end
 end

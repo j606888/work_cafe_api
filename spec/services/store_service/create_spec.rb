@@ -21,7 +21,8 @@ describe StoreService::Create do
       city: '台南市',
       district: '東區',
       open_periods: ['some-periods'],
-      data: 'all-data'
+      data: 'all-data',
+      permanently_closed: false
     }
   end
 

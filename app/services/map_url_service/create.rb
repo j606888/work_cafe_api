@@ -60,7 +60,7 @@ class MapUrlService::Create < Service
   end
 
   def name_is_blacklisted?(name)
-    STORE_BLACKLIST.any? do |blacklist|
+    Blacklist.keywords.any? do |blacklist|
       name.include?(blacklist)
     end
   end
