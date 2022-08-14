@@ -65,6 +65,8 @@ describe MapUrlService::Create do
   end
 
   context "when name is blacklisted" do
+    let!(:blacklist) { create :blacklist, keyword: '85度C' }
+
     before do
       mock_nearbysearch[:name] = '台南中華85度C'
       mock_google_map_place
