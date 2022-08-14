@@ -28,7 +28,7 @@ Rails.application.routes.draw do
         get :location
       end
     end
-    resources :blacklists, only: [:index, :create, :delete]
+    resources :blacklists, only: [:index, :create, :destroy]
   end
 
   resources :stores, only: [:index, :show] do
