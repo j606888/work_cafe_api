@@ -1,5 +1,5 @@
 class StoreService::QueryByLocation < Service
-  DEFAULT_LIMIT = 30
+  DEFAULT_LIMIT = 60
 
   def initialize(lat:, lng:, limit: DEFAULT_LIMIT)
     @lat = lat
