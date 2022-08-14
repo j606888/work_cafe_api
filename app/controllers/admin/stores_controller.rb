@@ -14,6 +14,16 @@ class Admin::StoresController < Admin::ApplicationController
     render 'index', locals: { stores: stores }
   end
 
+  def location
+    stores = StoreService::QueryByLocation.call(**{
+      lat: helpers.to_float(params.require(:lat)),
+      lng: helpers.to_float(params.require(:lng)),
+      limit: helpers.to_integer(params[:limit])
+    }.compact)
+
+    render 'location', locals: { stores: stores }
+  end
+
   def show
     store = StoreService::QueryOne.call(
       place_id: params.require(:id)

@@ -29,6 +29,30 @@ RSpec.describe "Stores", type: :request do
     end
   end
 
+  describe "GET /admin/stores/location" do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 3 }
+    let(:params) do
+      {
+        lat: 23.003043,
+        lng: 120.216569
+      }
+    end
+
+    it "return stores" do
+      get "/admin/stores/location", params: params, headers: stub_admin(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash.length).to eq(3)
+      res_hash.each_with_index do |res_store, index|
+        store = stores[index]
+        expect_data = store.as_json
+        expect(res_store).to eq(expect_data)
+      end
+    end
+  end
+
   describe "GET /admin/stores/:id" do
     let!(:user) { create :user }
     let!(:store) { create :store }
