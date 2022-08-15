@@ -41,7 +41,7 @@ class AuthService::Encoder < Service
   end
 
   def expire_at
-    expire_time = Rails.env.development? ? 1.month : DEFAULT_EXPIRED_TIME
+    expire_time = DEFAULT_EXPIRED_TIME
 
     (Time.now + expire_time).to_i
   end
