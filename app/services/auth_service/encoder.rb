@@ -29,6 +29,8 @@ class AuthService::Encoder < Service
 
   def issue_access_token user
     payload = {
+      name: user.name,
+      email: user.email,
       user_id: user.id,
       exp: expire_at
     }

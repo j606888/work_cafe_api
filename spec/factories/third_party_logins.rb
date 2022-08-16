@@ -3,5 +3,6 @@ FactoryBot.define do
     association :user    
     provider { "google" }
     email { Faker::Internet.email }
+    identity { '1234567890' }
   end
 end
