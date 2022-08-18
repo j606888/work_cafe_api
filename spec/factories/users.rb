@@ -6,8 +6,6 @@ FactoryBot.define do
   end
 
   trait :admin do
-    after(:create) do |user, evaluator|
-      user.add_role(:admin)
-    end
+    role { 'admin' }
   end
 end

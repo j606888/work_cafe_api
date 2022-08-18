@@ -94,7 +94,7 @@ def stub_auth(user)
 end
 
 def stub_admin(admin)
-  admin.add_role(:admin)
+  admin.update!(role: 'admin')
   jwt = AuthService::Encoder.call(user_id: admin.id)[:access_token]
 
   {

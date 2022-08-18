@@ -1,7 +1,7 @@
 module UserHelper
   def role(user)
-    return 'root' if user.has_role?(:root)
-    return 'admin' if user.has_role?(:admin)
+    return 'root' if user.role == 'root'
+    return 'admin' if user.role == 'admin'
     'free'
   end
 end
