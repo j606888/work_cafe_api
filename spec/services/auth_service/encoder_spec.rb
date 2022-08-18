@@ -31,6 +31,7 @@ describe AuthService::Encoder do
         name: user.name,
         email: user.email,
         user_id: user.id,
+        role: user.role,
         exp: (Time.now + AuthService::Encoder::DEFAULT_EXPIRED_TIME).to_i
       }
       expect(JWT).to have_received(:encode).with(
