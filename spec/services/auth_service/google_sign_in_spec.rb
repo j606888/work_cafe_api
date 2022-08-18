@@ -9,6 +9,7 @@ describe AuthService::GoogleSignIn do
     {
       'email' => 'test@test.com',
       'name' => 'Test User',
+      'sub' => '1112732245132314500110010',
       'picture' => "https://lh3.googleusercontent.com/a/AItbvmlo4FhjkJ3nx0WgHJIfDeJqb7wD_yJI6Bzuco-N=s96-c"
     }
   end
@@ -57,10 +58,12 @@ describe AuthService::GoogleSignIn do
     expect(third_party_login.email).to eq('test@test.com')
     expect(third_party_login.provider).to eq('google')
     expect(third_party_login.user).to eq(user)
+    expect(third_party_login.identity).to eq('1112732245132314500110010')
   end
 
   context "when user already exist" do
-    let!(:user) { create :user, email: payload['email'] }
+    let!(:user) { create :user }
+    let!(:third_party_login) { create :third_party_login, identity: payload['sub'], user: user }
 
     it "only create third_party_login" do
       res = service.perform
@@ -73,7 +76,13 @@ describe AuthService::GoogleSignIn do
 
   context "when user & third_party_login exist" do
     let!(:user) { create :user, email: payload['email'] }
-    let!(:third_party_login) { create :third_party_login, user: user, email: user.email }
+    let!(:third_party_login) do
+      create :third_party_login, {
+        user: user,
+        email: user.email,
+        identity: payload['sub']
+      }
+    end
 
     it "return user without create anything" do
       res = service.perform

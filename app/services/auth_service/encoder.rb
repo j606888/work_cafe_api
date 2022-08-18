@@ -29,6 +29,8 @@ class AuthService::Encoder < Service
 
   def issue_access_token user
     payload = {
+      name: user.name,
+      email: user.email,
       user_id: user.id,
       exp: expire_at
     }
@@ -41,7 +43,7 @@ class AuthService::Encoder < Service
   end
 
   def expire_at
-    expire_time = Rails.env.development? ? 1.month : DEFAULT_EXPIRED_TIME
+    expire_time = DEFAULT_EXPIRED_TIME
 
     (Time.now + expire_time).to_i
   end

@@ -17,15 +17,25 @@ describe AuthService::Encoder do
       )
     end
     let(:access_token) { 'access_token' }
+    let(:now) { Time.now }
 
     before :each do
+      allow(Time).to receive(:now).and_return(now)
       allow(JWT).to receive(:encode).and_return(access_token)
     end
 
     it 'should return access_token & refresh_token' do
       res = service.perform
 
-      expect(JWT).to have_received(:encode)
+      payload = {
+        name: user.name,
+        email: user.email,
+        user_id: user.id,
+        exp: (Time.now + AuthService::Encoder::DEFAULT_EXPIRED_TIME).to_i
+      }
+      expect(JWT).to have_received(:encode).with(
+        payload, AuthService::Encoder::HMAC_SECRET, 'HS256'
+      )
       expect(res[:access_token]).to eq(access_token)
       expect(res[:refresh_token]).to eq(RefreshToken.first.token)
     end

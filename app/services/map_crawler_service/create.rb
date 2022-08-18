@@ -21,6 +21,8 @@ class MapCrawlerService::Create < Service
         radius: @radius
       )
 
+      # TODO, List a length of response first. If length is 60, reduce the radius by 200m
+
       loop do
         response.places.each do |place|
           total_found += 1

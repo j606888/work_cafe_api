@@ -1,4 +1,5 @@
 class AuthService::Decoder < Service
+
   HMAC_SECRET = ENV['JWT_SECRET_KEY']
 
   def initialize(access_token:)
@@ -14,6 +15,8 @@ class AuthService::Decoder < Service
     )[0]
 
     query_user!(payload['user_id'])
+  rescue JWT::ExpiredSignature => e
+    raise JWT::ExpiredSignature
   rescue JWT::DecodeError => e
     raise Service::PerformFailed, e
   end
