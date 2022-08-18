@@ -20,7 +20,7 @@ class Admin::ApplicationController < ApplicationController
       access_token: access_token
     ).perform
 
-    if !@current_admin.has_role?(:admin)
+    if @current_admin.role != 'admin'
       return render status: 401, json: { reason: 'User is not a admin' }
     end
 
