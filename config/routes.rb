@@ -36,4 +36,8 @@ Rails.application.routes.draw do
       get :search_by_location, path: 'search-by-location'
     end
   end
+
+  get 'hello', to: 'hello#index'
+
+  root to: "hello#index"
 end
