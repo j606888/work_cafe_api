@@ -8,9 +8,11 @@ require "capistrano/rvm"
 require "capistrano/puma"
 require "capistrano/scm/git"
 require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
 
 install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma
+install_plugin Capistrano::Sidekiq
 
 # Include tasks from other gems included in your Gemfile
 #

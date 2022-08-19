@@ -33,6 +33,8 @@ server "staging.j606888.com", user: "j606888", roles: %w{app db web}
 
 set :rails_env, 'staging'
 
+set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

@@ -19,6 +19,7 @@ gem "rack-cors"
 gem "kaminari"
 gem "aasm"
 gem 'redis', '~>4.0'
+gem 'redis-namespace'
 gem 'aws-sdk-s3', '~> 1'
 gem 'google-id-token'
 gem 'sidekiq'
