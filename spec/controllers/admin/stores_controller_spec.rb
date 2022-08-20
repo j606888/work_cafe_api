@@ -11,7 +11,8 @@ RSpec.describe Admin::StoresController, type: :controller do
         cities: ['台南市'],
         rating: 3.5,
         order: 'desc',
-        order_by: 'asc'
+        order_by: 'asc',
+        ignore_hidden: true
       }
     end
 
@@ -31,7 +32,8 @@ RSpec.describe Admin::StoresController, type: :controller do
           cities: params[:cities],
           rating: params[:rating],
           order: params[:order],
-          order_by: params[:order_by]
+          order_by: params[:order_by],
+          ignore_hidden: params[:ignore_hidden]
         )
     end
   end
@@ -96,6 +98,21 @@ RSpec.describe Admin::StoresController, type: :controller do
         .with(store_id: store.id)
       expect(OpeningHourService::QueryByStore).to have_received(:call)
         .with(store_id: store.id)
+    end
+  end
+
+  describe 'POST hide_all_unqualified' do
+    let!(:user) { create(:user) }
+
+    before do
+      mock_admin
+      allow(StoreService::HideAllUnqualified).to receive(:call)
+    end
+
+    it "call required service" do
+      post :hide_all_unqualified
+
+      expect(StoreService::HideAllUnqualified).to have_received(:call)
     end
   end
 end

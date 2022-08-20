@@ -6,7 +6,8 @@ class Admin::StoresController < Admin::ApplicationController
       cities: params[:cities],
       rating: helpers.to_float(params[:rating]),
       order: params[:order],
-      order_by: params[:order_by]
+      order_by: params[:order_by],
+      ignore_hidden: params[:ignore_hidden] == 'true'
     }.compact)
 
     render 'index', locals: { stores: stores }
@@ -38,5 +39,11 @@ class Admin::StoresController < Admin::ApplicationController
       opening_hours: opening_hours,
       is_open_now: is_open_now
     }
+  end
+
+  def hide_all_unqualified
+    StoreService::HideAllUnqualified.call
+
+    head :ok
   end
 end

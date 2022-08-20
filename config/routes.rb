@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :stores, only: [:index, :show] do
       collection do
         get :location
+        post :hide_all_unqualified, path: 'hide-all-unqualified'
       end
     end
     resources :blacklists, only: [:index, :create, :destroy]

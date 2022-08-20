@@ -4,13 +4,14 @@ class StoreService::Query < Service
   ALLOW_ORDER = ['asc', 'desc']
   ALLOW_ORDER_BY = ['id', 'name', 'city', 'rating', 'user_ratings_total']
 
-  def initialize(page: DEFAULT_PAGE, per: DEFAULT_PER, cities: [], rating: nil, order: 'desc', order_by: 'id')
+  def initialize(page: DEFAULT_PAGE, per: DEFAULT_PER, cities: [], rating: nil, order: 'desc', order_by: 'id', ignore_hidden: false)
     @page = page
     @per = per
     @cities = cities
     @rating = rating
     @order = order
     @order_by = order_by
+    @ignore_hidden = ignore_hidden
   end
 
   def perform
@@ -21,6 +22,7 @@ class StoreService::Query < Service
     query = Store.includes(:store_photos).order("#{@order_by} #{@order} NULLS LAST").page(@page).per(@per)
     query = query.where(city: @cities) if @cities.present?
     query = query.where("rating > ?", @rating) if @rating.present?
+    query = query.where(hidden: false) if @ignore_hidden
 
     query
   end

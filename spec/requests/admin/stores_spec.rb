@@ -101,4 +101,21 @@ RSpec.describe "Stores", type: :request do
       expect(res_hash['is_open_now']).to be(false)
     end
   end
+
+  describe "POST /admin/stores/hide-all-unqualified" do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 5 }
+
+    before do
+      stores[0].update!(rating: 1)
+    end
+
+    it "hide stores with unqualified" do
+      post "/admin/stores/hide-all-unqualified", headers: stub_admin(user)
+
+      expect(response.status).to eq(200)
+      stores[0].reload
+      expect(stores[0].hidden).to be(true)
+    end
+  end
 end

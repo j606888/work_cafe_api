@@ -11,6 +11,7 @@ class StoreService::QueryByLocation < Service
     sql = <<-SQL
       SELECT *, earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
+      WHERE hidden = false
       ORDER BY distance
       LIMIT :limit
     SQL
