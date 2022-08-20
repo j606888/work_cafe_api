@@ -11,7 +11,8 @@ RSpec.describe Admin::StoresController, type: :controller do
         cities: ['台南市'],
         rating: 3.5,
         order: 'desc',
-        order_by: 'asc'
+        order_by: 'asc',
+        ignore_hidden: true
       }
     end
 
@@ -31,7 +32,8 @@ RSpec.describe Admin::StoresController, type: :controller do
           cities: params[:cities],
           rating: params[:rating],
           order: params[:order],
-          order_by: params[:order_by]
+          order_by: params[:order_by],
+          ignore_hidden: params[:ignore_hidden]
         )
     end
   end

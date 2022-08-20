@@ -8,4 +8,6 @@ class Store < ApplicationRecord
   has_one :store_source, dependent: :destroy
 
   validates :name, :url, presence: true
+
+  scope :alive, -> { where(hidden: false) }
 end

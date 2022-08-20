@@ -111,4 +111,19 @@ describe StoreService::Query do
       expect { service.perform }.to raise_error(Service::PerformFailed)
     end
   end
+
+  context 'when ignore_hidden is true' do
+    before do
+      stores[2..].map { |store| store.update!(hidden: true) }
+    end
+
+    it 'return stores with hidden = false' do
+      params[:ignore_hidden] = true
+      params[:per] = 5
+
+      res = service.perform
+
+      expect(res.map(&:id)).to eq(stores[0..1].reverse.map(&:id))
+    end
+  end
 end

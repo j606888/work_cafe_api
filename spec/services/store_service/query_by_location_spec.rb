@@ -55,4 +55,13 @@ describe StoreService::QueryByLocation do
 
     expect(res.map(&:distance)).to eq([0, 204, 2833, 2855])
   end
+
+  it 'ignore hidden stores' do
+    stores[0].update!(hidden: true)
+    stores[1].update!(hidden: true)
+
+    res = service.perform
+
+    expect(res).to eq([stores[3], stores[2]])
+  end
 end
