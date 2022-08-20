@@ -33,11 +33,13 @@ class Admin::StoresController < Admin::ApplicationController
     is_open_now = StoreService::IsOpenNow.call(
       store_id: store.id
     )
+    store_photos = store.store_photos
 
     render 'show', locals: {
       store: store,
       opening_hours: opening_hours,
-      is_open_now: is_open_now
+      is_open_now: is_open_now,
+      store_photos: store_photos
     }
   end
 

@@ -56,6 +56,11 @@ RSpec.describe "Stores", type: :request do
   describe "GET /admin/stores/:id" do
     let!(:user) { create :user }
     let!(:store) { create :store }
+    let!(:store_photos) do
+      create_list :store_photo, 5, {
+        store: store
+      }
+    end
     let(:saturday) { Time.new(2022, 8, 13, 15, 0, 0, "+08:00") }
     let(:id) { store.place_id }
 
@@ -99,6 +104,7 @@ RSpec.describe "Stores", type: :request do
         {"label"=>"星期六", "periods"=>[]}
       ])
       expect(res_hash['is_open_now']).to be(false)
+      expect(res_hash['photos']).to eq(store_photos.map(&:image_url))
     end
   end
 
