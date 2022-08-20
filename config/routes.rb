@@ -14,10 +14,6 @@ Rails.application.routes.draw do
   namespace :user do
     resource :me, controller: :me, only: [:show]
     resources :map_urls, only: [:index, :create]
-    resources :favorites, only: [:index, :show] do
-      post :toggle, on: :collection
-    end
-    resources :hiddens, only: [:index, :create]
     resources :store_sources, path: 'store-sources', only: [:create]
   end
 

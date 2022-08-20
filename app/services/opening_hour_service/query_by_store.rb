@@ -14,7 +14,6 @@ class OpeningHourService::QueryByStore < Service
   private
 
   def formatted_opening_hours(opening_hours)
-    # TODO, have to deal with overnight
     weekday_map = OpeningHour.empty_weekday_map
     
     opening_hours.each do |open_hour|

@@ -22,6 +22,7 @@ class GoogleMapPlace
     def next_page
       return unless next_page_token.present?
 
+      sleep(2)
       args = {
         pagetoken: next_page_token
       }

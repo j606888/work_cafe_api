@@ -2,6 +2,8 @@ require File.expand_path('google_map_place/configuration', __dir__)
 
 class GoogleMapPlace
   extend Configuration
+  class ZeroResultsException < StandardError; end
+  class InvalidResponseException < StandardError; end
 
   def self.detail(place_id, language='zh-TW')
     Detail.find(place_id, language)

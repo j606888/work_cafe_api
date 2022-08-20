@@ -1,7 +1,4 @@
 class GoogleMapPlace
-  class ZeroResultsException < StandardError; end
-  class InvalidResponseException < StandardError; end
-
   class Api
     STATUS_OK = 'OK'
     STATUS_ZERO_RESULTS = 'ZERO_RESULTS'

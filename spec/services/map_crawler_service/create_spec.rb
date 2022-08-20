@@ -70,6 +70,12 @@ describe MapCrawlerService::Create do
     expect(map_crawler.blacklist_store_count).to eq(0)
   end
 
+  it 'raise error if radius invalid' do
+    params[:radius] = 50
+
+    expect { service.perform }.to raise_error(Service::PerformFailed)
+  end
+
   context "when store_name is blacklist" do
     let!(:blacklist) { create :blacklist, keyword: '鮮自然' }
 
