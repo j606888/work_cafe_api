@@ -1,5 +1,4 @@
 class MigrationService::CopyCafeNomad < Service
-  # TODO, change tainan to more countries
   def perform
     place_id_map = build_place_id_map
 
