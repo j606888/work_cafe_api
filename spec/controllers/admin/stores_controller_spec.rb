@@ -100,4 +100,19 @@ RSpec.describe Admin::StoresController, type: :controller do
         .with(store_id: store.id)
     end
   end
+
+  describe 'POST hide_all_unqualified' do
+    let!(:user) { create(:user) }
+
+    before do
+      mock_admin
+      allow(StoreService::HideAllUnqualified).to receive(:call)
+    end
+
+    it "call required service" do
+      post :hide_all_unqualified
+
+      expect(StoreService::HideAllUnqualified).to have_received(:call)
+    end
+  end
 end

@@ -40,4 +40,10 @@ class Admin::StoresController < Admin::ApplicationController
       is_open_now: is_open_now
     }
   end
+
+  def hide_all_unqualified
+    StoreService::HideAllUnqualified.call
+
+    head :ok
+  end
 end
