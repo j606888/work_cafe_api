@@ -57,7 +57,6 @@ class MapCrawlerService::Create < Service
     loop_count = 0
     loop do
       memo += res.places
-      sleep(2)
       res = res.next_page
       break if res.nil?
 
