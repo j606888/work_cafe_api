@@ -46,20 +46,20 @@ class MapCrawlerService::Create < Service
 
   private
 
-  def fetch_places_from_google(lat:, lng:, radius:, retry_count: 0)    
+  def fetch_places_from_google(lat:, lng:, radius:)
     validate_radius(radius)
 
     memo = []
-    response = GoogleMapPlace.cafe_search(
+    res = GoogleMapPlace.cafe_search(
       location: [lat, lng].join(","),
       radius: radius
     )
-    
     loop_count = 0
     loop do
-      memo += response.places
-      response = response.next_page
-      break if response.blank?
+      memo += res.places
+      sleep(2)
+      res = res.next_page
+      break if res.nil?
 
       loop_count += 1
       if loop_count > MAX_LOOP_COUNT
