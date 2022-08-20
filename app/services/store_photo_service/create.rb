@@ -13,8 +13,12 @@ class StorePhotoService::Create < Service
     photo_references = query_photo_references(store)
     return if photo_references.blank?
 
+    existing_reference_map = build_reference_map(store)
+
     photo_references.each do |photo_reference|
       ActiveRecord::Base.transaction do
+        next if existing_reference_map[photo_reference].present?
+
         photo = GoogleMapPlace.photo(photo_reference)
         store_photo = StorePhoto.create!(
           store: store,
@@ -46,6 +50,10 @@ class StorePhotoService::Create < Service
     return [] if photos.blank?
 
     photos.map { |photo| photo['photo_reference'] }
+  end
+
+  def build_reference_map(store)
+    StorePhoto.where(store: store).pluck(:photo_reference).index_with(true)
   end
 
   def upload_to_s3(key, photo)
