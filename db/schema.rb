@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_20_030041) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_20_070327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -95,6 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_030041) do
     t.string "photo_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["photo_reference"], name: "index_store_photos_on_photo_reference", unique: true
     t.index ["store_id"], name: "index_store_photos_on_store_id"
   end
 

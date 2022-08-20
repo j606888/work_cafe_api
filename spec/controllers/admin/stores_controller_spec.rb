@@ -115,4 +115,25 @@ RSpec.describe Admin::StoresController, type: :controller do
       expect(StoreService::HideAllUnqualified).to have_received(:call)
     end
   end
+
+  describe 'POST sync_photos' do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let(:params) { { id: store.place_id } }
+
+    before do
+      mock_admin
+      allow(StoreService::QueryOne).to receive(:call).and_return(store)
+      allow(StorePhotoService::Create).to receive(:call)
+    end
+
+    it "call required service" do
+      post :sync_photos, params: params
+
+      expect(StoreService::QueryOne).to have_received(:call)
+        .with(place_id: store.place_id)
+      expect(StorePhotoService::Create).to have_received(:call)
+        .with(store_id: store.id)
+    end
+  end
 end

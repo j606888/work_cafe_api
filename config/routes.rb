@@ -28,6 +28,10 @@ Rails.application.routes.draw do
         get :location
         post :hide_all_unqualified, path: 'hide-all-unqualified'
       end
+
+      member do
+        post :sync_photos, path: 'sync-photos'
+      end
     end
     resources :blacklists, only: [:index, :create, :destroy]
   end
