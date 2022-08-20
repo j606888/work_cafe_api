@@ -48,4 +48,15 @@ class Admin::StoresController < Admin::ApplicationController
 
     head :ok
   end
+
+  def sync_photos
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    StorePhotoService::Create.call(
+      store_id: store.id
+    )
+
+    head :ok
+  end
 end

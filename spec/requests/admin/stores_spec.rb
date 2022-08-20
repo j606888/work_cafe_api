@@ -124,4 +124,31 @@ RSpec.describe "Stores", type: :request do
       expect(stores[0].hidden).to be(true)
     end
   end
+
+  describe "POST /admin/stores/:id/sync-photos" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:store_source) do
+      create :store_source, store: store, source_data: {
+        'photos' => [
+          { 'photo_reference' => 'ref-1' },
+          { 'photo_reference' => 'ref-2' },
+          { 'photo_reference' => 'ref-3' }
+        ]
+      }
+    end
+    let(:id) { store.place_id }
+
+    before do
+      allow(GoogleMapPlace).to receive(:photo).and_return('image-content')
+      allow(Aws::S3::Client).to receive(:new).and_return(double(put_object: true))
+    end
+
+    it "sync photos" do
+      post "/admin/stores/#{id}/sync-photos", headers: stub_admin(user)
+      
+      expect(response.status).to eq(200)
+      expect(StorePhoto.count).to eq(3)
+    end
+  end
 end
