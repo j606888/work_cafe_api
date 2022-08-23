@@ -64,4 +64,14 @@ describe StoreService::QueryByLocation do
 
     expect(res).to eq([stores[3], stores[2]])
   end
+
+  context 'when keyword provide' do
+    it "search for keyword stores" do
+      params[:keyword] = stores[0].name
+      
+      res = service.perform
+      
+      expect(res).to eq([stores[0]])
+    end
+  end
 end
