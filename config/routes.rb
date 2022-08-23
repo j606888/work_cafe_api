@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
     end
     resources :blacklists, only: [:index, :create, :destroy]
+    resources :users, only: [:index]
   end
 
   resources :stores, only: [:index, :show] do
