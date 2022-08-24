@@ -15,14 +15,14 @@ class StoreService::BuildSearchHint < Service
       limit: 5,
       keyword: @keyword
     )
-    answer += format_stores(stores)
+    
+    city = query_group('city', @keyword)
+    answer += format_group('city', city)
 
     district = query_group('district', @keyword)
     answer += format_group('district', district)
 
-    city = query_group('city', @keyword)
-    answer += format_group('city', city)
-
+    answer += format_stores(stores)
     answer.take(5)
   end
 
