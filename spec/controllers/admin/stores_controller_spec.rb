@@ -45,7 +45,10 @@ RSpec.describe Admin::StoresController, type: :controller do
       {
         lat: 23.003043,
         lng: 120.216569,
-        limit: 5
+        limit: 5,
+        open_type: 'open_at',
+        open_week: 6,
+        open_hour: 15
       }
     end
 
@@ -62,7 +65,10 @@ RSpec.describe Admin::StoresController, type: :controller do
         .with(
           lat: params[:lat],
           lng: params[:lng],
-          limit: params[:limit]
+          limit: params[:limit],
+          open_type: params[:open_type],
+          open_week: params[:open_week],
+          open_hour: params[:open_hour],
         )
     end
   end

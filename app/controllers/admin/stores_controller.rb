@@ -17,7 +17,11 @@ class Admin::StoresController < Admin::ApplicationController
     stores = StoreService::QueryByLocation.call(**{
       lat: helpers.to_float(params.require(:lat)),
       lng: helpers.to_float(params.require(:lng)),
-      limit: helpers.to_integer(params[:limit])
+      limit: helpers.to_integer(params[:limit]),
+      keyword: params[:keyword],
+      open_type: params[:open_type],
+      open_week: helpers.to_integer(params[:open_week]),
+      open_hour: helpers.to_integer(params[:open_hour]),
     }.compact)
 
     render 'location', locals: { stores: stores }

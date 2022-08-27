@@ -14,4 +14,11 @@ class Service
   def perform
     raise "#{self.class.name} should implement #perform"
   end
+
+  def validate_inclusion!(lists, item, allow_nil: false)
+    return if allow_nil && item.nil?
+    return if lists.include?(item)
+
+    raise PerformFailed, "#{item} not include in #{lists}"
+  end
 end
