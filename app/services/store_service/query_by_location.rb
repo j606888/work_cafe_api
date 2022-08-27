@@ -24,7 +24,7 @@ class StoreService::QueryByLocation < Service
     )
 
     sql = <<-SQL
-      SELECT stores.*, earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
+      SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
       LEFT JOIN opening_hours ON stores.id = opening_hours.store_id
       #{where_sql}

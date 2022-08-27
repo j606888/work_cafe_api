@@ -47,7 +47,7 @@ class StoreService::BuildSearchHint < Service
   def query_group(field, keyword, open_type, open_week, open_hour)
     # sql = Store.where("#{field} ilike '%#{keyword}%'").order(count: :desc)
 
-    sql = "#{field} ilike '%#{keyword}%'"
+    sql = "#{field} ilike '%#{keyword}%' AND hidden = false"
     
     if open_type == 'none'
     elsif open_type == 'open_now'
