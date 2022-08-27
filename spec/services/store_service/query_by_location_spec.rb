@@ -64,4 +64,66 @@ describe StoreService::QueryByLocation do
 
     expect(res).to eq([stores[3], stores[2]])
   end
+
+  context 'when keyword provide' do
+    it "search for keyword stores" do
+      params[:keyword] = stores[0].name
+      
+      res = service.perform
+      
+      expect(res).to eq([stores[0]])
+    end
+  end
+
+  context 'when opening_hours exist' do
+    let(:saturday) { Time.new(2022, 8, 13, 15, 0, 0, "+08:00") }
+
+    def create_open_time(store, weekday, open_time, close_time)
+      create :opening_hour, {
+        store: store,
+        open_day: weekday,
+        close_day: weekday,
+        open_time: open_time,
+        close_time: close_time
+      }
+    end
+
+    before do
+      create_open_time(stores[0], 6, '0800', '1200')
+      create_open_time(stores[1], 6, '1200', '1800')
+      create_open_time(stores[2], 6, '1200', '1600')
+
+      allow(Time).to receive(:now).and_return(saturday)
+    end
+
+    it 'query open_now stores' do
+      params[:open_type] = 'open_now'
+
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res.first.id).to eq(stores[1].id)
+      expect(res.last.id).to eq(stores[2].id)
+    end
+
+    it 'query open_at stores with open_week' do
+      params[:open_type] = 'open_at'
+      params[:open_week] = 6
+
+      res = service.perform
+
+      expect(res.length).to eq(3)
+    end
+
+    it 'query open_at stores with open_week and open_hour' do
+      params[:open_type] = 'open_at'
+      params[:open_week] = 6
+      params[:open_hour] = 9
+
+      res = service.perform
+
+      expect(res.length).to eq(1)
+      expect(res.first.id).to eq(stores[0].id)
+    end
+  end
 end

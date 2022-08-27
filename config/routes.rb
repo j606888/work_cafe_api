@@ -33,9 +33,9 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
-  resources :stores, only: [:index, :show] do
+  resources :stores, only: [] do
     collection do
-      get :search_by_location, path: 'search-by-location'
+      get :hint
     end
   end
 

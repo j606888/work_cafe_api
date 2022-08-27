@@ -1,30 +1,14 @@
 class StoresController < ApplicationController
-  def index
-    stores = StoreService::QueryAll.new(**{
-      city: params[:city],
-      districts: params[:districts],
-      page: params[:page],
-      per: params[:per]
-    }.compact).perform
+  def hint
+    results = StoreService::BuildSearchHint.call(**{
+      lat: helpers.to_float(params[:lat]),
+      lng: helpers.to_float(params[:lng]),
+      keyword: params.require(:keyword),
+      open_type: params[:open_type],
+      open_week: helpers.to_integer(params[:open_week]),
+      open_hour: helpers.to_integer(params[:open_hour]),
+    }.compact)
 
-    render 'index', locals: { stores: stores }
-  end
-
-  def show
-    store = StoreService::QueryOne.new(
-      id: params.require(:id)
-    ).perform
-
-    render 'show', locals: { store: store }
-  end
-
-  def search_by_location
-    stores = StoreService::SearchByLocation.new(
-      lat: params.require(:lat).to_f,
-      lng: params.require(:lng).to_f,
-      zoom: params.require(:zoom)
-    ).perform
-
-    render 'search_by_location', locals: { stores: stores }
+    render json: { results: results }
   end
 end
