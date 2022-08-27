@@ -74,7 +74,52 @@ describe StoreService::BuildSearchHint do
         lat: 23.0183537,
         lng: 120.2548569,
         limit: 5,
-        keyword: "鴨母"
+        keyword: "鴨母",
+        open_type: 'none'
       )
+  end
+
+  context 'when opening_hours exist' do
+    let(:saturday) { Time.new(2022, 8, 13, 15, 0, 0, "+08:00") }
+
+    def create_open_time(store, weekday, open_time, close_time)
+      create :opening_hour, {
+        store: store,
+        open_day: weekday,
+        close_day: weekday,
+        open_time: open_time,
+        close_time: close_time
+      }
+    end
+
+    before do
+      create_open_time(stores[0], 6, '0800', '1200')
+      create_open_time(stores[1], 6, '1200', '1800')
+      create_open_time(stores[2], 6, '1200', '1600')
+
+      allow(Time).to receive(:now).and_return(saturday)
+    end
+
+    it 'query open_now stores' do
+      params[:keyword] = "台"
+      params[:open_type] = 'open_now'
+
+      res = service.perform
+
+      expect(res.length).to eq(1)
+      expect(res[0]).to eq(described_class::SearchResult.new('city', '台南市', nil, nil, 2))
+    end
+
+    it 'query open_week stores' do
+      params[:keyword] = "台"
+      params[:open_type] = "open_at"
+      params[:open_week] = 6
+      params[:open_hour] = 15
+
+      res = service.perform
+
+      expect(res.length).to eq(1)
+      expect(res[0]).to eq(described_class::SearchResult.new('city', '台南市', nil, nil, 2))
+    end
   end
 end

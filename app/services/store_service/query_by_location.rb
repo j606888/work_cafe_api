@@ -1,8 +1,5 @@
 class StoreService::QueryByLocation < Service
   DEFAULT_LIMIT = 60
-  VALID_OPEN_TYPES = ['none', 'open_now', 'open_at']
-  VALID_OPEN_WEEKS = [*0..6]
-  VALID_OPEN_HOURS = [*0..23]
 
   def initialize(lat:, lng:, limit: DEFAULT_LIMIT, keyword: nil, open_type: 'none', open_week: nil, open_hour: nil)
     @lat = lat
@@ -15,9 +12,9 @@ class StoreService::QueryByLocation < Service
   end
 
   def perform
-    validate_inclusion!(VALID_OPEN_TYPES, @open_type)
-    validate_inclusion!(VALID_OPEN_WEEKS, @open_week, allow_nil: true)
-    validate_inclusion!(VALID_OPEN_HOURS, @open_hour, allow_nil: true)
+    validate_inclusion!(OpeningHour::VALID_OPEN_TYPES, @open_type)
+    validate_inclusion!(OpeningHour::VALID_OPEN_WEEKS, @open_week, allow_nil: true)
+    validate_inclusion!(OpeningHour::VALID_OPEN_HOURS, @open_hour, allow_nil: true)
 
     where_sql = build_where_sql(
       keyword: @keyword,

@@ -1,11 +1,15 @@
 class OpeningHour < ApplicationRecord
+  WEEKDAY_LABELS = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+  VALID_OPEN_TYPES = ['none', 'open_now', 'open_at']
+  VALID_OPEN_WEEKS = [*0..6]
+  VALID_OPEN_HOURS = [*0..23]
+
   belongs_to :store
 
   validates :open_day, :open_time, :close_day, :close_time, presence: true
   validates :open_day, :close_day, numericality: { in: 0..6 }
   validate :in_24_hour
 
-  WEEKDAY_LABELS = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
 
   def self.empty_weekday_map
     memo = {}
