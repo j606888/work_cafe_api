@@ -30,18 +30,18 @@ RSpec.describe "Stores", type: :request do
       expect(res_hash).to eq({
         'results' => [
           {
-            'type' => 'store',
-            'name' => '台南鹿柴咖啡',
-            'address' => stores[0].address,
-            'place_id' => stores[0].place_id,
-            'count' => 1
-          },
-          {
             'type' => 'city',
             'name' => '台南市',
             'address' => nil,
             'place_id' => nil,
             'count' => 4
+          },
+          {
+            'type' => 'store',
+            'name' => '台南鹿柴咖啡',
+            'address' => stores[0].address,
+            'place_id' => stores[0].place_id,
+            'count' => 1
           }
         ]
       })

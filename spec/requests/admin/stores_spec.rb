@@ -31,7 +31,16 @@ RSpec.describe "Stores", type: :request do
 
   describe "GET /admin/stores/location" do
     let!(:user) { create :user }
-    let!(:stores) { create_list :store, 3 }
+    let!(:stores) do
+      locations = [
+        [23.0004588, 120.1984473],
+        [22.9990311, 120.19648],
+        [22.9811008, 120.2163941]
+      ]
+      locations.map do |lat, lng|
+        create :store, lat: lat, lng: lng
+      end
+    end
     let(:params) do
       {
         lat: 23.003043,

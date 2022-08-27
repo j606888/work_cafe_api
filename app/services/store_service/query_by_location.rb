@@ -48,16 +48,15 @@ class StoreService::QueryByLocation < Service
       sql += " AND name ILIKE '%#{keyword.downcase}%'"
     end
 
-    if open_type == 'none'
-    elsif open_type == 'open_now'
+    if open_type == 'open_now'
       now = Time.now.in_time_zone('Taipei')
       open_week = now.wday
-      cur_hour = now.strftime("%H")
-      cur_min = now.strftime("%M")
-      cur_time = cur_hour + cur_min
+      cur_time = now.strftime("%H%M")
 
       sql += " AND open_day = #{open_week} AND close_day = #{open_week} and open_time <= '#{cur_time}' and close_time >='#{cur_time}'"
-    else
+    end
+
+    if open_type == 'open_at'
       sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
       
       if open_hour.present?
