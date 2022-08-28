@@ -43,6 +43,7 @@ RSpec.describe StoresController, type: :controller do
 
     before do
       allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
+      allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
     end
 
     it "pass params to service" do
@@ -58,6 +59,8 @@ RSpec.describe StoresController, type: :controller do
           open_week: params[:open_week],
           open_hour: params[:open_hour],
         )
+      expect(OpeningHourService::IsOpenNowMap).to have_received(:call)
+        .with(store_ids: stores.map(&:id))
     end
   end
 end

@@ -23,6 +23,10 @@ class StoresController < ApplicationController
       open_hour: helpers.to_integer(params[:open_hour]),
     }.compact)
 
-    render 'location', locals: { stores: stores }
+    open_now_map = OpeningHourService::IsOpenNowMap.call(
+      store_ids: stores.map(&:id)
+    )
+
+    render 'location', locals: { stores: stores, open_now_map: open_now_map }
   end
 end
