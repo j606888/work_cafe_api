@@ -33,6 +33,7 @@ class AuthService::Encoder < Service
       email: user.email,
       user_id: user.id,
       role: user.role,
+      avatar_url: user.avatar_url,
       exp: expire_at
     }
     JWT.encode(payload, HMAC_SECRET, 'HS256')

@@ -48,6 +48,7 @@ class AuthService::GoogleSignIn < Service
     User.create!(
       email: payload[:email],
       name: payload[:name],
+      avatar_url: payload[:picture],
       password: SecureRandom.hex
     )
   end

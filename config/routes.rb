@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :stores, only: [] do
     collection do
       get :hint
+      get :location
     end
   end
 
