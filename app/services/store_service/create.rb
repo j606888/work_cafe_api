@@ -41,6 +41,10 @@ class StoreService::Create < Service
   end
 
   def create_store!(detail)
+    city = Store::CITY_LIST.find do |city_name|
+      detail.address.include?(city_name)
+    end
+
     Store.create!(
       place_id: detail.place_id,
       name: detail.name,
@@ -52,9 +56,10 @@ class StoreService::Create < Service
       user_ratings_total: detail.user_ratings_total,
       lat: detail.lat,
       lng: detail.lng,
-      city: detail.city,
+      city: city || detail.city,
       district: detail.district,
-      permanently_closed: detail.permanently_closed
+      permanently_closed: detail.permanently_closed,
+      hidden: detail.user_ratings_total.nil?
     )
   end
 end
