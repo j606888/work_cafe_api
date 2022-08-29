@@ -52,6 +52,7 @@ RSpec.describe StoresController, type: :controller do
       expect(response.status).to eq(200)
       expect(StoreService::QueryByLocation).to have_received(:call)
         .with(
+          mode: 'address',
           lat: params[:lat],
           lng: params[:lng],
           limit: params[:limit],
