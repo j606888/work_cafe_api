@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_28_085232) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_29_134135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -106,8 +106,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_085232) do
     t.string "district"
     t.boolean "permanently_closed", default: false, null: false
     t.boolean "hidden", default: false, null: false
+    t.index ["city"], name: "index_stores_on_city"
+    t.index ["district"], name: "index_stores_on_district"
+    t.index ["hidden"], name: "index_stores_on_hidden"
     t.index ["name"], name: "index_stores_on_name"
     t.index ["place_id"], name: "index_stores_on_place_id", unique: true
+    t.index ["rating"], name: "index_stores_on_rating"
   end
 
   create_table "third_party_logins", force: :cascade do |t|
