@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index]
   end
 
-  resources :stores, only: [] do
+  resources :stores, only: [:show] do
     collection do
       get :hint
       get :location

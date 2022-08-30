@@ -47,4 +47,60 @@ RSpec.describe "Stores", type: :request do
       })
     end
   end
+
+  describe "GET /stores/:id" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:store_photos) do
+      create_list :store_photo, 5, {
+        store: store
+      }
+    end
+    let(:saturday) { Time.new(2022, 8, 13, 15, 0, 0, "+08:00") }
+    let(:id) { store.place_id }
+
+    def create_opening_hours(weekday, periods)
+      create :opening_hour, {
+        store: store,
+        open_day: weekday,
+        open_time: periods[0],
+        close_day: weekday,
+        close_time: periods[1]
+      }
+    end
+
+    before do
+      create_opening_hours(0, ['0900', '1200'])
+      create_opening_hours(0, ['1500', '1800'])
+      create_opening_hours(1, ['0900', '1800'])
+      allow(Time).to receive(:now).and_return(saturday)
+    end
+
+    it "return store with opening hours" do
+      get "/stores/#{id}"
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash['id']).to eq(store.id)
+      expect(res_hash['place_id']).to eq(store.place_id)
+      expect(res_hash['opening_hours']).to eq([
+        {
+          "label"=>"星期日",
+          "periods"=>[{"start"=>"09:00", "end"=>"12:00"}, {"start"=>"15:00", "end"=>"18:00"}]
+        },
+        {
+          "label"=>"星期一",
+          "periods"=>[{"start"=>"09:00", "end"=>"18:00"}]
+        },
+        {"label"=>"星期二", "periods"=>[]},
+        {"label"=>"星期三", "periods"=>[]},
+        {"label"=>"星期四", "periods"=>[]},
+        {"label"=>"星期五", "periods"=>[]},
+        {"label"=>"星期六", "periods"=>[]}
+      ])
+      expect(res_hash['is_open_now']).to be(false)
+      expect(res_hash['photos']).to eq(store_photos.map(&:image_url))
+      expect(res_hash['reviews']).to eq([])
+    end
+  end
 end
