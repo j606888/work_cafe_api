@@ -42,6 +42,7 @@ RSpec.describe StoresController, type: :controller do
     end
 
     before do
+      mock_user
       stores.each { |store| create :store_source, store: store }
       allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
       allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
@@ -53,6 +54,7 @@ RSpec.describe StoresController, type: :controller do
       expect(response.status).to eq(200)
       expect(StoreService::QueryByLocation).to have_received(:call)
         .with(
+          user_id: user.id,
           mode: 'address',
           lat: params[:lat],
           lng: params[:lng],
