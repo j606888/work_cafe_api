@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :map_crawlers, dependent: :destroy
   has_many :map_urls, dependent: :destroy
   has_many :third_party_logins, dependent: :destroy
+  has_many :user_hidden_stores
+  has_many :hidden_stores, through: :user_hidden_stores, source: 'store'
 end
