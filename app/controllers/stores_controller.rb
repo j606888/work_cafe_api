@@ -14,6 +14,7 @@ class StoresController < ApplicationController
 
   def location
     stores = StoreService::QueryByLocation.call(**{
+      mode: 'address',
       lat: helpers.to_float(params.require(:lat)),
       lng: helpers.to_float(params.require(:lng)),
       limit: helpers.to_integer(params[:limit]),
@@ -28,5 +29,27 @@ class StoresController < ApplicationController
     )
 
     render 'location', locals: { stores: stores, open_now_map: open_now_map }
+  end
+
+  def show
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    reviews = store.store_source.source_data['reviews'] || []
+    opening_hours = OpeningHourService::QueryByStore.call(
+      store_id: store.id
+    )
+    is_open_now = StoreService::IsOpenNow.call(
+      store_id: store.id
+    )
+    store_photos = store.store_photos
+
+    render 'show', locals: {
+      store: store,
+      opening_hours: opening_hours,
+      is_open_now: is_open_now,
+      store_photos: store_photos,
+      reviews: reviews
+    }
   end
 end

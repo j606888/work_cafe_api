@@ -1,7 +1,8 @@
 class StoreService::QueryByLocation < Service
   DEFAULT_LIMIT = 60
+  VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, keyword: nil, open_type: 'none', open_week: nil, open_hour: nil)
+  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, keyword: nil, open_type: 'none', open_week: nil, open_hour: nil, mode: 'normal')
     @lat = lat
     @lng = lng
     @limit = limit
@@ -9,14 +10,17 @@ class StoreService::QueryByLocation < Service
     @open_type = open_type
     @open_week = open_week
     @open_hour = open_hour
+    @mode = mode
   end
 
   def perform
+    validate_inclusion!(VALID_MODES, @mode)
     validate_inclusion!(OpeningHour::VALID_OPEN_TYPES, @open_type)
     validate_inclusion!(OpeningHour::VALID_OPEN_WEEKS, @open_week, allow_nil: true)
     validate_inclusion!(OpeningHour::VALID_OPEN_HOURS, @open_hour, allow_nil: true)
 
     where_sql = build_where_sql(
+      mode: @mode,
       keyword: @keyword,
       open_type: @open_type,
       open_week: @open_week,
@@ -42,10 +46,14 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(keyword:, open_type:, open_week:, open_hour:)
+  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:)
     sql = "WHERE hidden = false"
     if keyword.present?
-      sql += " AND name ILIKE '%#{keyword.downcase}%'"
+      if should_use_address_mode?(mode, keyword)
+        sql += " AND (city ILIKE '#{keyword.downcase}' OR district ILIKE '#{keyword.downcase}')"
+      else
+        sql += " AND name ILIKE '%#{keyword.downcase}%'"
+      end
     end
 
     if open_type == 'open_now'
@@ -66,5 +74,12 @@ class StoreService::QueryByLocation < Service
     end
 
     sql
+  end
+
+  def should_use_address_mode?(mode, keyword)
+    return false if @mode != 'address'
+    return true if Store::CITY_LIST.include?(keyword)
+    return true if Store.pluck(:district).uniq.include?(keyword)
+    false
   end
 end

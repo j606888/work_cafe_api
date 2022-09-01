@@ -126,4 +126,23 @@ describe StoreService::QueryByLocation do
       expect(res.first.id).to eq(stores[0].id)
     end
   end
+
+  context 'when mode is #address' do
+    before do
+      stores[0].update!(city: '台南市')
+      stores[1].update!(name: '台南好市多')
+      stores[2].update!(city: '台南市')
+      stores[3].update!(name: '台南縣')
+
+      params[:mode] = 'address'
+      params[:keyword] = '台南市'
+    end
+
+    it 'match stores by city or district' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res.map(&:id)).to eq([stores[0].id, stores[2].id])
+    end
+  end
 end
