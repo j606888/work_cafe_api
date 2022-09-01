@@ -33,6 +33,12 @@ class ApplicationController < ActionController::Base
     render status: 403, json: { reason: e.message }
   end
 
+  def authenticate_user!
+    if current_user.nil?
+      render status: 401, json: { reason: 'authenticate user failed' }
+    end
+  end
+
   def current_user
     return @current_user if @current_user
 

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     collection do
       get :hint
       get :location
+      get :hidden
     end
 
     member do

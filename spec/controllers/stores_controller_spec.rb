@@ -96,4 +96,25 @@ RSpec.describe StoresController, type: :controller do
         )
     end
   end
+
+  describe 'GET :hidden' do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 5 } 
+    
+    before do
+      mock_user
+      allow(UserHiddenStoreService::QueryStores).to receive(:call).and_return(stores)
+      allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
+    end
+
+    it "return hidden_stores" do
+      get :hidden
+
+      expect(response.status).to eq(200)
+      expect(UserHiddenStoreService::QueryStores).to have_received(:call)
+        .with(user_id: user.id)
+      expect(OpeningHourService::IsOpenNowMap).to have_received(:call)
+        .with(store_ids: stores.map(&:id))
+    end
+  end
 end

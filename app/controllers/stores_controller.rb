@@ -1,4 +1,6 @@
 class StoresController < ApplicationController
+  before_action :authenticate_user!, only: [:hide, :hidden]
+
   def hint
     results = StoreService::BuildSearchHint.call(**{
       lat: helpers.to_float(params[:lat]),
@@ -64,5 +66,16 @@ class StoresController < ApplicationController
     )
 
     head :ok
+  end
+
+  def hidden
+    stores = UserHiddenStoreService::QueryStores.call(
+      user_id: current_user.id
+    )
+    open_now_map = OpeningHourService::IsOpenNowMap.call(
+      store_ids: stores.map(&:id)
+    )
+
+    render 'location', locals: { stores: stores, open_now_map: open_now_map }
   end
 end
