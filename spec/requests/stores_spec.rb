@@ -70,6 +70,7 @@ RSpec.describe "Stores", type: :request do
     end
 
     before do
+      create :store_source, store: store
       create_opening_hours(0, ['0900', '1200'])
       create_opening_hours(0, ['1500', '1800'])
       create_opening_hours(1, ['0900', '1800'])

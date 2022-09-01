@@ -42,6 +42,7 @@ RSpec.describe StoresController, type: :controller do
     end
 
     before do
+      stores.each { |store| create :store_source, store: store }
       allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
       allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
     end

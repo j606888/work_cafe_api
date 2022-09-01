@@ -35,7 +35,7 @@ class StoresController < ApplicationController
     store = StoreService::QueryOne.call(
       place_id: params.require(:id)
     )
-    # reviews = store.store_source.source_data
+    reviews = store.store_source.source_data['reviews'] || []
     opening_hours = OpeningHourService::QueryByStore.call(
       store_id: store.id
     )
@@ -49,7 +49,7 @@ class StoresController < ApplicationController
       opening_hours: opening_hours,
       is_open_now: is_open_now,
       store_photos: store_photos,
-      reviews: []
+      reviews: reviews
     }
   end
 end
