@@ -104,4 +104,19 @@ RSpec.describe "Stores", type: :request do
       expect(res_hash['reviews']).to eq([])
     end
   end
+
+  describe "POST /stores/:id/hide" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let(:id) { store.place_id }
+
+    it "create user_hidden_store" do
+      post "/stores/#{id}/hide", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      user_hidden_store = UserHiddenStore.last
+      expect(user_hidden_store.user).to eq(user)
+      expect(user_hidden_store.store).to eq(store)
+    end
+  end
 end

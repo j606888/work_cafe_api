@@ -32,4 +32,17 @@ class ApplicationController < ActionController::Base
   def handle_jwt_expired(e)
     render status: 403, json: { reason: e.message }
   end
+
+  def current_user
+    return @current_user if @current_user
+
+    pattern = /^Bearer /
+    header  = request.headers['Authorization']
+    access_token = header.gsub(pattern, '') if header && header.match(pattern)
+    return if access_token.nil?
+
+    @current_user = AuthService::Decoder.new(
+      access_token: access_token
+    ).perform
+  end
 end

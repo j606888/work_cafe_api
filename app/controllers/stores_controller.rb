@@ -52,4 +52,16 @@ class StoresController < ApplicationController
       reviews: reviews
     }
   end
+
+  def hide
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    UserHiddenStoreService::Create.call(
+      user_id: current_user.id,
+      store_id: store.id
+    )
+
+    head :ok
+  end
 end

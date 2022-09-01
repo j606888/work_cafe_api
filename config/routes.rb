@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       get :hint
       get :location
     end
+
+    member do
+      post :hide
+    end
   end
 
   get 'hello', to: 'hello#index'

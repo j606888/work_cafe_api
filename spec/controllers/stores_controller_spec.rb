@@ -65,4 +65,33 @@ RSpec.describe StoresController, type: :controller do
         .with(store_ids: stores.map(&:id))
     end
   end
+
+  describe 'POST :hide' do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let(:params) do
+      {
+        id: store.place_id
+      }
+    end
+
+    before do
+      mock_user
+      allow(StoreService::QueryOne).to receive(:call).and_return(store)
+      allow(UserHiddenStoreService::Create).to receive(:call)
+    end
+
+    it "create user_hidden_store" do
+      post :hide, params: params
+
+      expect(response.status).to eq(200)
+      expect(StoreService::QueryOne).to have_received(:call)
+        .with(place_id: store.place_id)
+      expect(UserHiddenStoreService::Create).to have_received(:call)
+        .with(
+          user_id: user.id,
+          store_id: store.id
+        )
+    end
+  end
 end
