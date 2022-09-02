@@ -97,7 +97,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_now stores' do
-      params[:open_type] = 'open_now'
+      params[:open_type] = 'OPEN_NOW'
 
       res = service.perform
 
@@ -107,7 +107,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_at stores with open_week' do
-      params[:open_type] = 'open_at'
+      params[:open_type] = 'OPEN_AT'
       params[:open_week] = 6
 
       res = service.perform
@@ -116,7 +116,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_at stores with open_week and open_hour' do
-      params[:open_type] = 'open_at'
+      params[:open_type] = 'OPEN_AT'
       params[:open_week] = 6
       params[:open_hour] = 9
 

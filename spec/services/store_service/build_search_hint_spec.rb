@@ -75,7 +75,7 @@ describe StoreService::BuildSearchHint do
         lng: 120.2548569,
         limit: 5,
         keyword: "鴨母",
-        open_type: 'none'
+        open_type: 'NONE'
       )
   end
 
@@ -102,7 +102,7 @@ describe StoreService::BuildSearchHint do
 
     it 'query open_now stores' do
       params[:keyword] = "台"
-      params[:open_type] = 'open_now'
+      params[:open_type] = 'OPEN_NOW'
 
       res = service.perform
 
@@ -112,7 +112,7 @@ describe StoreService::BuildSearchHint do
 
     it 'query open_week stores' do
       params[:keyword] = "台"
-      params[:open_type] = "open_at"
+      params[:open_type] = "OPEN_AT"
       params[:open_week] = 6
       params[:open_hour] = 15
 

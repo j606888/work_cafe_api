@@ -1,7 +1,7 @@
 class StoreService::BuildSearchHint < Service
   SearchResult = Struct.new(:type, :name, :address, :place_id, :count)
 
-  def initialize(keyword:, lat: 25.0418226, lng: 121.5303917, open_type: 'none', open_week: nil, open_hour: nil)
+  def initialize(keyword:, lat: 25.0418226, lng: 121.5303917, open_type: 'NONE', open_week: nil, open_hour: nil)
     @keyword = keyword
     @lat = lat
     @lng = lng
@@ -49,8 +49,8 @@ class StoreService::BuildSearchHint < Service
 
     sql = "#{field} ilike '%#{keyword}%' AND hidden = false"
     
-    if open_type == 'none'
-    elsif open_type == 'open_now'
+    if open_type == 'NONE'
+    elsif open_type == 'OPEN_NOW'
       now = Time.now.in_time_zone('Taipei')
       open_week = now.wday
       cur_hour = now.strftime("%H")
@@ -63,7 +63,7 @@ class StoreService::BuildSearchHint < Service
 
       if open_hour.present?
         open_time = open_hour < 10 ? "0#{open_hour}00" : "#{open_hour}00"
-        sql += "and open_time <= '#{open_time}' and close_time >= '#{open_time}'"
+        sql += " AND open_time <= '#{open_time}' and close_time >= '#{open_time}'"
       end
     end
 

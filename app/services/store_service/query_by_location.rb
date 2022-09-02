@@ -2,7 +2,7 @@ class StoreService::QueryByLocation < Service
   DEFAULT_LIMIT = 60
   VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'none', open_week: nil, open_hour: nil, mode: 'normal')
+  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal')
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -62,7 +62,7 @@ class StoreService::QueryByLocation < Service
       end
     end
 
-    if open_type == 'open_now'
+    if open_type == 'OPEN_NOW'
       now = Time.now.in_time_zone('Taipei')
       open_week = now.wday
       cur_time = now.strftime("%H%M")
@@ -70,7 +70,7 @@ class StoreService::QueryByLocation < Service
       sql += " AND open_day = #{open_week} AND close_day = #{open_week} and open_time <= '#{cur_time}' and close_time >='#{cur_time}'"
     end
 
-    if open_type == 'open_at'
+    if open_type == 'OPEN_AT'
       sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
       
       if open_hour.present?

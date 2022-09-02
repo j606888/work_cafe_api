@@ -46,13 +46,18 @@ class StoresController < ApplicationController
       store_id: store.id
     )
     store_photos = store.store_photos
+    is_hide = UserHiddenStore.find_by(
+      user: current_user,
+      store: store
+    ).present?
 
     render 'show', locals: {
       store: store,
       opening_hours: opening_hours,
       is_open_now: is_open_now,
       store_photos: store_photos,
-      reviews: reviews
+      reviews: reviews,
+      is_hide: is_hide
     }
   end
 
@@ -61,6 +66,18 @@ class StoresController < ApplicationController
       place_id: params.require(:id)
     )
     UserHiddenStoreService::Create.call(
+      user_id: current_user.id,
+      store_id: store.id
+    )
+
+    head :ok
+  end
+
+  def unhide
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    UserHiddenStoreService::Delete.call(
       user_id: current_user.id,
       store_id: store.id
     )
