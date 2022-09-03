@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_03_044701) do
   create_table "bookmarks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
-    t.string "type", null: false
+    t.string "category", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_bookmarks_on_user_id"

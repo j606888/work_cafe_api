@@ -1,5 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Bookmark, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:user) }
+  it { is_expected.to validate_inclusion_of(:category).in_array(described_class::VALID_CATEGORIES) }
 end
