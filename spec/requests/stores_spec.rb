@@ -139,4 +139,21 @@ RSpec.describe "Stores", type: :request do
       expect(res_hash[1]['id']).to eq(stores[3].id)
     end
   end
+
+  describe "POST /stores/:id/bookmark" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:bookmark) { create :bookmark, user: user }
+    let(:id) { store.place_id }
+    let(:params) { { bookmark_random_key: bookmark.random_key } }
+
+    it "add store to bookmark" do
+      post "/stores/#{id}/bookmark", params: params, headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      bookmark_store = BookmarkStore.last
+      expect(bookmark_store.store).to eq(store)
+      expect(bookmark_store.bookmark).to eq(bookmark)
+    end
+  end
 end

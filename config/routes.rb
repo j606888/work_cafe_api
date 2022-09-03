@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     member do
       post :hide
       post :unhide
+      post :bookmark, action: 'add_to_bookmark'
     end
   end
 
