@@ -2,6 +2,8 @@ class Bookmark < ApplicationRecord
   VALID_CATEGORIES = ['favorite', 'interest', 'custom']
 
   belongs_to :user
+  has_many :bookmark_stores
+  has_many :stores, through: :bookmark_stores
 
   validates :category, inclusion: { in: VALID_CATEGORIES }
 
