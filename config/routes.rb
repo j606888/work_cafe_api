@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       post :hide
       post :unhide
       post :bookmark, action: 'add_to_bookmark'
+      delete :bookmark, action: 'remove_from_bookmark'
     end
   end
 

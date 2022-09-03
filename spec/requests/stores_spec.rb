@@ -156,4 +156,21 @@ RSpec.describe "Stores", type: :request do
       expect(bookmark_store.bookmark).to eq(bookmark)
     end
   end
+
+  describe "DELETE /stores/:id/bookmark" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:bookmark) { create :bookmark, user: user }
+    let!(:bookmark_store) { create :bookmark_store, store: store, bookmark: bookmark }
+    let(:id) { store.place_id }
+    let(:params) { { bookmark_random_key: bookmark.random_key } }
+
+    it "remove a store from bookmark" do
+      expect(BookmarkStore.count).to eq(1)
+
+      delete "/stores/#{id}/bookmark", params: params, headers: stub_auth(user)
+
+      expect(BookmarkStore.count).to eq(0)
+    end
+  end
 end
