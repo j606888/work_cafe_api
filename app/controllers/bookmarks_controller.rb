@@ -15,4 +15,13 @@ class BookmarksController < ApplicationController
 
     render json: bookmarks
   end
+
+  def show
+    bookmark = BookmarkService::QueryOne.call(
+      user_id: current_user.id,
+      bookmark_random_key: params.require(:id)
+    )
+
+    render 'show', locals: { bookmark: bookmark, stores: bookmark.stores }
+  end
 end

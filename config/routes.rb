@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookmarks, only: [:create, :index]
+  resources :bookmarks, only: [:create, :index, :show]
 
   get 'hello', to: 'hello#index'
 

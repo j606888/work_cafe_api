@@ -10,7 +10,7 @@ RSpec.describe "Bookmarks", type: :request do
     end
 
     it 'create a new bookmark' do
-      post "/bookmarks", params: params, headers: stub_admin(user)
+      post "/bookmarks", params: params, headers: stub_auth(user)
 
       expect(response.status).to eq(200)
       bookmark = Bookmark.last
@@ -25,11 +25,40 @@ RSpec.describe "Bookmarks", type: :request do
     let!(:bookmarks) { create_list :bookmark, 5, user: user }
 
     it "return bookmarks list" do
-      get "/bookmarks", headers: stub_admin(user)
+      get "/bookmarks", headers: stub_auth(user)
 
       expect(response.status).to eq(200)
       res_hash = JSON.parse(response.body)
       expect(res_hash.length).to eq(5)
+    end
+  end
+
+  describe "GET /bookmarks/:id" do
+    let!(:user) { create :user }
+    let!(:bookmark) { create :bookmark, user: user }
+    let!(:stores) { create_list :store, 5 }
+    let(:id) { bookmark.random_key }
+    
+    before do
+      stores.each do |store|
+        create :bookmark_store, bookmark: bookmark, store: store
+      end
+    end
+
+    it "return bookmark with stores" do
+      get "/bookmarks/#{id}", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash['random_key']).to eq(bookmark.random_key)
+      expect(res_hash['name']).to eq(bookmark.name)
+      expect(res_hash['category']).to eq(bookmark.category)
+      expect(res_hash['stores'].length).to eq(5)
+      res_hash['stores'].each_with_index do |store, i|
+        expect(store['place_id']).to eq(stores[i].place_id)
+      end
+
+
     end
   end
 end

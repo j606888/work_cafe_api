@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :bookmark_store do
-    association :user
+    association :bookmark
     association :store
   end
 end
