@@ -1,6 +1,6 @@
 class OpeningHour < ApplicationRecord
   WEEKDAY_LABELS = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
-  VALID_OPEN_TYPES = ['none', 'open_now', 'open_at']
+  VALID_OPEN_TYPES = ['NONE', 'OPEN_NOW', 'OPEN_AT']
   VALID_OPEN_WEEKS = [*0..6]
   VALID_OPEN_HOURS = [*0..23]
 

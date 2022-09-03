@@ -97,7 +97,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_now stores' do
-      params[:open_type] = 'open_now'
+      params[:open_type] = 'OPEN_NOW'
 
       res = service.perform
 
@@ -107,7 +107,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_at stores with open_week' do
-      params[:open_type] = 'open_at'
+      params[:open_type] = 'OPEN_AT'
       params[:open_week] = 6
 
       res = service.perform
@@ -116,7 +116,7 @@ describe StoreService::QueryByLocation do
     end
 
     it 'query open_at stores with open_week and open_hour' do
-      params[:open_type] = 'open_at'
+      params[:open_type] = 'OPEN_AT'
       params[:open_week] = 6
       params[:open_hour] = 9
 
@@ -143,6 +143,23 @@ describe StoreService::QueryByLocation do
 
       expect(res.length).to eq(2)
       expect(res.map(&:id)).to eq([stores[0].id, stores[2].id])
+    end
+  end
+
+  context 'when #user_id exist' do
+    let!(:user) { create :user }
+
+    before do
+      create :user_hidden_store, user: user, store: stores[0]
+      create :user_hidden_store, user: user, store: stores[2]
+      params[:user_id] = user.id
+    end
+
+    it 'filter out hidden stores' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res.map(&:id)).to eq([stores[3].id, stores[1].id])
     end
   end
 end

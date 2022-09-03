@@ -42,6 +42,7 @@ RSpec.describe StoresController, type: :controller do
     end
 
     before do
+      mock_user
       stores.each { |store| create :store_source, store: store }
       allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
       allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
@@ -53,6 +54,7 @@ RSpec.describe StoresController, type: :controller do
       expect(response.status).to eq(200)
       expect(StoreService::QueryByLocation).to have_received(:call)
         .with(
+          user_id: user.id,
           mode: 'address',
           lat: params[:lat],
           lng: params[:lng],
@@ -61,6 +63,56 @@ RSpec.describe StoresController, type: :controller do
           open_week: params[:open_week],
           open_hour: params[:open_hour],
         )
+      expect(OpeningHourService::IsOpenNowMap).to have_received(:call)
+        .with(store_ids: stores.map(&:id))
+    end
+  end
+
+  describe 'POST :hide' do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let(:params) do
+      {
+        id: store.place_id
+      }
+    end
+
+    before do
+      mock_user
+      allow(StoreService::QueryOne).to receive(:call).and_return(store)
+      allow(UserHiddenStoreService::Create).to receive(:call)
+    end
+
+    it "create user_hidden_store" do
+      post :hide, params: params
+
+      expect(response.status).to eq(200)
+      expect(StoreService::QueryOne).to have_received(:call)
+        .with(place_id: store.place_id)
+      expect(UserHiddenStoreService::Create).to have_received(:call)
+        .with(
+          user_id: user.id,
+          store_id: store.id
+        )
+    end
+  end
+
+  describe 'GET :hidden' do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 5 } 
+    
+    before do
+      mock_user
+      allow(UserHiddenStoreService::QueryStores).to receive(:call).and_return(stores)
+      allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
+    end
+
+    it "return hidden_stores" do
+      get :hidden
+
+      expect(response.status).to eq(200)
+      expect(UserHiddenStoreService::QueryStores).to have_received(:call)
+        .with(user_id: user.id)
       expect(OpeningHourService::IsOpenNowMap).to have_received(:call)
         .with(store_ids: stores.map(&:id))
     end

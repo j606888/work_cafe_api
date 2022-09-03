@@ -11,12 +11,6 @@ Rails.application.routes.draw do
     post :google, action: 'google_sign_in'
   end
 
-  namespace :user do
-    resource :me, controller: :me, only: [:show]
-    resources :map_urls, only: [:index, :create]
-    resources :store_sources, path: 'store-sources', only: [:create]
-  end
-
   namespace :admin do
     resources :map_crawlers, path: 'map-crawlers', only: [:create, :index]
     resources :stores, only: [:index, :show] do
@@ -37,6 +31,12 @@ Rails.application.routes.draw do
     collection do
       get :hint
       get :location
+      get :hidden
+    end
+
+    member do
+      post :hide
+      post :unhide
     end
   end
 
