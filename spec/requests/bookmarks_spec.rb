@@ -61,4 +61,17 @@ RSpec.describe "Bookmarks", type: :request do
 
     end
   end
+
+  describe "DELETE /bookmarks/:id" do
+    let!(:user) { create :user }
+    let!(:bookmark) { create :bookmark, user: user }
+    let(:id) { bookmark.random_key }
+
+    it "delete bookmark" do
+      delete "/bookmarks/#{id}", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      expect(Bookmark.all.count).to eq(0)
+    end
+  end
 end

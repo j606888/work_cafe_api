@@ -24,4 +24,13 @@ class BookmarksController < ApplicationController
 
     render 'show', locals: { bookmark: bookmark, stores: bookmark.stores }
   end
+
+  def destroy
+    BookmarkService::Delete.call(
+      user_id: current_user.id,
+      bookmark_random_key: params.require(:id)
+    )
+
+    head :ok
+  end
 end
