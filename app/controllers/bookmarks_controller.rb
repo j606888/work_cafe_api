@@ -9,4 +9,10 @@ class BookmarksController < ApplicationController
 
     head :ok
   end
+
+  def index
+    bookmarks = current_user.bookmarks
+
+    render json: bookmarks
+  end
 end

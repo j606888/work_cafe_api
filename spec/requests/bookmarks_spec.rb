@@ -19,4 +19,17 @@ RSpec.describe "Bookmarks", type: :request do
       expect(bookmark.category).to eq('custom')
     end
   end
+
+  describe "GET /bookmarks" do
+    let!(:user) { create :user }
+    let!(:bookmarks) { create_list :bookmark, 5, user: user }
+
+    it "return bookmarks list" do
+      get "/bookmarks", headers: stub_admin(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash.length).to eq(5)
+    end
+  end
 end

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :bookmark do
     association :user
-    name { "喜愛的店" }
-    category { "favorite" }
+    sequence(:name) {|n| "喜愛的店-#{n}" }
+    category { "custom" }
   end
 end
