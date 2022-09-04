@@ -157,7 +157,7 @@ RSpec.describe "Stores", type: :request do
     end
   end
 
-  describe "DELETE /stores/:id/bookmarks" do
+  describe "DELETE /stores/:id/bookmarks/:bookmark_random_key" do
     let!(:user) { create :user }
     let!(:store) { create :store }
     let!(:bookmark) { create :bookmark, user: user }
@@ -173,4 +173,29 @@ RSpec.describe "Stores", type: :request do
       expect(BookmarkStore.count).to eq(0)
     end
   end
+
+  describe "GET /stores/:id/bookmarks" do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:bookmarks) { create_list :bookmark, 5, user: user }
+    let(:id) { store.place_id }
+
+    before do
+      bookmarks.each do |bookmark|
+        create :bookmark_store, bookmark: bookmark, store: store
+      end
+    end
+
+    it "return bookmarks with #is_saved" do
+      get "/stores/#{id}/bookmarks", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash.length).to eq(5)
+      res_hash.each do |bookmark_res|
+        expect(bookmark_res['is_saved']).to be(true)
+      end
+    end
+  end
+
 end

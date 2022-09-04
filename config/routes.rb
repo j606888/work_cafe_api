@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     member do
       post :hide
       post :unhide
+      get :bookmarks
       post 'bookmarks/:bookmark_random_key', action: 'add_to_bookmark'
       delete 'bookmarks/:bookmark_random_key', action: 'remove_from_bookmark'
     end

@@ -74,8 +74,6 @@ RSpec.describe "Bookmarks", type: :request do
       res_hash['stores'].each_with_index do |store, i|
         expect(store['place_id']).to eq(stores[i].place_id)
       end
-
-
     end
   end
 
