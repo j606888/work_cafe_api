@@ -30,6 +30,23 @@ RSpec.describe "Bookmarks", type: :request do
       expect(response.status).to eq(200)
       res_hash = JSON.parse(response.body)
       expect(res_hash.length).to eq(5)
+      res_hash.each do |bookmark_res|
+        expect(bookmark_res['is_saved']).to be(false)
+      end
+    end
+
+    it "return with #is_saved" do
+      store = create :store
+      bookmarks.each { |b| create :bookmark_store, bookmark: b, store: store }
+
+      get "/bookmarks", params: { place_id: store.place_id }, headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash.length).to eq(5)
+      res_hash.each do |bookmark_res|
+        expect(bookmark_res['is_saved']).to be(true)
+      end
     end
   end
 

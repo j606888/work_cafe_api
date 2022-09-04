@@ -13,7 +13,19 @@ class BookmarksController < ApplicationController
   def index
     bookmarks = current_user.bookmarks
 
-    render json: bookmarks
+    bookmark_stores_map = {}
+    if params[:place_id].present?
+      store = StoreService::QueryOne.call(
+        place_id: params[:place_id]
+      )
+      bookmark_stores = BookmarkStore.where(bookmark: bookmarks, store: store)
+      bookmark_stores_map = bookmark_stores.pluck(:bookmark_id).index_with(true)
+    end
+
+    render 'index', locals: {
+      bookmarks: bookmarks,
+      bookmark_stores_map: bookmark_stores_map
+    }
   end
 
   def show
