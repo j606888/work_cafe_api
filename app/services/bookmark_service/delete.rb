@@ -14,6 +14,6 @@ class BookmarkService::Delete < Service
       raise Service::PerformFailed, "Only custom bookmark can be delete"
     end
 
-    bookmark.delete
+    bookmark.destroy
   end
 end
