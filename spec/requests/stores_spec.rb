@@ -140,15 +140,15 @@ RSpec.describe "Stores", type: :request do
     end
   end
 
-  describe "POST /stores/:id/bookmark" do
+  describe "POST /stores/:id/bookmarks/:bookmark_random_key" do
     let!(:user) { create :user }
     let!(:store) { create :store }
     let!(:bookmark) { create :bookmark, user: user }
     let(:id) { store.place_id }
-    let(:params) { { bookmark_random_key: bookmark.random_key } }
+    let(:bookmark_random_key) { bookmark.random_key }
 
     it "add store to bookmark" do
-      post "/stores/#{id}/bookmark", params: params, headers: stub_auth(user)
+      post "/stores/#{id}/bookmarks/#{bookmark_random_key}", headers: stub_auth(user)
 
       expect(response.status).to eq(200)
       bookmark_store = BookmarkStore.last
@@ -157,18 +157,18 @@ RSpec.describe "Stores", type: :request do
     end
   end
 
-  describe "DELETE /stores/:id/bookmark" do
+  describe "DELETE /stores/:id/bookmarks" do
     let!(:user) { create :user }
     let!(:store) { create :store }
     let!(:bookmark) { create :bookmark, user: user }
     let!(:bookmark_store) { create :bookmark_store, store: store, bookmark: bookmark }
     let(:id) { store.place_id }
-    let(:params) { { bookmark_random_key: bookmark.random_key } }
+    let(:bookmark_random_key) { bookmark.random_key }
 
     it "remove a store from bookmark" do
       expect(BookmarkStore.count).to eq(1)
 
-      delete "/stores/#{id}/bookmark", params: params, headers: stub_auth(user)
+      delete "/stores/#{id}/bookmarks/#{bookmark_random_key}", headers: stub_auth(user)
 
       expect(BookmarkStore.count).to eq(0)
     end
