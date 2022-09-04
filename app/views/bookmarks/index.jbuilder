@@ -1,5 +1,5 @@
 json.array!(bookmarks) do |bookmark|
-  json.(bookmark, :id, :name, :random_key, :category)
-  json.is_saved bookmark_stores_map[bookmark.id].present?
+  json.partial! 'bookmarks/item', bookmark: bookmark
+  json.store_count bookmark.store_count
 end
 

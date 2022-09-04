@@ -11,20 +11,14 @@ class BookmarksController < ApplicationController
   end
 
   def index
-    bookmarks = current_user.bookmarks
-
-    bookmark_stores_map = {}
-    if params[:place_id].present?
-      store = StoreService::QueryOne.call(
-        place_id: params[:place_id]
-      )
-      bookmark_stores = BookmarkStore.where(bookmark: bookmarks, store: store)
-      bookmark_stores_map = bookmark_stores.pluck(:bookmark_id).index_with(true)
-    end
+    bookmarks = Bookmark.select("bookmarks.*, count(bookmark_stores.bookmark_id) AS store_count")
+      .left_joins(:bookmark_stores)
+      .where(user_id: current_user.id)
+      .order("bookmarks.id asc")
+      .group("bookmarks.id")
 
     render 'index', locals: {
       bookmarks: bookmarks,
-      bookmark_stores_map: bookmark_stores_map
     }
   end
 
