@@ -8,11 +8,17 @@ class AuthService::Signup < Service
   def perform
     validate_email!(@email)
 
-    User.create!(
+    user = User.create!(
       name: @name,
       email: @email,
       password: @password
     )
+
+    BookmarkService::CreateDefaults.call(
+      user_id: user.id
+    )
+
+    user
   end
 
   private

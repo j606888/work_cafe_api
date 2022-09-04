@@ -95,4 +95,50 @@ class StoresController < ApplicationController
 
     render 'location', locals: { stores: stores, open_now_map: open_now_map }
   end
+
+  def bookmarks
+    bookmarks = current_user.bookmarks
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    bookmark_stores = BookmarkStore.where(bookmark: bookmarks, store: store)
+    bookmark_stores_map = bookmark_stores.pluck(:bookmark_id).index_with(true)
+
+    render 'bookmarks', locals: {
+      bookmarks: bookmarks,
+      bookmark_stores_map: bookmark_stores_map
+    }
+  end
+
+  def add_to_bookmark
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    bookmark = BookmarkService::QueryOne.call(
+      user_id: current_user.id,
+      bookmark_random_key: params.require(:bookmark_random_key)
+    ) 
+    BookmarkStoreService::Create.call(
+      store_id: store.id,
+      bookmark_id: bookmark.id
+    )
+
+    head :ok
+  end
+
+  def remove_from_bookmark
+    store = StoreService::QueryOne.call(
+      place_id: params.require(:id)
+    )
+    bookmark = BookmarkService::QueryOne.call(
+      user_id: current_user.id,
+      bookmark_random_key: params.require(:bookmark_random_key)
+    ) 
+    BookmarkStoreService::Delete.call(
+      store_id: store.id,
+      bookmark_id: bookmark.id
+    )
+
+    head :ok
+  end
 end
