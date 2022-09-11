@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
     head :ok
   end
 
-  def index
+  def store_reviews
     reviews = ReviewService::Query.call(**{
       store_id: store.id,
       per: params[:per],
@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
       store_id: store.id
     )
 
-    render 'index', locals: {
+    render 'store_reviews', locals: {
       reviews: reviews,
       report: report
     }

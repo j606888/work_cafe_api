@@ -42,10 +42,15 @@ Rails.application.routes.draw do
       delete 'bookmarks/:bookmark_random_key', action: 'remove_from_bookmark'
     end
 
-    resources :reviews, only: [:create, :index]
+    resources :reviews, only: [:create] do
+      collection do
+        get '/', action: :store_reviews
+      end
+    end
   end
 
   resources :bookmarks, only: [:create, :index, :show, :destroy]
+  resources :reviews, only: [:index]
 
   get 'hello', to: 'hello#index'
 
