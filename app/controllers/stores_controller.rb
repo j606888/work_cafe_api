@@ -45,6 +45,9 @@ class StoresController < ApplicationController
     is_open_now = StoreService::IsOpenNow.call(
       store_id: store.id
     )
+    review_report = StoreService::ReviewReport.call(
+      store_id: store.id
+    )
     store_photos = store.store_photos
     is_hide = UserHiddenStore.find_by(
       user: current_user,
@@ -57,7 +60,8 @@ class StoresController < ApplicationController
       is_open_now: is_open_now,
       store_photos: store_photos,
       reviews: reviews,
-      is_hide: is_hide
+      is_hide: is_hide,
+      review_report: review_report
     }
   end
 
