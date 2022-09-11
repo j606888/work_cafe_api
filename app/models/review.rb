@@ -1,8 +1,8 @@
 class Review < ApplicationRecord
-  VALID_RECOMMENDS = ['no', 'normal', 'yes']
+  VALID_RECOMMENDS = ['yes', 'normal', 'no']
   VALID_ROOM_VOLUMES = ['quite', 'normal', 'loud']
-  VALID_TIME_LIMITS = ['no', 'weekend', 'yes']
-  VALID_SOCKET_SUPPLIES = ['no', 'rare', 'yes']
+  VALID_TIME_LIMITS = ['yes', 'weekend', 'no']
+  VALID_SOCKET_SUPPLIES = ['yes', 'rare', 'no']
 
   belongs_to :user
   belongs_to :store
