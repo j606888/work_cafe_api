@@ -21,9 +21,13 @@ class ReviewsController < ApplicationController
       per: params[:per],
       page: params[:page]
     }.compact)
+    report = StoreService::ReviewReport.call(
+      store_id: store.id
+    )
 
     render 'index', locals: {
       reviews: reviews,
+      report: report
     }
   end
 
