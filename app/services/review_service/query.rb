@@ -10,7 +10,7 @@ class ReviewService::Query < Service
   end
 
   def perform
-    reviews = Review.page(@page).per(@per).order(created_at: :desc)
+    reviews = Review.includes(:user).page(@page).per(@per).order(created_at: :desc)
     if @store_id.present?
       reviews = reviews.where(store_id: @store_id)
     end
