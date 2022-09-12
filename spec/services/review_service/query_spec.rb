@@ -38,8 +38,24 @@ describe ReviewService::Query do
     it 'only retrieve specify stores' do
       res = service.perform
 
-      expect(res.length).to eq(3)
-      expect(res.pluck(:id)).to eq([reviews[6], reviews[3], reviews[0]].map(&:id))
+      expect(res).to eq([reviews[6], reviews[3], reviews[0]])
+    end
+  end
+
+  context 'when description_not_nil is true' do
+    before do
+      reviews.each { |r| r.update!(description: nil) }
+      reviews[5].update!(description: 'some thing')
+      reviews[9].update!(description: 'some thing')
+
+      params[:description_not_nil] = true
+    end
+
+    it 'only retrieve reviews with description' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res).to eq([reviews[9], reviews[5]])
     end
   end
 end

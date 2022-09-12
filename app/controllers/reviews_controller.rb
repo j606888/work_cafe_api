@@ -19,15 +19,12 @@ class ReviewsController < ApplicationController
     reviews = ReviewService::Query.call(**{
       store_id: store.id,
       per: params[:per],
-      page: params[:page]
+      page: params[:page],
+      description_not_nil: true
     }.compact)
-    report = StoreService::ReviewReport.call(
-      store_id: store.id
-    )
 
     render 'store_reviews', locals: {
-      reviews: reviews,
-      report: report
+      reviews: reviews
     }
   end
 
