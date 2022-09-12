@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :authenticate_user!, only: [:hide, :hidden]
+  before_action :authenticate_user!, only: [:hide, :unhide, :hidden, :bookmarks, :add_to_bookmark, :remove_from_bookmark]
 
   def hint
     results = StoreService::BuildSearchHint.call(**{
@@ -17,7 +17,7 @@ class StoresController < ApplicationController
   def location
     stores = StoreService::QueryByLocation.call(**{
       mode: 'address',
-      user_id: current_user.id,
+      user_id: current_user&.id,
       lat: helpers.to_float(params.require(:lat)),
       lng: helpers.to_float(params.require(:lng)),
       limit: helpers.to_integer(params[:limit]),
@@ -45,6 +45,9 @@ class StoresController < ApplicationController
     is_open_now = StoreService::IsOpenNow.call(
       store_id: store.id
     )
+    review_report = StoreService::ReviewReport.call(
+      store_id: store.id
+    )
     store_photos = store.store_photos
     is_hide = UserHiddenStore.find_by(
       user: current_user,
@@ -57,7 +60,8 @@ class StoresController < ApplicationController
       is_open_now: is_open_now,
       store_photos: store_photos,
       reviews: reviews,
-      is_hide: is_hide
+      is_hide: is_hide,
+      review_report: review_report
     }
   end
 

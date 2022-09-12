@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_03_065339) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_11_063106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -86,6 +86,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_03_065339) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.string "recommend", null: false
+    t.string "room_volume"
+    t.string "time_limit"
+    t.string "socket_supply"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_reviews_on_store_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "store_photos", force: :cascade do |t|
@@ -174,6 +188,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_03_065339) do
   add_foreign_key "map_urls", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "reviews", "stores"
+  add_foreign_key "reviews", "users"
   add_foreign_key "store_photos", "stores"
   add_foreign_key "store_sources", "stores"
   add_foreign_key "third_party_logins", "users"
