@@ -2,17 +2,23 @@ class ReviewService::Query < Service
   DEFAULT_PER = 10
   DEFAULT_PAGE = 1
 
-  def initialize(store_id: nil, per: DEFAULT_PER, page: DEFAULT_PAGE, description_not_nil: false)
+  def initialize(store_id: nil, user_id: nil, per: DEFAULT_PER, page: DEFAULT_PAGE, description_not_nil: false)
     @store_id = store_id
+    @user_id = user_id
     @per = per
     @page = page
     @description_not_nil = description_not_nil
   end
 
   def perform
-    reviews = Review.includes(:user).page(@page).per(@per).order(created_at: :desc)
+    reviews = Review.page(@page).per(@per).order(created_at: :desc)
+
     if @store_id.present?
-      reviews = reviews.where(store_id: @store_id)
+      reviews = reviews.includes(:user).where(store_id: @store_id)
+    end
+
+    if @user_id.present?
+      reviews = reviews.includes(:store).where(user_id: @user_id)
     end
 
     if @description_not_nil

@@ -50,4 +50,26 @@ RSpec.describe "Reviews", type: :request do
       expect(res_hash['reviews'].length).to eq(5)
     end
   end
+
+  describe 'GET /reviews' do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 5 }
+    let!(:reviews) do
+      stores.map do |store|
+        create :review, user: user, store: store
+      end
+    end
+
+    it 'retrieve reviews with store' do
+      get "/reviews", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+
+      res_hash = JSON.parse(response.body)
+      res_hash['reviews'].each_with_index do |review, index|
+        expect(review['id']).to eq(reviews.reverse[index].id)
+        expect(review['store']['place_id']).to eq(stores.reverse[index].place_id)
+      end
+    end
+  end
 end

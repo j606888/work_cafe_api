@@ -58,4 +58,16 @@ describe ReviewService::Query do
       expect(res).to eq([reviews[9], reviews[5]])
     end
   end
+
+  context 'when user_id is present' do
+    before do
+      params[:user_id] = users[3].id
+    end
+
+    it 'only retrieve review that belongs to user' do
+      res = service.perform
+
+      expect(res).to eq([reviews[3]])
+    end
+  end
 end

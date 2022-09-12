@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :index]
 
   def create
     ReviewService::Create.call(**{
@@ -13,6 +13,18 @@ class ReviewsController < ApplicationController
     }.compact)
 
     head :ok
+  end
+
+  def index
+    reviews = ReviewService::Query.call(**{
+      user_id: current_user.id,
+      per: params[:per],
+      page: params[:page]
+    }.compact)
+
+    render 'index', locals: {
+      reviews: reviews
+    }
   end
 
   def store_reviews
