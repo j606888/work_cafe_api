@@ -45,12 +45,16 @@ class AuthService::GoogleSignIn < Service
     user = User.find_by(email: payload[:email])
     return user if user.present?
 
-    User.create!(
+    user = User.create!(
       email: payload[:email],
       name: payload[:name],
       avatar_url: payload[:picture],
       password: SecureRandom.hex
     )
+    BookmarkService::CreateDefaults.call(
+      user_id: user.id
+    )
+    user
   end
   
   def create_third_party_login!(user, identity)

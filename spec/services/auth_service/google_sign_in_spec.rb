@@ -43,14 +43,6 @@ describe AuthService::GoogleSignIn do
     )
   end
 
-  it "create user with SecureRandom" do
-    password = 'some-random-password'
-    allow(SecureRandom).to receive(:hex).and_return(password)
-
-    user = service.perform
-    expect(user.password).to eq(password)
-  end
-
   it "create third_party_login" do
     user = service.perform
 
