@@ -4,3 +4,4 @@ json.reviews reviews
 json.is_open_now is_open_now
 json.review_report review_report
 json.is_hide is_hide
+json.is_review is_review

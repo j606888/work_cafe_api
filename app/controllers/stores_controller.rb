@@ -53,6 +53,10 @@ class StoresController < ApplicationController
       user: current_user,
       store: store
     ).present?
+    is_review = Review.exists?(
+      user: current_user,
+      store: store
+    )
 
     render 'show', locals: {
       store: store,
@@ -61,6 +65,7 @@ class StoresController < ApplicationController
       store_photos: store_photos,
       reviews: reviews,
       is_hide: is_hide,
+      is_review: is_review,
       review_report: review_report
     }
   end
