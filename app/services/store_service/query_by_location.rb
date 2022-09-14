@@ -75,7 +75,7 @@ class StoreService::QueryByLocation < Service
       
       if open_hour.present?
         open_time = open_hour < 10 ? "0#{open_hour}00" : "#{open_hour}00"
-        sql += " AND open_time <= '#{open_time}' and close_time >= '#{open_time}'"
+        sql += " AND open_time < '#{open_time}' and close_time > '#{open_time}'"
       end
     end
 
