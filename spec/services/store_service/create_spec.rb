@@ -29,7 +29,7 @@ describe StoreService::Create do
   before do
     mock_place_detail
     allow(OpeningHourService::Create).to receive(:call)
-    allow(StoreService::FetchPhoto).to receive(:call)
+    allow(StorePhotoService::CreateFromGoogle).to receive(:call)
   end
 
   it "required valid argument to call" do
@@ -75,8 +75,11 @@ describe StoreService::Create do
   it "fetch photo" do
     store = service.perform
 
-    expect(StoreService::FetchPhoto).to have_received(:call)
-      .with(store_id: store.id)
+    expect(StorePhotoService::CreateFromGoogle).to have_received(:call)
+      .with(
+        store_id: store.id,
+        limit: 1
+      )
   end
 
   it "raise error if place_id exist" do

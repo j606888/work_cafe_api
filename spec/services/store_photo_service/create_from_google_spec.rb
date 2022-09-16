@@ -70,6 +70,18 @@ describe StorePhotoService::CreateFromGoogle do
     end
   end
 
+  context 'when limit is provide' do
+    let(:service) { described_class.new(store_id: store.id, limit: 1) }
+
+    it 'only retrieve 1 photo' do
+      service.perform
+
+      expect(GoogleMapPlace).to have_received(:photo).with('ref-1')
+      expect(GoogleMapPlace).not_to have_received(:photo).with('ref-2')
+      expect(GoogleMapPlace).not_to have_received(:photo).with('ref-3')
+    end
+  end
+
   it "raise error if store_source not exist" do
     store_source.delete
 
