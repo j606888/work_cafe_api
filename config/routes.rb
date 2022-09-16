@@ -47,6 +47,12 @@ Rails.application.routes.draw do
         get '/', action: :store_reviews
       end
     end
+
+    resources :store_photos, path: 'store-photos', only: [:create] do
+      collection do
+        get '/upload-link', action: :get_upload_link
+      end
+    end
   end
 
   resources :bookmarks, only: [:create, :index, :show, :destroy]

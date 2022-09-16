@@ -7,7 +7,6 @@ describe StorePhotoService::CreateFromUser do
     {
       user_id: user.id,
       store_id: store.id,
-      random_key: 'abc123',
       url: "https://some-s3-bucket.com/stores/#{store.place_id}/abc123.jpeg"
     }
   end
@@ -17,7 +16,6 @@ describe StorePhotoService::CreateFromUser do
     described_class.new(
       user_id: 1,
       store_id: 2,
-      random_key: 'abc123',
       url: "some-url"
     )
   end
@@ -26,7 +24,7 @@ describe StorePhotoService::CreateFromUser do
     res = service.perform
     expect(res.user).to eq(user)
     expect(res.store).to eq(store)
-    expect(res.random_key).to eq(params[:random_key])
+    expect(res.random_key).to eq('abc123')
     expect(res.image_url).to eq(params[:url])
   end
 
