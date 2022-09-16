@@ -7,8 +7,10 @@ class StorePhoto < ApplicationRecord
   private
 
   def create_random_key
+    return if random_key.present?
+
     loop do
-      self.random_key = SecureRandom.hex(5)
+      self.random_key = SecureRandom.hex(8)
       break unless self.class.exists?(random_key: random_key)
     end
   end
