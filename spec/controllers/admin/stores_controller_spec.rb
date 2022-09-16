@@ -130,7 +130,7 @@ RSpec.describe Admin::StoresController, type: :controller do
     before do
       mock_admin
       allow(StoreService::QueryOne).to receive(:call).and_return(store)
-      allow(StorePhotoService::Create).to receive(:call)
+      allow(StorePhotoService::CreateFromGoogle).to receive(:call)
     end
 
     it "call required service" do
@@ -138,7 +138,7 @@ RSpec.describe Admin::StoresController, type: :controller do
 
       expect(StoreService::QueryOne).to have_received(:call)
         .with(place_id: store.place_id)
-      expect(StorePhotoService::Create).to have_received(:call)
+      expect(StorePhotoService::CreateFromGoogle).to have_received(:call)
         .with(store_id: store.id)
     end
   end

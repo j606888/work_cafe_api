@@ -1,4 +1,4 @@
-class StorePhotoService::Create < Service
+class StorePhotoService::CreateFromGoogle < Service
   include QueryHelpers::QueryStore
 
   S3_BUCKET = 'work-cafe-staging'

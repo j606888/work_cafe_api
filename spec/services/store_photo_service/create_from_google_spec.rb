@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StorePhotoService::Create do
+describe StorePhotoService::CreateFromGoogle do
   let!(:store) { create :store }
   let!(:store_source) do
     create :store_source, {
