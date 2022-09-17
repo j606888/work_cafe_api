@@ -1,6 +1,6 @@
 json.store_photos do
   json.array!(store_photos) do |store_photo|
-    json.(store_photo, :id, :random_key, :image_url)
+    json.(store_photo, :id, :random_key, :image_url, :created_at)
 
     json.store do
       json.partial! 'stores/item', store: store_photo.store
