@@ -32,7 +32,7 @@ class StorePhotoService::CreateFromUser < Service
   end
 
   def parse_random_key_from_url(url)
-    regex = %r{stores/.*/(?<random_key>.*).jpeg}
+    regex = /stores\/.*\/(?<random_key>.*)\.(.+)$/
     match = url.match regex
 
     if match.nil?
