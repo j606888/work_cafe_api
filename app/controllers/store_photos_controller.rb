@@ -1,5 +1,5 @@
 class StorePhotosController < ApplicationController
-  before_action :authenticate_user!, only: [:get_upload_link, :create]
+  before_action :authenticate_user!, only: [:get_upload_link, :create, :index]
 
   def get_upload_link
     url = StorePhotoService::CreatePresignedUrl.call(**{
@@ -19,6 +19,19 @@ class StorePhotosController < ApplicationController
 
     head :ok
   end
+
+  def index
+    store_photos = StorePhotoService::Query.call(**{
+      user_id: current_user.id,
+      per: params[:per],
+      page: params[:page]
+    }.compact)
+
+    render 'index', locals: {
+      store_photos: store_photos
+    }
+  end
+
 
   private
 

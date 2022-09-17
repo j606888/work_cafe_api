@@ -28,4 +28,26 @@ RSpec.describe "StorePhotos", type: :request do
       expect(store_photo.image_url).to eq(url)
     end
   end
+
+  describe 'GET /store-photos' do
+    let!(:user) { create :user }
+    let!(:stores) { create_list :store, 5 }
+    let!(:store_photos) do
+      stores.map do |store|
+        create :store_photo, user: user, store: store
+      end
+    end
+
+    it 'retrieve store-photos with store' do
+      get "/store-photos", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+
+      res_hash = JSON.parse(response.body)
+      res_hash['store_photos'].each_with_index do |review, index|
+        expect(review['id']).to eq(store_photos.reverse[index].id)
+        expect(review['store']['place_id']).to eq(stores.reverse[index].place_id)
+      end
+    end
+  end
 end
