@@ -1,0 +1,9 @@
+Description:
+    Generate a service and its spec
+
+Example:
+    rails generate service user/update_config
+
+    This will create:
+        app/services/user_service/update_config.rb
+        spec/services/user_service/update_config_spec.rb

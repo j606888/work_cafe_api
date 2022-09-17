@@ -1,11 +1,12 @@
-class StorePhotoService::Create < Service
+class StorePhotoService::CreateFromGoogle < Service
   include QueryHelpers::QueryStore
 
   S3_BUCKET = 'work-cafe-staging'
   S3_PREFIX = 'https://work-cafe-staging.s3.ap-southeast-1.amazonaws.com/'
 
-  def initialize(store_id:)
+  def initialize(store_id:, limit: 10)
     @store_id = store_id
+    @limit = limit
   end
 
   def perform
@@ -15,7 +16,9 @@ class StorePhotoService::Create < Service
 
     existing_reference_map = build_reference_map(store)
 
+    fetch_count = 0
     photo_references.each do |photo_reference|
+      break if fetch_count >= @limit
       ActiveRecord::Base.transaction do
         next if existing_reference_map[photo_reference].present?
 
@@ -31,6 +34,7 @@ class StorePhotoService::Create < Service
         image_url = S3_PREFIX + key
         store_photo.update!(image_url: image_url)
       end
+      fetch_count += 1
     end
 
     first_store_photo = store.store_photos.first

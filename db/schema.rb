@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_11_063106) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_135534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -109,8 +109,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_063106) do
     t.string "photo_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["photo_reference"], name: "index_store_photos_on_photo_reference", unique: true
     t.index ["store_id"], name: "index_store_photos_on_store_id"
+    t.index ["user_id"], name: "index_store_photos_on_user_id"
   end
 
   create_table "store_sources", force: :cascade do |t|
@@ -191,6 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_063106) do
   add_foreign_key "reviews", "stores"
   add_foreign_key "reviews", "users"
   add_foreign_key "store_photos", "stores"
+  add_foreign_key "store_photos", "users"
   add_foreign_key "store_sources", "stores"
   add_foreign_key "third_party_logins", "users"
   add_foreign_key "user_hidden_stores", "stores"

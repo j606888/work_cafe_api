@@ -57,7 +57,7 @@ class Admin::StoresController < Admin::ApplicationController
     store = StoreService::QueryOne.call(
       place_id: params.require(:id)
     )
-    StorePhotoService::Create.call(
+    StorePhotoService::CreateFromGoogle.call(
       store_id: store.id
     )
 
