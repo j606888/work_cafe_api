@@ -11,5 +11,5 @@ class Review < ApplicationRecord
   validates :room_volume, inclusion: { in: VALID_ROOM_VOLUMES }, allow_nil: true
   validates :time_limit, inclusion: { in: VALID_TIME_LIMITS }, allow_nil: true
   validates :socket_supply, inclusion: { in: VALID_SOCKET_SUPPLIES }, allow_nil: true
-  # validates :user_id, uniqueness: { scope: :store_id }
+  validates :user_id, uniqueness: { scope: :store_id }
 end

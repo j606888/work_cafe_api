@@ -32,9 +32,14 @@ RSpec.describe "StorePhotos", type: :request do
   describe 'GET /store-photos' do
     let!(:user) { create :user }
     let!(:stores) { create_list :store, 5 }
-    let!(:store_photos) do
+    let!(:store_photo_groups) do
       stores.map do |store|
-        create :store_photo, user: user, store: store
+        g = create :store_photo_group, user: user, store: store
+        3.times do
+          create :store_photo, user: user, store: store, store_photo_group: g
+        end
+
+        g
       end
     end
 
@@ -44,9 +49,10 @@ RSpec.describe "StorePhotos", type: :request do
       expect(response.status).to eq(200)
 
       res_hash = JSON.parse(response.body)
-      res_hash['store_photos'].each_with_index do |review, index|
-        expect(review['id']).to eq(store_photos.reverse[index].id)
-        expect(review['store']['place_id']).to eq(stores.reverse[index].place_id)
+      res_hash['store_photo_groups'].each_with_index do |photo_group, index|
+        expect(photo_group['id']).to eq(store_photo_groups.reverse[index].id)
+        expect(photo_group['photos'].length).to eq(3)
+        expect(photo_group['store']['place_id']).to eq(stores.reverse[index].place_id)
       end
     end
   end

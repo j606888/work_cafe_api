@@ -15,9 +15,14 @@ class StorePhotoService::CreateFromUser < Service
     validate_url!(store, @url)
     random_key = parse_random_key_from_url(@url)
 
+    store_photo_group = StorePhotoGroup.find_or_create_by(
+      user: user,
+      store: store
+    )
     StorePhoto.create!(
       user: user,
       store: store,
+      store_photo_group: store_photo_group,
       random_key: random_key,
       image_url: @url
     )

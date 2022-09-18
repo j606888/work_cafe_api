@@ -10,6 +10,10 @@ class StorePhotoService::Query < Service
   def perform
     user = find_user_by_id(@user_id)
 
-    StorePhoto.includes(:store).where(user: user).page(@page).per(@per).order(created_at: :desc)
+    StorePhotoGroup.includes(:store, :store_photos)
+      .where(user: user)
+      .page(@page)
+      .per(@per)
+      .order(updated_at: :desc)
   end
 end
