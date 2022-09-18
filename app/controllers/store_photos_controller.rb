@@ -21,14 +21,14 @@ class StorePhotosController < ApplicationController
   end
 
   def index
-    store_photos = StorePhotoService::Query.call(**{
+    store_photo_groups = StorePhotoService::Query.call(**{
       user_id: current_user.id,
       per: params[:per],
       page: params[:page]
     }.compact)
 
     render 'index', locals: {
-      store_photos: store_photos
+      store_photo_groups: store_photo_groups
     }
   end
 
