@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     end
     resources :blacklists, only: [:index, :create, :destroy]
     resources :users, only: [:index]
+    namespace :report do
+      get :dashboard
+    end
   end
 
   resources :stores, only: [:show] do
