@@ -72,4 +72,28 @@ RSpec.describe "Reviews", type: :request do
       end
     end
   end
+
+  describe 'GET /stores/:store_id/reviews/me' do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:review) { create :review, user: user, store: store }
+
+    it 'retrieve review if exist' do
+      get "/stores/#{store.place_id}/reviews/me", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash['id']).to eq(review.id)
+    end
+
+    it 'retrieve nil if review not exist' do
+      review.delete
+
+      get "/stores/#{store.place_id}/reviews/me", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
+      expect(res_hash).to be_nil
+    end
+  end
 end

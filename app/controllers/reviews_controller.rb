@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :index]
+  before_action :authenticate_user!, only: [:create, :index, :me]
 
   def create
     ReviewService::Create.call(**{
@@ -38,6 +38,15 @@ class ReviewsController < ApplicationController
     render 'store_reviews', locals: {
       reviews: reviews
     }
+  end
+
+  def me
+    review = Review.find_by(
+      user: current_user,
+      store: store
+    )
+
+    render 'me', locals: { review: review }
   end
 
   private
