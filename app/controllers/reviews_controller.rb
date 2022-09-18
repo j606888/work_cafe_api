@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :index, :me]
+  before_action :authenticate_user!, only: [:create, :index, :me, :destroy]
 
   def create
     ReviewService::FindOrCreate.call(**{
@@ -48,6 +48,15 @@ class ReviewsController < ApplicationController
     )
 
     render 'me', locals: { review: review }
+  end
+
+  def destroy
+    ReviewService::Delete.call(
+      user_id: current_user.id,
+      store_id: store.id
+    )
+
+    head :ok
   end
 
   private

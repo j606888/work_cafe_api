@@ -96,4 +96,17 @@ RSpec.describe "Reviews", type: :request do
       expect(res_hash).to be_nil
     end
   end
+
+  describe 'DELETE /stores/:store_id/reviews' do
+    let!(:user) { create :user }
+    let!(:store) { create :store }
+    let!(:review) { create :review, user: user, store: store }
+
+    it 'delete review if exist' do
+      delete "/stores/#{store.place_id}/reviews", headers: stub_auth(user)
+
+      expect(response.status).to eq(200)
+      expect(Review.count).to eq(0)
+    end
+  end
 end
