@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ReviewService::Create do
+describe ReviewService::FindOrCreate do
   let!(:user) { create :user }
   let!(:store) { create :store }
   let(:params) do
@@ -40,5 +40,25 @@ describe ReviewService::Create do
     params[:socket_supply] = 'So many'
 
     expect { service.perform }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  context 'when user review already exist' do
+    let!(:review) do
+      create :review, {
+        user: user,
+        store: store,
+        recommend: 'no',
+        room_volume: 'loud'
+      }
+    end
+
+    it 'update that review' do
+      service.perform
+
+      expect(Review.count).to eq(1)
+      review.reload
+      expect(review.recommend).to eq('yes')
+      expect(review.room_volume).to eq('quite')
+    end
   end
 end

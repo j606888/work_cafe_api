@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :index, :me]
 
   def create
-    ReviewService::Create.call(**{
+    ReviewService::FindOrCreate.call(**{
       user_id: current_user.id,
       store_id: store.id,
       recommend: params.require(:recommend),
