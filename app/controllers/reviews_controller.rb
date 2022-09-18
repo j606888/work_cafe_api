@@ -29,6 +29,7 @@ class ReviewsController < ApplicationController
 
   def store_reviews
     reviews = ReviewService::Query.call(**{
+      exclude_user_id: current_user&.id,
       store_id: store.id,
       per: params[:per],
       page: params[:page],
