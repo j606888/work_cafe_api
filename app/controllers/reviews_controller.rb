@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :index]
+  before_action :authenticate_user!, only: [:create, :index, :me, :destroy]
 
   def create
-    ReviewService::Create.call(**{
+    ReviewService::FindOrCreate.call(**{
       user_id: current_user.id,
       store_id: store.id,
       recommend: params.require(:recommend),
@@ -29,6 +29,7 @@ class ReviewsController < ApplicationController
 
   def store_reviews
     reviews = ReviewService::Query.call(**{
+      exclude_user_id: current_user&.id,
       store_id: store.id,
       per: params[:per],
       page: params[:page],
@@ -38,6 +39,24 @@ class ReviewsController < ApplicationController
     render 'store_reviews', locals: {
       reviews: reviews
     }
+  end
+
+  def me
+    review = Review.find_by(
+      user: current_user,
+      store: store
+    )
+
+    render 'me', locals: { review: review }
+  end
+
+  def destroy
+    ReviewService::Delete.call(
+      user_id: current_user.id,
+      store_id: store.id
+    )
+
+    head :ok
   end
 
   private

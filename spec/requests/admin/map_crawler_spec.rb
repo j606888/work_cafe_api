@@ -21,7 +21,6 @@ RSpec.describe "MapCrawler", type: :request do
       stub_request(:post, "https://maps.googleapis.com/maps/api/place/details/json")
         .with(query: hash_including({}))
         .to_return(body: detail, headers: { content_type: 'application/json'})
-      allow(StoreService::FetchPhoto).to receive(:call)
     end
 
     it "create map_url" do

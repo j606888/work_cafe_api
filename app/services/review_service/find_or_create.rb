@@ -1,4 +1,4 @@
-class ReviewService::Create < Service
+class ReviewService::FindOrCreate < Service
   include QueryHelpers::QueryUser
   include QueryHelpers::QueryStore
 
@@ -21,9 +21,11 @@ class ReviewService::Create < Service
     user = find_user_by_id(@user_id)
     store = find_store_by_id(@store_id)
 
-    Review.create!(**{
+    review = Review.find_or_initialize_by(
       user: user,
-      store: store,
-    }.merge(@params))
+      store: store
+    )
+    review.update!(@params)
+    review
   end
 end
