@@ -21,6 +21,8 @@ class ReviewService::FindOrCreate < Service
     user = find_user_by_id(@user_id)
     store = find_store_by_id(@store_id)
 
+    StoreService::WakeUp.call(store_id: store.id)
+
     review = Review.find_or_initialize_by(
       user: user,
       store: store
