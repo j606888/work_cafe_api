@@ -20,6 +20,11 @@ describe StoreService::QueryByLocation do
       create :store, lat: location.first, lng: location.last
     end
   end
+  let!(:store_summaries) do
+    stores.map do |store|
+      create :store_summary, store: store
+    end
+  end
 
   let(:params) do
     {
@@ -176,6 +181,70 @@ describe StoreService::QueryByLocation do
 
       expect(res.length).to eq(2)
       expect(res).to eq([stores[0], stores[3]])
+    end
+  end
+
+  context 'when #recommend exist' do
+    before do
+      store_summaries[2].update!(recommend_yes: 2)
+      store_summaries[3].update!(recommend_yes: 4)
+
+      params[:recommend] = 'yes'
+    end
+
+    it 'query yes stores' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res).to eq([stores[3], stores[2]])
+    end
+  end
+
+  context 'when #room_volume exist' do
+    before do
+      store_summaries[0].update!(room_volume_loud: 2)
+      store_summaries[3].update!(room_volume_loud: 4)
+
+      params[:room_volume] = 'loud'
+    end
+
+    it 'query yes stores' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res).to eq([stores[0], stores[3]])
+    end
+  end
+
+  context 'when #time_limit exist' do
+    before do
+      store_summaries[1].update!(time_limit_weekend: 2)
+      store_summaries[2].update!(time_limit_weekend: 4)
+      store_summaries[3].update!(time_limit_weekend: 4)
+
+      params[:time_limit] = 'weekend'
+    end
+
+    it 'query weekend stores' do
+      res = service.perform
+
+      expect(res.length).to eq(3)
+      expect(res).to eq([stores[3], stores[1], stores[2]])
+    end
+  end
+
+  context 'when #socket_supply exist' do
+    before do
+      store_summaries[1].update!(socket_supply_yes: 2)
+
+      params[:socket_supply] = 'yes'
+    end
+
+    it 'query weekend stores' do
+      res = service.perform
+
+      expect(res.length).to eq(1)
+      expect(res).to eq([stores[1]])
     end
   end
 end

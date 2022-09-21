@@ -2,7 +2,8 @@ class StoreService::QueryByLocation < Service
   DEFAULT_LIMIT = 60
   VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil)
+  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil,
+                recommend: nil, room_volume: nil, time_limit: nil, socket_supply: nil)
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -13,6 +14,10 @@ class StoreService::QueryByLocation < Service
     @open_hour = open_hour
     @mode = mode
     @wake_up = wake_up
+    @recommend = recommend
+    @room_volume = room_volume
+    @time_limit = time_limit
+    @socket_supply = socket_supply
   end
 
   def perform
@@ -32,13 +37,18 @@ class StoreService::QueryByLocation < Service
       open_week: @open_week,
       open_hour: @open_hour,
       hidden_stores: hidden_stores,
-      wake_up: @wake_up
+      wake_up: @wake_up,
+      recommend: @recommend,
+      room_volume: @room_volume,
+      time_limit: @time_limit,
+      socket_supply: @socket_supply,
     )
 
     sql = <<-SQL
       SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
       LEFT JOIN opening_hours ON stores.id = opening_hours.store_id
+      LEFT JOIN store_summaries ON stores.id = store_summaries.store_id
       #{where_sql}
       ORDER BY distance
       LIMIT :limit
@@ -54,7 +64,7 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, hidden_stores:, wake_up:)
+  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, hidden_stores:, wake_up: ,recommend: ,room_volume: ,time_limit: ,socket_supply:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
@@ -91,7 +101,27 @@ class StoreService::QueryByLocation < Service
       sql += " AND stores.wake_up = true"
     end
 
+    if recommend.present?
+      sql += build_summary_sql('recommend', recommend, ['yes', 'normal', 'no'])
+    end
+    if room_volume.present?
+      sql += build_summary_sql('room_volume', room_volume, ['quite', 'normal', 'loud'])
+    end
+    if time_limit.present?
+      sql += build_summary_sql('time_limit', time_limit, ['no', 'weekend', 'yes'])
+    end
+    if socket_supply.present?
+      sql += build_summary_sql('socket_supply', socket_supply, ['yes', 'rare', 'no'])
+    end
+
     sql
+  end
+
+  def build_summary_sql(field_prefix, primary_field, options)
+    rest_fields = options - [primary_field]
+    rest_fields.map do |rest_field|
+      " AND store_summaries.#{field_prefix}_#{primary_field} > store_summaries.#{field_prefix}_#{rest_field}"
+    end.join(" ")
   end
 
   def should_use_address_mode?(mode, keyword)
