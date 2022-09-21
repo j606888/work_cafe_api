@@ -68,9 +68,9 @@ describe StoreService::QueryByLocation do
   context 'when keyword provide' do
     it "search for keyword stores" do
       params[:keyword] = stores[0].name
-      
+
       res = service.perform
-      
+
       expect(res).to eq([stores[0]])
     end
   end
@@ -160,6 +160,22 @@ describe StoreService::QueryByLocation do
 
       expect(res.length).to eq(2)
       expect(res.map(&:id)).to eq([stores[3].id, stores[1].id])
+    end
+  end
+
+  context 'when #wake_up is true' do
+    before do
+      stores[0].update!(wake_up: true)
+      stores[3].update!(wake_up: true)
+
+      params[:wake_up] = true
+    end
+
+    it 'query wake_up stores' do
+      res = service.perform
+
+      expect(res.length).to eq(2)
+      expect(res).to eq([stores[0], stores[3]])
     end
   end
 end

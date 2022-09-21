@@ -2,7 +2,7 @@ class StoreService::QueryByLocation < Service
   DEFAULT_LIMIT = 60
   VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal')
+  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil)
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -12,6 +12,7 @@ class StoreService::QueryByLocation < Service
     @open_week = open_week
     @open_hour = open_hour
     @mode = mode
+    @wake_up = wake_up
   end
 
   def perform
@@ -30,7 +31,8 @@ class StoreService::QueryByLocation < Service
       open_type: @open_type,
       open_week: @open_week,
       open_hour: @open_hour,
-      hidden_stores: hidden_stores
+      hidden_stores: hidden_stores,
+      wake_up: @wake_up
     )
 
     sql = <<-SQL
@@ -52,7 +54,7 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, hidden_stores:)
+  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, hidden_stores:, wake_up:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
@@ -72,7 +74,7 @@ class StoreService::QueryByLocation < Service
 
     if open_type == 'OPEN_AT'
       sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
-      
+
       if open_hour.present?
         open_time = open_hour < 10 ? "0#{open_hour}00" : "#{open_hour}00"
         sql += " AND open_time < '#{open_time}' and close_time > '#{open_time}'"
@@ -83,6 +85,10 @@ class StoreService::QueryByLocation < Service
       hidden_store_ids = hidden_stores.map(&:id)
 
       sql += " AND stores.id NOT IN (#{hidden_store_ids.join(",")})"
+    end
+
+    if wake_up.present?
+      sql += " AND stores.wake_up = true"
     end
 
     sql

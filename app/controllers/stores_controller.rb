@@ -25,6 +25,7 @@ class StoresController < ApplicationController
       open_type: params[:open_type],
       open_week: helpers.to_integer(params[:open_week]),
       open_hour: helpers.to_integer(params[:open_hour]),
+      wake_up: helpers.to_boolean(params[:wake_up])
     }.compact)
 
     open_now_map = OpeningHourService::IsOpenNowMap.call(
@@ -126,7 +127,7 @@ class StoresController < ApplicationController
     bookmark = BookmarkService::QueryOne.call(
       user_id: current_user.id,
       bookmark_random_key: params.require(:bookmark_random_key)
-    ) 
+    )
     BookmarkStoreService::Create.call(
       store_id: store.id,
       bookmark_id: bookmark.id
@@ -142,7 +143,7 @@ class StoresController < ApplicationController
     bookmark = BookmarkService::QueryOne.call(
       user_id: current_user.id,
       bookmark_random_key: params.require(:bookmark_random_key)
-    ) 
+    )
     BookmarkStoreService::Delete.call(
       store_id: store.id,
       bookmark_id: bookmark.id
