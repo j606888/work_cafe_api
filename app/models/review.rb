@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
   VALID_RECOMMENDS = ['yes', 'normal', 'no']
-  VALID_ROOM_VOLUMES = ['quite', 'normal', 'loud']
+  VALID_ROOM_VOLUMES = ['quiet', 'normal', 'loud']
   VALID_TIME_LIMITS = ['yes', 'weekend', 'no']
   VALID_SOCKET_SUPPLIES = ['yes', 'rare', 'no']
 

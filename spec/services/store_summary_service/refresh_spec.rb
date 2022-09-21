@@ -24,7 +24,7 @@ describe StoreSummaryService::Refresh do
     create_review('yes', 'loud', 'yes', 'rare')
     create_review('no', 'loud', 'no', 'yes')
     create_review('no', 'normal', 'weekend', 'no')
-    create_review('normal', 'quite', 'weekend', 'yes')
+    create_review('normal', 'quiet', 'weekend', 'yes')
   end
 
   it 'takes required attributes to initialize' do
@@ -40,7 +40,7 @@ describe StoreSummaryService::Refresh do
       "recommend_yes" => 2,
       "recommend_normal" => 1,
       "recommend_no" => 2,
-      "room_volume_quite" => 1,
+      "room_volume_quiet" => 1,
       "room_volume_normal" => 1,
       "room_volume_loud" => 3,
       "time_limit_no" => 1,

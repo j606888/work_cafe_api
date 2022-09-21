@@ -39,7 +39,7 @@ describe StoreService::ReviewReport do
         yes: 3
       },
       room_volume: {
-        quite: 0,
+        quiet: 0,
         normal: 0,
         loud: 3
       },

@@ -139,7 +139,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_132945) do
     t.integer "recommend_yes", default: 0
     t.integer "recommend_normal", default: 0
     t.integer "recommend_no", default: 0
-    t.integer "room_volume_quite", default: 0
+    t.integer "room_volume_quiet", default: 0
     t.integer "room_volume_normal", default: 0
     t.integer "room_volume_loud", default: 0
     t.integer "time_limit_no", default: 0

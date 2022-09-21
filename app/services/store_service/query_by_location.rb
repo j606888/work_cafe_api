@@ -105,7 +105,7 @@ class StoreService::QueryByLocation < Service
       sql += build_summary_sql('recommend', recommend, ['yes', 'normal', 'no'])
     end
     if room_volume.present?
-      sql += build_summary_sql('room_volume', room_volume, ['quite', 'normal', 'loud'])
+      sql += build_summary_sql('room_volume', room_volume, ['quiet', 'normal', 'loud'])
     end
     if time_limit.present?
       sql += build_summary_sql('time_limit', time_limit, ['no', 'weekend', 'yes'])

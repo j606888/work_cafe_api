@@ -8,7 +8,7 @@ describe ReviewService::FindOrCreate do
       user_id: user.id,
       store_id: store.id,
       recommend: 'yes',
-      room_volume: 'quite',
+      room_volume: 'quiet',
       time_limit: 'no',
       socket_supply: 'yes',
       description: 'Have cute cate'
@@ -30,7 +30,7 @@ describe ReviewService::FindOrCreate do
     expect(review.user).to eq(user)
     expect(review.store).to eq(store)
     expect(review.recommend).to eq('yes')
-    expect(review.room_volume).to eq('quite')
+    expect(review.room_volume).to eq('quiet')
     expect(review.time_limit).to eq('no')
     expect(review.socket_supply).to eq('yes')
     expect(review.description).to eq('Have cute cate')
@@ -58,7 +58,7 @@ describe ReviewService::FindOrCreate do
       expect(Review.count).to eq(1)
       review.reload
       expect(review.recommend).to eq('yes')
-      expect(review.room_volume).to eq('quite')
+      expect(review.room_volume).to eq('quiet')
     end
   end
 end

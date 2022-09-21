@@ -33,7 +33,7 @@ class StoreSummaryService::Refresh < Service
       recommend_yes: 0,
       recommend_normal: 0,
       recommend_no: 0,
-      room_volume_quite: 0,
+      room_volume_quiet: 0,
       room_volume_normal: 0,
       room_volume_loud: 0,
       time_limit_no: 0,
