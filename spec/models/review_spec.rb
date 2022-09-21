@@ -17,4 +17,18 @@ RSpec.describe Review, type: :model do
 
     expect(invalid).not_to be_valid
   end
+
+  it "refresh store_summary after commit" do
+    store = create :store
+    create :review, {
+      store: store,
+      recommend: 'yes',
+      time_limit: 'no'
+    }
+    store_summary = store.store_summary
+    expect(store_summary.recommend_yes).to eq(1)
+    expect(store_summary.recommend_no).to eq(0)
+    expect(store_summary.time_limit_yes).to eq(0)
+    expect(store_summary.time_limit_no).to eq(1)
+  end
 end

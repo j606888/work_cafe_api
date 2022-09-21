@@ -12,4 +12,12 @@ class Review < ApplicationRecord
   validates :time_limit, inclusion: { in: VALID_TIME_LIMITS }, allow_nil: true
   validates :socket_supply, inclusion: { in: VALID_SOCKET_SUPPLIES }, allow_nil: true
   validates :user_id, uniqueness: { scope: :store_id }
+
+  after_commit :refresh_store_summary
+
+  private
+
+  def refresh_store_summary
+    StoreSummaryService::Refresh.call(store_id: store_id)
+  end
 end
