@@ -6,6 +6,7 @@ class Store < ApplicationRecord
   has_many :bookmark_stores
   has_many :reviews
   has_one :store_source, dependent: :destroy
+  has_one :store_summary, dependent: :destroy
 
   validates :name, :url, presence: true
 

@@ -12,6 +12,7 @@ class StoreService::Create < Service
     ActiveRecord::Base.transaction do
       store = create_store!(detail)
       create_store_source!(store, detail)
+      create_store_summary(store)
       OpeningHourService::Create.call(store_id: store.id)
       StorePhotoService::CreateFromGoogle.call(store_id: store.id, limit: 1)
 
@@ -37,6 +38,12 @@ class StoreService::Create < Service
     StoreSource.create!(
       store: store,
       source_data: detail.data
+    )
+  end
+
+  def create_store_summary(store)
+    StoreSummary.create!(
+      store: store
     )
   end
 

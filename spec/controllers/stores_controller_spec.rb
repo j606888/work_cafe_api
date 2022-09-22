@@ -37,7 +37,8 @@ RSpec.describe StoresController, type: :controller do
         limit: 5,
         open_type: 'open_at',
         open_week: 6,
-        open_hour: 15
+        open_hour: 15,
+        wake_up: true
       }
     end
 
@@ -62,6 +63,7 @@ RSpec.describe StoresController, type: :controller do
           open_type: params[:open_type],
           open_week: params[:open_week],
           open_hour: params[:open_hour],
+          wake_up: params[:wake_up]
         )
       expect(OpeningHourService::IsOpenNowMap).to have_received(:call)
         .with(store_ids: stores.map(&:id))
