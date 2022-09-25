@@ -11,10 +11,11 @@ class Admin::MapCrawlersController < Admin::ApplicationController
   end
 
   def index
-    map_crawlers = MapCrawlerService::Query.call(
+    map_crawlers = MapCrawlerService::Query.call(**{
       lat: params.require(:lat).to_f,
-      lng: params.require(:lng).to_f
-    )
+      lng: params.require(:lng).to_f,
+      limit: helpers.to_integer(params[:limit])
+    }.compact)
 
     render json: map_crawlers
   end

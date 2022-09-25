@@ -29,7 +29,8 @@ class StoresController < ApplicationController
       recommend: params[:recommend],
       room_volume: params[:room_volume],
       time_limit: params[:time_limit],
-      socket_supply: params[:socket_supply]
+      socket_supply: params[:socket_supply],
+      explore_mode: helpers.to_boolean(params[:explore_mode])
     }.compact)
 
     open_now_map = OpeningHourService::IsOpenNowMap.call(
