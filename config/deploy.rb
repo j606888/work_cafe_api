@@ -13,6 +13,7 @@ set :deploy_to, -> { "/home/j606888/servers/#{fetch(:application)}" }
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
+set :rvm_ruby_version, '3.0.0@work_cafe_api'
 set :rvm_custom_path, "/usr/share/rvm"
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
