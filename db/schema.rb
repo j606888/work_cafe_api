@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_27_131511) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_01_112421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -66,6 +66,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_131511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_map_urls_on_user_id"
+  end
+
+  create_table "not_cafe_reports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_not_cafe_reports_on_store_id"
+    t.index ["user_id"], name: "index_not_cafe_reports_on_user_id"
   end
 
   create_table "opening_hours", force: :cascade do |t|
@@ -219,6 +228,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_131511) do
   add_foreign_key "bookmarks", "users"
   add_foreign_key "map_crawlers", "users"
   add_foreign_key "map_urls", "users"
+  add_foreign_key "not_cafe_reports", "stores"
+  add_foreign_key "not_cafe_reports", "users"
   add_foreign_key "opening_hours", "stores"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "reviews", "stores"
