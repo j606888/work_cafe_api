@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         get '/upload-link', action: :get_upload_link
       end
     end
+
+    resources :not_cafe_reports, path: 'not-cafe-reports', only: [:create]
   end
 
   resources :bookmarks, only: [:create, :index, :show, :destroy]
