@@ -1,9 +1,9 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :index, :me, :destroy]
+  before_action :authenticate_user!, only: [:index, :me, :destroy]
 
   def create
     ReviewService::FindOrCreate.call(**{
-      user_id: current_user.id,
+      user_id: current_user&.id,
       store_id: store.id,
       recommend: params.require(:recommend),
       room_volume: params[:room_volume],

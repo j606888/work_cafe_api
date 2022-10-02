@@ -61,4 +61,18 @@ describe ReviewService::FindOrCreate do
       expect(review.room_volume).to eq('quiet')
     end
   end
+
+  context 'when user_id is not provide' do
+    before do
+      params[:user_id] = nil
+    end
+
+    it "create a review with no user" do
+      service.perform
+
+      review = Review.last
+      expect(review.store).to eq(store)
+      expect(review.user_id).to eq(nil)
+    end
+  end
 end

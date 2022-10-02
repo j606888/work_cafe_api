@@ -4,7 +4,7 @@ class Review < ApplicationRecord
   VALID_TIME_LIMITS = ['yes', 'weekend', 'no']
   VALID_SOCKET_SUPPLIES = ['yes', 'rare', 'no']
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :store
 
   validates :recommend, presence: true, inclusion: { in: VALID_RECOMMENDS }
