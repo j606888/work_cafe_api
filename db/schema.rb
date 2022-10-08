@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_08_094518) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_08_172629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -154,25 +154,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_08_094518) do
     t.index ["store_id"], name: "index_store_sources_on_store_id"
   end
 
-  create_table "store_summaries", force: :cascade do |t|
-    t.bigint "store_id", null: false
-    t.integer "recommend_yes", default: 0
-    t.integer "recommend_normal", default: 0
-    t.integer "recommend_no", default: 0
-    t.integer "room_volume_quiet", default: 0
-    t.integer "room_volume_normal", default: 0
-    t.integer "room_volume_loud", default: 0
-    t.integer "time_limit_no", default: 0
-    t.integer "time_limit_weekend", default: 0
-    t.integer "time_limit_yes", default: 0
-    t.integer "socket_supply_no", default: 0
-    t.integer "socket_supply_rare", default: 0
-    t.integer "socket_supply_yes", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_store_summaries_on_store_id"
-  end
-
   create_table "stores", force: :cascade do |t|
     t.string "place_id", null: false
     t.string "name", null: false
@@ -262,7 +243,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_08_094518) do
   add_foreign_key "store_review_tags", "stores"
   add_foreign_key "store_review_tags", "tags"
   add_foreign_key "store_sources", "stores"
-  add_foreign_key "store_summaries", "stores"
   add_foreign_key "third_party_logins", "users"
   add_foreign_key "user_hidden_stores", "stores"
   add_foreign_key "user_hidden_stores", "users"

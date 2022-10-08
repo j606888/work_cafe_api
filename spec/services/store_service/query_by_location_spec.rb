@@ -20,11 +20,6 @@ describe StoreService::QueryByLocation do
       create :store, lat: location.first, lng: location.last
     end
   end
-  let!(:store_summaries) do
-    stores.map do |store|
-      create :store_summary, store: store
-    end
-  end
 
   let(:params) do
     {
