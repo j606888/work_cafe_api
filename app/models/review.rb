@@ -6,6 +6,7 @@ class Review < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :store
+  has_many :store_review_tags
 
   validates :recommend, presence: true, inclusion: { in: VALID_RECOMMENDS }
   validates :room_volume, inclusion: { in: VALID_ROOM_VOLUMES }, allow_nil: true

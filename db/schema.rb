@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_035608) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_08_094518) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -135,6 +135,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_035608) do
     t.index ["user_id"], name: "index_store_photos_on_user_id"
   end
 
+  create_table "store_review_tags", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.bigint "review_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_store_review_tags_on_review_id"
+    t.index ["store_id"], name: "index_store_review_tags_on_store_id"
+    t.index ["tag_id"], name: "index_store_review_tags_on_tag_id"
+  end
+
   create_table "store_sources", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.jsonb "source_data", default: {}, null: false
@@ -189,6 +200,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_035608) do
     t.index ["rating"], name: "index_stores_on_rating"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "primary", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "third_party_logins", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "email", null: false
@@ -239,6 +258,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_035608) do
   add_foreign_key "store_photos", "store_photo_groups"
   add_foreign_key "store_photos", "stores"
   add_foreign_key "store_photos", "users"
+  add_foreign_key "store_review_tags", "reviews"
+  add_foreign_key "store_review_tags", "stores"
+  add_foreign_key "store_review_tags", "tags"
   add_foreign_key "store_sources", "stores"
   add_foreign_key "store_summaries", "stores"
   add_foreign_key "third_party_logins", "users"
