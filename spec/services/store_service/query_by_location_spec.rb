@@ -151,23 +151,6 @@ describe StoreService::QueryByLocation do
     end
   end
 
-  context 'when #user_id exist' do
-    let!(:user) { create :user }
-
-    before do
-      create :user_hidden_store, user: user, store: stores[0]
-      create :user_hidden_store, user: user, store: stores[2]
-      params[:user_id] = user.id
-    end
-
-    it 'filter out hidden stores' do
-      res = service.perform
-
-      expect(res.length).to eq(2)
-      expect(res.map(&:id)).to eq([stores[3].id, stores[1].id])
-    end
-  end
-
   context 'when #wake_up is true' do
     before do
       stores[0].update!(wake_up: true)
@@ -181,22 +164,6 @@ describe StoreService::QueryByLocation do
 
       expect(res.length).to eq(2)
       expect(res).to eq([stores[0], stores[3]])
-    end
-  end
-
-  context 'when #recommend exist' do
-    before do
-      store_summaries[2].update!(recommend_yes: 2)
-      store_summaries[3].update!(recommend_yes: 4)
-
-      params[:recommend] = 'yes'
-    end
-
-    it 'query yes stores' do
-      res = service.perform
-
-      expect(res.length).to eq(2)
-      expect(res).to eq([stores[3], stores[2]])
     end
   end
 end

@@ -26,7 +26,7 @@ class StoresController < ApplicationController
       open_week: helpers.to_integer(params[:open_week]),
       open_hour: helpers.to_integer(params[:open_hour]),
       wake_up: helpers.to_boolean(params[:wake_up]),
-      recommend: params[:recommend]
+      tag_ids: params[:tag_ids]
     }.compact)
 
     open_now_map = OpeningHourService::IsOpenNowMap.call(

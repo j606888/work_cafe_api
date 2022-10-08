@@ -3,7 +3,7 @@ class StoreService::QueryByLocation < Service
   VALID_MODES = ['normal', 'address']
 
   def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil,
-                recommend: nil)
+                tag_ids: [])
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -14,7 +14,7 @@ class StoreService::QueryByLocation < Service
     @open_hour = open_hour
     @mode = mode
     @wake_up = wake_up
-    @recommend = recommend
+    @tag_ids = tag_ids
   end
 
   def perform
@@ -23,10 +23,34 @@ class StoreService::QueryByLocation < Service
     validate_inclusion!(OpeningHour::VALID_OPEN_WEEKS, @open_week, allow_nil: true)
     validate_inclusion!(OpeningHour::VALID_OPEN_HOURS, @open_hour, allow_nil: true)
 
-    hidden_store_ids = []
-    if @user_id.present?
-      hidden_stores = UserHiddenStoreService::QueryStores.call(user_id: @user_id)
-      hidden_store_ids += hidden_stores.map(&:id)
+    with_tagged_stores = {}
+    if @tag_ids.present?
+      with_tagged_stores[:with] = <<-SQL
+        WITH tag_stores AS (
+          WITH tag_id_stores AS (
+            SELECT
+              store_id, tag_id
+            FROM
+              store_review_tags
+            WHERE
+              tag_id in (#{@tag_ids.map(&:to_i).join(',')})
+            GROUP BY
+              store_id, tag_id
+            HAVING
+              count(*) >= 1
+          )
+          SELECT
+            store_id AS store_id
+          FROM
+            tag_id_stores
+          GROUP BY
+            store_id
+          HAVING
+            count(*) >= #{@tag_ids.count}
+        )
+      SQL
+
+      with_tagged_stores[:join] = "RIGHT JOIN tag_stores ON stores.id = tag_stores.store_id"
     end
 
     where_sql = build_where_sql(
@@ -35,16 +59,15 @@ class StoreService::QueryByLocation < Service
       open_type: @open_type,
       open_week: @open_week,
       open_hour: @open_hour,
-      hidden_store_ids: hidden_store_ids,
-      wake_up: @wake_up,
-      recommend: @recommend
+      wake_up: @wake_up
     )
 
     sql = <<-SQL
+      #{with_tagged_stores[:with]}
       SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
+      #{with_tagged_stores[:join]}
       LEFT JOIN opening_hours ON stores.id = opening_hours.store_id
-      LEFT JOIN store_summaries ON stores.id = store_summaries.store_id
       #{where_sql}
       ORDER BY distance
       LIMIT :limit
@@ -60,7 +83,7 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, hidden_store_ids:, wake_up: ,recommend:)
+  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, wake_up:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
@@ -87,26 +110,11 @@ class StoreService::QueryByLocation < Service
       end
     end
 
-    if hidden_store_ids.present?
-      sql += " AND stores.id NOT IN (#{hidden_store_ids.join(",")})"
-    end
-
     if wake_up.present?
       sql += " AND stores.wake_up = true"
     end
 
-    if recommend.present?
-      sql += build_summary_sql('recommend', recommend, ['yes', 'normal', 'no'])
-    end
-
     sql
-  end
-
-  def build_summary_sql(field_prefix, primary_field, options)
-    rest_fields = options - [primary_field]
-    rest_fields.map do |rest_field|
-      " AND store_summaries.#{field_prefix}_#{primary_field} > store_summaries.#{field_prefix}_#{rest_field}"
-    end.join(" ")
   end
 
   def should_use_address_mode?(mode, keyword)
