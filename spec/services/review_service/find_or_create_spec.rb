@@ -75,4 +75,22 @@ describe ReviewService::FindOrCreate do
       expect(review.user_id).to eq(nil)
     end
   end
+
+  context 'when tag_ids is provide' do
+    let!(:tags) { create_list :tag, 3 }
+
+    before do
+      params[:tag_ids] = tags.map(&:id)
+    end
+
+    it "create store_review_tags" do
+      expect { service.perform }.to change { StoreReviewTag.count}.by(3)
+      review = Review.last
+      StoreReviewTag.all.each_with_index do |store_review_tag, index|
+        expect(store_review_tag.store_id).to eq(store.id)
+        expect(store_review_tag.tag_id).to eq(tags[index].id)
+        expect(store_review_tag.review_id).to eq(review.id)
+      end
+    end
+  end
 end

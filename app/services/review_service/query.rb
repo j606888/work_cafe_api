@@ -15,7 +15,7 @@ class ReviewService::Query < Service
     reviews = Review.page(@page).per(@per).order(created_at: :desc)
 
     if @store_id.present?
-      reviews = reviews.includes(:user).where(store_id: @store_id)
+      reviews = reviews.includes(:user, :tags).where(store_id: @store_id)
     end
 
     if @user_id.present?
