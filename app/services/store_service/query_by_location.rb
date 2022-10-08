@@ -28,46 +28,63 @@ class StoreService::QueryByLocation < Service
       with_tagged_stores[:with] = <<-SQL
         WITH tag_stores AS (
           WITH tag_id_stores AS (
-            SELECT
-              store_id, tag_id
-            FROM
-              store_review_tags
-            WHERE
-              tag_id in (#{@tag_ids.map(&:to_i).join(',')})
-            GROUP BY
-              store_id, tag_id
-            HAVING
-              count(*) >= 1
+            SELECT store_id, tag_id
+            FROM store_review_tags
+            WHERE tag_id in (#{@tag_ids.map(&:to_i).join(',')})
+            GROUP BY store_id, tag_id
+            HAVING count(*) >= 1
           )
-          SELECT
-            store_id AS store_id
-          FROM
-            tag_id_stores
-          GROUP BY
-            store_id
-          HAVING
-            count(*) >= #{@tag_ids.count}
+          SELECT store_id AS store_id
+          FROM tag_id_stores
+          GROUP BY store_id
+          HAVING count(*) >= #{@tag_ids.count}
         )
       SQL
 
       with_tagged_stores[:join] = "RIGHT JOIN tag_stores ON stores.id = tag_stores.store_id"
     end
 
+    with_open_stores = {}
+    if @open_type != 'NONE'
+      if @open_type == 'OPEN_NOW'
+        now = Time.now.in_time_zone('Taipei')
+        @open_week = now.wday
+        open_time = now.strftime("%H%M")
+      else
+        if @open_hour
+          open_time = @open_hour < 10 ? "0#{@open_hour}00" : "#{@open_hour}00"
+        end
+      end
+
+      if open_time.present?
+        and_sql = " AND open_time < '#{open_time}' AND close_time > '#{open_time}'"
+      end
+
+      prefix = @tag_ids.present? ? ", " : "WITH "
+      with_open_stores[:with] = <<-SQL
+        #{prefix} open_stores AS (
+          SELECT store_id
+          FROM opening_hours
+          WHERE open_day = #{@open_week.to_i}
+          #{and_sql}
+        )
+      SQL
+      with_open_stores[:join] = "RIGHT JOIN open_stores ON stores.id = open_stores.store_id"
+    end
+
     where_sql = build_where_sql(
       mode: @mode,
       keyword: @keyword,
-      open_type: @open_type,
-      open_week: @open_week,
-      open_hour: @open_hour,
       wake_up: @wake_up
     )
 
     sql = <<-SQL
       #{with_tagged_stores[:with]}
+      #{with_open_stores[:with]}
       SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
       #{with_tagged_stores[:join]}
-      LEFT JOIN opening_hours ON stores.id = opening_hours.store_id
+      #{with_open_stores[:join]}
       #{where_sql}
       ORDER BY distance
       LIMIT :limit
@@ -83,30 +100,13 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:, open_type:, open_week:, open_hour:, wake_up:)
+  def build_where_sql(mode:, keyword:, wake_up:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
         sql += " AND (city ILIKE '#{keyword.downcase}' OR district ILIKE '#{keyword.downcase}')"
       else
         sql += " AND name ILIKE '%#{keyword.downcase}%'"
-      end
-    end
-
-    if open_type == 'OPEN_NOW'
-      now = Time.now.in_time_zone('Taipei')
-      open_week = now.wday
-      cur_time = now.strftime("%H%M")
-
-      sql += " AND open_day = #{open_week} AND close_day = #{open_week} and open_time <= '#{cur_time}' and close_time >='#{cur_time}'"
-    end
-
-    if open_type == 'OPEN_AT'
-      sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
-
-      if open_hour.present?
-        open_time = open_hour < 10 ? "0#{open_hour}00" : "#{open_hour}00"
-        sql += " AND open_time < '#{open_time}' and close_time > '#{open_time}'"
       end
     end
 
