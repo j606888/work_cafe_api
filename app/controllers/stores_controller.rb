@@ -115,7 +115,7 @@ class StoresController < ApplicationController
       store_ids: stores.map(&:id)
     )
 
-    render 'location', locals: { stores: stores, open_now_map: open_now_map }
+    render 'location', locals: { stores: stores, open_now_map: open_now_map,  photos_map: {} }
   end
 
   def bookmarks
