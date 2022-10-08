@@ -19,7 +19,7 @@ RSpec.describe "Reviews", type: :request do
       post "/stores/#{store_id}/reviews", params: params, headers: stub_auth(user)
 
       expect(response.status).to eq(200)
-      
+
       review = Review.last
       expect(review.user).to eq(user)
       expect(review.store).to eq(store)
@@ -34,9 +34,15 @@ RSpec.describe "Reviews", type: :request do
   describe 'GET /stores/:store_id/reviews' do
     let!(:users) { create_list :user, 5 }
     let!(:store) { create :store }
+    let!(:tags) { create_list :tag, 3, primary: true }
     let!(:reviews) do
       users.map do |user|
-        create :review, store: store, user: user
+        review = create :review, store: store, user: user
+        tags.each do |tag|
+          create :store_review_tag, store: store, review: review, tag: tag
+        end
+
+        review
       end
     end
     let(:store_id) { store.place_id }
@@ -48,6 +54,10 @@ RSpec.describe "Reviews", type: :request do
 
       res_hash = JSON.parse(response.body)
       expect(res_hash['reviews'].length).to eq(5)
+      res_hash['reviews'].each do |review|
+        expect(review['primary_tags']).to eq(tags.map(&:name))
+        expect(review['secondary_tags']).to eq([])
+      end
     end
   end
 

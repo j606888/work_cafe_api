@@ -26,11 +26,7 @@ class StoresController < ApplicationController
       open_week: helpers.to_integer(params[:open_week]),
       open_hour: helpers.to_integer(params[:open_hour]),
       wake_up: helpers.to_boolean(params[:wake_up]),
-      recommend: params[:recommend],
-      room_volume: params[:room_volume],
-      time_limit: params[:time_limit],
-      socket_supply: params[:socket_supply],
-      explore_mode: helpers.to_boolean(params[:explore_mode])
+      tag_ids: params[:tag_ids]
     }.compact)
 
     open_now_map = OpeningHourService::IsOpenNowMap.call(
@@ -115,7 +111,7 @@ class StoresController < ApplicationController
       store_ids: stores.map(&:id)
     )
 
-    render 'location', locals: { stores: stores, open_now_map: open_now_map }
+    render 'location', locals: { stores: stores, open_now_map: open_now_map,  photos_map: {} }
   end
 
   def bookmarks

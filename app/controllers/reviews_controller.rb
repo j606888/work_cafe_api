@@ -9,7 +9,8 @@ class ReviewsController < ApplicationController
       room_volume: params[:room_volume],
       time_limit: params[:time_limit],
       socket_supply: params[:socket_supply],
-      description: params[:description]
+      description: params[:description],
+      tag_ids: params[:tag_ids]
     }.compact)
 
     head :ok

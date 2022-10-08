@@ -25,7 +25,7 @@ class StoreService::BuildSearchHint < Service
       open_week: @open_week,
       open_hour: @open_hour
     }.compact)
-    
+
     city = query_group('city', @keyword, @open_type, @open_week, @open_hour)
     answer += format_group('city', city)
 
