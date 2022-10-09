@@ -27,10 +27,10 @@ class StoreService::BuildSearchHint < Service
     }.compact)
 
     city = query_group('city', @keyword, @open_type, @open_week, @open_hour)
-    answer += format_group('city', city)
+    answer += format_city(city)
 
     district = query_group('district', @keyword, @open_type, @open_week, @open_hour)
-    answer += format_group('district', district)
+    answer += format_district(district)
 
     answer += format_stores(stores)
     answer.take(5)
@@ -44,11 +44,11 @@ class StoreService::BuildSearchHint < Service
     end
   end
 
-  def query_group(field, keyword, open_type, open_week, open_hour)
-    # sql = Store.where("#{field} ilike '%#{keyword}%'").order(count: :desc)
+  
 
+  def query_group(field, keyword, open_type, open_week, open_hour)
     sql = "#{field} ilike '%#{keyword}%' AND hidden = false"
-    
+
     if open_type == 'NONE'
     elsif open_type == 'OPEN_NOW'
       now = Time.now.in_time_zone('Taipei')
@@ -67,12 +67,22 @@ class StoreService::BuildSearchHint < Service
       end
     end
 
-    Store.left_joins(:opening_hours).where(sql).group(field).order(count: :desc).count
+    if field == 'district'
+      Store.left_joins(:opening_hours).where(sql).group('city', field).order(count: :desc).count
+    else
+      Store.left_joins(:opening_hours).where(sql).group(field).order(count: :desc).count
+    end
   end
 
-  def format_group(field, result)
+  def format_city(result)
     result.map do |keyword, count|
-      SearchResult.new(field, keyword, nil, nil, count)
+      SearchResult.new('city', keyword, nil, nil, count)
+    end
+  end
+
+  def format_district(result)
+    result.map do |(city, district), count|
+      SearchResult.new('district', district, city, nil, count)
     end
   end
 end

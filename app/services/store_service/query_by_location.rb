@@ -104,7 +104,13 @@ class StoreService::QueryByLocation < Service
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
-        sql += " AND (city ILIKE '#{keyword.downcase}' OR district ILIKE '#{keyword.downcase}')"
+        sql += <<-SQL
+          AND (
+            city ILIKE '#{keyword.downcase}'
+            OR district ILIKE '#{keyword.downcase}'
+            OR address ILIKE '%#{keyword.downcase}%'
+          )
+        SQL
       else
         sql += " AND name ILIKE '%#{keyword.downcase}%'"
       end
@@ -118,9 +124,13 @@ class StoreService::QueryByLocation < Service
   end
 
   def should_use_address_mode?(mode, keyword)
-    return false if @mode != 'address'
+    return false if mode != 'address'
     return true if Store::CITY_LIST.include?(keyword)
     return true if Store.pluck(:district).uniq.include?(keyword)
+    Store::CITY_LIST.each do |city|
+      return true if keyword.include?(city)
+    end
+
     false
   end
 end
