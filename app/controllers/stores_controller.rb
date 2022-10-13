@@ -29,17 +29,29 @@ class StoresController < ApplicationController
       tag_ids: params[:tag_ids]
     }.compact)
 
+    store_ids = stores.map(&:id)
+
     open_now_map = OpeningHourService::IsOpenNowMap.call(
-      store_ids: stores.map(&:id)
+      store_ids: store_ids
     )
     photos_map = StorePhotoService::QueryByStores.call(
-      store_ids: stores.map(&:id)
+      store_ids: store_ids
     )
+    tag_map = TagService::BuildStoreTagMap.call(
+      store_ids: store_ids
+    )
+    recommend_count_map = Review.where(
+      store_id: store_ids,
+      recommend: 'yes'
+    ).group(:store_id)
+      .count
 
     render 'location', locals: {
       stores: stores,
       open_now_map: open_now_map,
-      photos_map: photos_map
+      photos_map: photos_map,
+      tag_map: tag_map,
+      recommend_count_map: recommend_count_map
     }
   end
 
