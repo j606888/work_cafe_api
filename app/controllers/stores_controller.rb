@@ -78,6 +78,7 @@ class StoresController < ApplicationController
       user: current_user,
       store: store
     )
+    tag_map = TagService::BuildStoreTagMap.call(store_ids: [store.id])
 
     render 'show', locals: {
       store: store,
@@ -87,7 +88,8 @@ class StoresController < ApplicationController
       reviews: reviews,
       is_hide: is_hide,
       is_review: is_review,
-      review_report: review_report
+      review_report: review_report,
+      tags: tag_map[store.id] || []
     }
   end
 
