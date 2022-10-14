@@ -31,14 +31,14 @@ describe StoreService::IsOpenNow do
   it 'return false by default' do
     res = service.perform
 
-    expect(res).to be(false)
+    expect(res).to be(nil)
   end
 
   it 'return true if in period' do
-    create_opening_hours(6, '1450', '1510')
+    op = create_opening_hours(6, '1450', '1510')
 
     res = service.perform
 
-    expect(res).to be(true)
+    expect(res.id).to be(op.id)
   end
 end

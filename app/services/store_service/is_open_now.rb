@@ -12,8 +12,7 @@ class StoreService::IsOpenNow < Service
     weekday = current_time.strftime("%w").to_i
     hour_time = current_time.strftime("%H%M").to_i
 
-    opening_hours = store.opening_hours
-    opening_hours.any? do |opening_hour|
+    store.opening_hours.find do |opening_hour|
       weekday_match?(opening_hour, weekday) && in_period?(opening_hour, hour_time)
     end
   end

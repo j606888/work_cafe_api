@@ -63,7 +63,7 @@ class StoresController < ApplicationController
     opening_hours = OpeningHourService::QueryByStore.call(
       store_id: store.id
     )
-    is_open_now = StoreService::IsOpenNow.call(
+    open_period = StoreService::IsOpenNow.call(
       store_id: store.id
     )
     review_report = StoreService::ReviewReport.call(
@@ -83,7 +83,7 @@ class StoresController < ApplicationController
     render 'show', locals: {
       store: store,
       opening_hours: opening_hours,
-      is_open_now: is_open_now,
+      open_period: open_period,
       store_photos: store_photos,
       reviews: reviews,
       is_hide: is_hide,
