@@ -47,13 +47,15 @@ class StoresController < ApplicationController
       recommend: 'yes'
     ).group(:store_id)
       .count
+    wake_up_map = Review.where(store_id: store_ids).pluck(:store_id).uniq.index_with(true)
 
     render 'location', locals: {
       stores: sorted_stores,
       open_now_map: open_now_map,
       photos_map: photos_map,
       tag_map: tag_map,
-      recommend_count_map: recommend_count_map
+      recommend_count_map: recommend_count_map,
+      wake_up_map: wake_up_map
     }
   end
 
