@@ -28,6 +28,7 @@ class StoresController < ApplicationController
       wake_up: helpers.to_boolean(params[:wake_up]),
       tag_ids: params[:tag_ids]
     }.compact)
+    sorted_stores = StoreService::SortedStores.call(stores: stores)
 
     store_ids = stores.map(&:id)
 
@@ -48,7 +49,7 @@ class StoresController < ApplicationController
       .count
 
     render 'location', locals: {
-      stores: stores,
+      stores: sorted_stores,
       open_now_map: open_now_map,
       photos_map: photos_map,
       tag_map: tag_map,
