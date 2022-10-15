@@ -1,7 +1,6 @@
 class StorePhoto < ApplicationRecord
   belongs_to :store
   belongs_to :user, optional: true
-  # belongs_to :store_photo_group, optional: true
   belongs_to :review, optional: true
 
   before_validation :create_random_key, on: :create

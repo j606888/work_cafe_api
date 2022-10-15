@@ -39,16 +39,16 @@ describe StoreService::BuildSearchHint do
 
     expect(res).to eq([])
   end
-  
+
   it 'match district' do
     params[:keyword] = "東"
 
     res = service.perform
 
     expect(res.length).to eq(1)
-    expect(res.last).to eq(described_class::SearchResult.new('district', '東區', nil, nil, 3))
+    expect(res.last).to eq(described_class::SearchResult.new('district', '東區', '台南市', nil, 3))
   end
-  
+
   it 'match city' do
     params[:keyword] = "台"
 

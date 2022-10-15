@@ -21,19 +21,6 @@ class StorePhotosController < ApplicationController
     head :ok
   end
 
-  def index
-    store_photo_groups = StorePhotoService::Query.call(**{
-      user_id: current_user.id,
-      per: params[:per],
-      page: params[:page]
-    }.compact)
-
-    render 'index', locals: {
-      store_photo_groups: store_photo_groups
-    }
-  end
-
-
   private
 
   def store

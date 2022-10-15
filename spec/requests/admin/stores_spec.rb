@@ -112,7 +112,6 @@ RSpec.describe "Stores", type: :request do
         {"label"=>"星期五", "periods"=>[]},
         {"label"=>"星期六", "periods"=>[]}
       ])
-      expect(res_hash['is_open_now']).to be(false)
       expect(res_hash['photos']).to eq(store_photos.map(&:image_url))
     end
   end

@@ -64,7 +64,7 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: [:create, :index, :show, :destroy]
   resources :reviews, only: [:index]
-  resources :store_photos, path: 'store-photos', only: [:index]
+  # resources :store_photos, path: 'store-photos', only: [:index]
   resources :tags, only: [:index]
 
   get 'hello', to: 'hello#index'
