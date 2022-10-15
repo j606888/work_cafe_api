@@ -15,10 +15,17 @@ RSpec.describe "StorePhotos", type: :request do
   describe "POST /stores/:store_id/store-photos" do
     let!(:user) { create :user }
     let!(:store) { create :store }
+    let!(:review) { create :review }
     let!(:url) { "https://s3.com/stores/#{store.place_id}/abc123.jpeg" }
+    let(:params) do
+      {
+        url: url,
+        review_id: review.id
+      }
+    end
 
     it "create store_photo" do
-      post "/stores/#{store.place_id}/store-photos", params: { url: url }, headers: stub_auth(user)
+      post "/stores/#{store.place_id}/store-photos", params: params, headers: stub_auth(user)
 
       expect(response.status).to eq(200)
       store_photo = StorePhoto.last
