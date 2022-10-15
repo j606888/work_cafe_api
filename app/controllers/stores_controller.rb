@@ -38,7 +38,8 @@ class StoresController < ApplicationController
       store_ids: store_ids
     )
     tag_map = TagService::BuildStoreTagMap.call(
-      store_ids: store_ids
+      store_ids: store_ids,
+      only_primary: true
     )
     recommend_count_map = Review.where(
       store_id: store_ids,

@@ -1,6 +1,7 @@
 class TagService::BuildStoreTagMap < Service
-  def initialize(store_ids:)
+  def initialize(store_ids:, only_primary: false)
     @store_ids = store_ids
+    @only_primary = only_primary
   end
 
   def perform
@@ -8,7 +9,13 @@ class TagService::BuildStoreTagMap < Service
       .group(:store_id, :tag_id)
       .count
 
-    tag_map = Tag.where(primary: true).each_with_object({}) do |tag, memo|
+    if @only_primary
+      tags = Tag.where(primary: true)
+    else
+      tags = Tag.all
+    end
+
+    tag_map = tags.each_with_object({}) do |tag, memo|
       memo[tag.id] = tag.name
     end
 
