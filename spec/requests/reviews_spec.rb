@@ -19,8 +19,10 @@ RSpec.describe "Reviews", type: :request do
       post "/stores/#{store_id}/reviews", params: params, headers: stub_auth(user)
 
       expect(response.status).to eq(200)
+      res_hash = JSON.parse(response.body)
 
       review = Review.last
+      expect(res_hash['id']).to eq(review.id)
       expect(review.user).to eq(user)
       expect(review.store).to eq(store)
       expect(review.recommend).to eq('no')
@@ -57,6 +59,7 @@ RSpec.describe "Reviews", type: :request do
       res_hash['reviews'].each do |review|
         expect(review['primary_tags']).to eq(tags.map(&:name))
         expect(review['secondary_tags']).to eq([])
+        expect(review['photos']).to eq([])
       end
     end
   end

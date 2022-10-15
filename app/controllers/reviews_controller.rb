@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :me, :destroy]
 
   def create
-    ReviewService::FindOrCreate.call(**{
+    review = ReviewService::FindOrCreate.call(**{
       user_id: current_user&.id,
       store_id: store.id,
       recommend: params.require(:recommend),
@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
       tag_ids: params[:tag_ids]
     }.compact)
 
-    head :ok
+    render json: { id: review.id }
   end
 
   def index
