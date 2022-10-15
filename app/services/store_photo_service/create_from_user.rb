@@ -1,30 +1,29 @@
 class StorePhotoService::CreateFromUser < Service
   include QueryHelpers::QueryStore
   include QueryHelpers::QueryUser
+  include QueryHelpers::QueryReview
 
-  def initialize(user_id:, store_id:, url:)
+  def initialize(user_id:, store_id:, review_id:, url:)
     @user_id = user_id
     @store_id = store_id
+    @review_id = review_id
     @url = url
   end
 
   def perform
     user = find_user_by_id(@user_id)
     store = find_store_by_id(@store_id)
+    review = find_review_by_id(@review_id)
 
     validate_url!(store, @url)
     random_key = parse_random_key_from_url(@url)
 
     StoreService::WakeUp.call(store_id: store.id)
 
-    store_photo_group = StorePhotoGroup.find_or_create_by(
-      user: user,
-      store: store
-    )
     StorePhoto.create!(
       user: user,
       store: store,
-      store_photo_group: store_photo_group,
+      review: review,
       random_key: random_key,
       image_url: @url
     )

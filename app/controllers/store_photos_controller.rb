@@ -14,6 +14,7 @@ class StorePhotosController < ApplicationController
     StorePhotoService::CreateFromUser.call(
       user_id: current_user.id,
       store_id: store.id,
+      review_id: params.require(:review_id),
       url: params.require(:url)
     )
 

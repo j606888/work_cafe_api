@@ -20,7 +20,7 @@ RSpec.describe "Report", type: :request do
 
       expect(response.status).to eq(200)
       res_hash = JSON.parse(response.body)
-     
+
       expect(res_hash).to eq({
         "user_count" => 10,
         "store_count" => 7,
