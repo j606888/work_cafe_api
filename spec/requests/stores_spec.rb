@@ -123,20 +123,10 @@ RSpec.describe "Stores", type: :request do
   describe "GET /stores/:hidden" do
     let!(:user) { create :user }
     let!(:stores) { create_list :store, 5 }
-    
+
     before do
       create :user_hidden_store, user: user, store: stores[0]
       create :user_hidden_store, user: user, store: stores[3]
-    end
-
-    it "retrieve hidden stores" do
-      get "/stores/hidden", headers: stub_auth(user)
-
-      expect(response.status).to eq(200)
-      res_hash = JSON.parse(response.body)
-      expect(res_hash.length).to eq(2)
-      expect(res_hash[0]['id']).to eq(stores[0].id)
-      expect(res_hash[1]['id']).to eq(stores[3].id)
     end
   end
 

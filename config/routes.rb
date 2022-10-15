@@ -13,9 +13,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :map_crawlers, path: 'map-crawlers', only: [:create, :index]
-    resources :stores, only: [:index, :show] do
+    resources :stores, only: [:index] do
       collection do
-        get :location
         post :hide_all_unqualified, path: 'hide-all-unqualified'
       end
 

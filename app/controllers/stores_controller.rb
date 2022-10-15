@@ -117,17 +117,6 @@ class StoresController < ApplicationController
     head :ok
   end
 
-  def hidden
-    stores = UserHiddenStoreService::QueryStores.call(
-      user_id: current_user.id
-    )
-    open_now_map = OpeningHourService::IsOpenNowMap.call(
-      store_ids: stores.map(&:id)
-    )
-
-    render 'location', locals: { stores: stores, open_now_map: open_now_map,  photos_map: {} }
-  end
-
   def bookmarks
     bookmarks = current_user.bookmarks
     store = StoreService::QueryOne.call(

@@ -13,40 +13,6 @@ class Admin::StoresController < Admin::ApplicationController
     render 'index', locals: { stores: stores }
   end
 
-  def location
-    stores = StoreService::QueryByLocation.call(**{
-      lat: helpers.to_float(params.require(:lat)),
-      lng: helpers.to_float(params.require(:lng)),
-      limit: helpers.to_integer(params[:limit]),
-      keyword: params[:keyword],
-      open_type: params[:open_type],
-      open_week: helpers.to_integer(params[:open_week]),
-      open_hour: helpers.to_integer(params[:open_hour]),
-    }.compact)
-
-    render 'location', locals: { stores: stores }
-  end
-
-  def show
-    store = StoreService::QueryOne.call(
-      place_id: params.require(:id)
-    )
-    opening_hours = OpeningHourService::QueryByStore.call(
-      store_id: store.id
-    )
-    is_open_now = StoreService::IsOpenNow.call(
-      store_id: store.id
-    )
-    store_photos = store.store_photos
-
-    render 'show', locals: {
-      store: store,
-      opening_hours: opening_hours,
-      is_open_now: is_open_now,
-      store_photos: store_photos
-    }
-  end
-
   def hide_all_unqualified
     StoreService::HideAllUnqualified.call
 
