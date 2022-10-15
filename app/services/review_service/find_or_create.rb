@@ -29,7 +29,7 @@ class ReviewService::FindOrCreate < Service
         user: user,
         store: store
       )
-      review.store_review_tags.delete_all
+      review.store_review_tags.map(&:delete)
     else
       review = Review.new(store: store)
     end
