@@ -49,4 +49,16 @@ describe StorePhotoService::CreateFromUser do
 
     expect { service.perform }.to raise_error(Service::PerformFailed)
   end
+
+  it 'support none user' do
+    dummy_review = create :review, store: store
+    params[:user_id] = nil
+    params[:review_id] = dummy_review.id
+
+    res = service.perform
+
+    expect(res.user_id).to be_nil
+    expect(res.review).to eq(dummy_review)
+    expect(res.store).to eq(store)
+  end
 end

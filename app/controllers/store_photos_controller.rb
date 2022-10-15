@@ -1,5 +1,5 @@
 class StorePhotosController < ApplicationController
-  before_action :authenticate_user!, only: [:get_upload_link, :create, :index]
+  before_action :authenticate_user!, only: [:index]
 
   def get_upload_link
     url = StorePhotoService::CreatePresignedUrl.call(**{
@@ -11,12 +11,12 @@ class StorePhotosController < ApplicationController
   end
 
   def create
-    StorePhotoService::CreateFromUser.call(
-      user_id: current_user.id,
+    StorePhotoService::CreateFromUser.call(**{
+      user_id: current_user&.id,
       store_id: store.id,
       review_id: params.require(:review_id),
       url: params.require(:url)
-    )
+    }.compact)
 
     head :ok
   end

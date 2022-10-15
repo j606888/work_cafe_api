@@ -3,7 +3,7 @@ class StorePhotoService::CreateFromUser < Service
   include QueryHelpers::QueryUser
   include QueryHelpers::QueryReview
 
-  def initialize(user_id:, store_id:, review_id:, url:)
+  def initialize(user_id: nil, store_id:, review_id:, url:)
     @user_id = user_id
     @store_id = store_id
     @review_id = review_id
@@ -11,14 +11,12 @@ class StorePhotoService::CreateFromUser < Service
   end
 
   def perform
-    user = find_user_by_id(@user_id)
+    user = find_user_by_id(@user_id, optional: true)
     store = find_store_by_id(@store_id)
     review = find_review_by_id(@review_id)
 
     validate_url!(store, @url)
     random_key = parse_random_key_from_url(@url)
-
-    StoreService::WakeUp.call(store_id: store.id)
 
     StorePhoto.create!(
       user: user,
