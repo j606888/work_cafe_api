@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_033319) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_070956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -111,15 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_033319) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "store_photo_groups", force: :cascade do |t|
-    t.bigint "store_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["store_id"], name: "index_store_photo_groups_on_store_id"
-    t.index ["user_id"], name: "index_store_photo_groups_on_user_id"
-  end
-
   create_table "store_photos", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.string "random_key", null: false
@@ -128,12 +119,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_033319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "store_photo_group_id"
     t.bigint "review_id"
     t.index ["photo_reference"], name: "index_store_photos_on_photo_reference", unique: true
     t.index ["review_id"], name: "index_store_photos_on_review_id"
     t.index ["store_id"], name: "index_store_photos_on_store_id"
-    t.index ["store_photo_group_id"], name: "index_store_photos_on_store_photo_group_id"
     t.index ["user_id"], name: "index_store_photos_on_user_id"
   end
 
@@ -236,9 +225,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_033319) do
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "reviews", "stores"
   add_foreign_key "reviews", "users"
-  add_foreign_key "store_photo_groups", "stores"
-  add_foreign_key "store_photo_groups", "users"
-  add_foreign_key "store_photos", "store_photo_groups"
   add_foreign_key "store_photos", "stores"
   add_foreign_key "store_photos", "users"
   add_foreign_key "store_review_tags", "reviews"
