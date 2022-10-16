@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_070956) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_16_140900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -163,7 +163,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_070956) do
     t.string "district"
     t.boolean "permanently_closed", default: false, null: false
     t.boolean "hidden", default: false, null: false
-    t.boolean "wake_up", default: false, null: false
     t.index ["city"], name: "index_stores_on_city"
     t.index ["district"], name: "index_stores_on_district"
     t.index ["hidden"], name: "index_stores_on_hidden"

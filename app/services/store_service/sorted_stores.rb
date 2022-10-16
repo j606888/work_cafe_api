@@ -5,7 +5,7 @@ class StoreService::SortedStores < Service
 
   def perform
     id_by_review = Store.joins(:reviews)
-      .where(id: @stores.map(&:id))
+      .where(id: @stores.map(&:id), reviews: { recommend: 'yes'})
       .group(:id)
       .order("count_all desc")
       .count

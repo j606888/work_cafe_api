@@ -148,8 +148,8 @@ describe StoreService::QueryByLocation do
 
   context 'when #wake_up is true' do
     before do
-      stores[0].update!(wake_up: true)
-      stores[3].update!(wake_up: true)
+      create :review, store: stores[0]
+      create :review, store: stores[3]
 
       params[:wake_up] = true
     end

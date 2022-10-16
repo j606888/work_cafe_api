@@ -72,19 +72,32 @@ class StoreService::QueryByLocation < Service
       with_open_stores[:join] = "RIGHT JOIN open_stores ON stores.id = open_stores.store_id"
     end
 
+    with_wake_up_stores = {}
+    if @wake_up
+      prefix = (@tag_ids.present? || @open_type != 'NONE') ? ", " : "WITH "
+      with_wake_up_stores[:with] = <<-SQL
+        #{prefix} wake_up_stores AS (
+          SELECT distinct store_id
+          FROM reviews
+        )
+      SQL
+      with_wake_up_stores[:join] = "RIGHT JOIN wake_up_stores ON stores.id = wake_up_stores.store_id"
+    end
+
     where_sql = build_where_sql(
       mode: @mode,
-      keyword: @keyword,
-      wake_up: @wake_up
+      keyword: @keyword
     )
 
     sql = <<-SQL
       #{with_tagged_stores[:with]}
       #{with_open_stores[:with]}
+      #{with_wake_up_stores[:with]}
       SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance
       FROM stores
       #{with_tagged_stores[:join]}
       #{with_open_stores[:join]}
+      #{with_wake_up_stores[:join]}
       #{where_sql}
       ORDER BY distance
       LIMIT :limit
@@ -100,7 +113,7 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:, wake_up:)
+  def build_where_sql(mode:, keyword:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
@@ -114,10 +127,6 @@ class StoreService::QueryByLocation < Service
       else
         sql += " AND name ILIKE '%#{keyword.downcase}%'"
       end
-    end
-
-    if wake_up.present?
-      sql += " AND stores.wake_up = true"
     end
 
     sql
