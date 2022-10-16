@@ -1,5 +1,5 @@
 class TagService::BuildStoreTagMap < Service
-  def initialize(store_ids:, only_primary: true)
+  def initialize(store_ids:, only_primary: false)
     @store_ids = store_ids
     @only_primary = only_primary
   end
