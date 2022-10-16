@@ -21,7 +21,6 @@ class ReviewService::FindOrCreate < Service
   def perform
     validate_tags!(@tag_ids)
     store = find_store_by_id(@store_id)
-    StoreService::WakeUp.call(store_id: store.id)
 
     if @user_id.present?
       user = find_user_by_id(@user_id)

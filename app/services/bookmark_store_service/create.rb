@@ -11,7 +11,6 @@ class BookmarkStoreService::Create < Service
     store = find_store_by_id(@store_id)
     bookmark = find_bookmark_by_id(@bookmark_id)
 
-    StoreService::WakeUp.call(store_id: store.id)
     BookmarkStore.create!(
       store: store,
       bookmark: bookmark
