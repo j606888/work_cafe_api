@@ -26,10 +26,6 @@ describe AuthService::Signup do
       described_class.new(**params)
     end
 
-    before do
-      allow(BookmarkService::CreateDefaults).to receive(:call)
-    end
-
     it 'should signup a new user' do
       user = service.perform
 
@@ -41,13 +37,6 @@ describe AuthService::Signup do
     it 'should have minumum password length 6' do
       params[:password] = '12345'
       expect { service.perform }.to raise_error(ActiveRecord::RecordInvalid)
-    end
-
-    it 'call BookmarkService::CreateDefaults' do
-      user = service.perform
-
-      expect(BookmarkService::CreateDefaults).to have_received(:call)
-        .with(user_id: user.id)
     end
 
     context 'when email was taken' do

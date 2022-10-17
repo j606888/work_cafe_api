@@ -56,12 +56,9 @@ class AuthService::GoogleSignIn < Service
       avatar_url: payload[:picture],
       password: SecureRandom.hex
     )
-    BookmarkService::CreateDefaults.call(
-      user_id: user.id
-    )
     user
   end
-  
+
   def create_third_party_login!(user, identity)
     ThirdPartyLogin.create!(
       user: user,

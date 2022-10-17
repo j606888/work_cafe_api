@@ -39,9 +39,6 @@ Rails.application.routes.draw do
     member do
       post :hide
       post :unhide
-      get :bookmarks
-      post 'bookmarks/:bookmark_random_key', action: 'add_to_bookmark'
-      delete 'bookmarks/:bookmark_random_key', action: 'remove_from_bookmark'
     end
 
     resources :reviews, only: [:create] do
@@ -61,7 +58,6 @@ Rails.application.routes.draw do
     resources :not_cafe_reports, path: 'not-cafe-reports', only: [:create]
   end
 
-  resources :bookmarks, only: [:create, :index, :show, :destroy]
   resources :reviews, only: [:index]
   # resources :store_photos, path: 'store-photos', only: [:index]
   resources :tags, only: [:index]

@@ -14,10 +14,6 @@ class AuthService::Signup < Service
       password: @password
     )
 
-    BookmarkService::CreateDefaults.call(
-      user_id: user.id
-    )
-
     user
   end
 

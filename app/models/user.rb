@@ -11,6 +11,5 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :user_hidden_stores
   has_many :hidden_stores, through: :user_hidden_stores, source: 'store'
-  has_many :bookmarks
   has_many :store_photos
 end
