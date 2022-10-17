@@ -47,6 +47,9 @@ class StoresController < ApplicationController
     ).group(:store_id)
       .count
     wake_up_map = Review.where(store_id: store_ids).pluck(:store_id).uniq.index_with(true)
+    bookmark_map = UserBookmark.where(user_id: current_user&.id)
+      .pluck(:store_id)
+      .index_with(true)
 
     render 'location', locals: {
       stores: sorted_stores,
@@ -54,7 +57,8 @@ class StoresController < ApplicationController
       photos_map: photos_map,
       tag_map: tag_map,
       recommend_count_map: recommend_count_map,
-      wake_up_map: wake_up_map
+      wake_up_map: wake_up_map,
+      bookmark_map: bookmark_map
     }
   end
 

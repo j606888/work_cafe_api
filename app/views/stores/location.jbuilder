@@ -5,4 +5,5 @@ json.array!(stores) do |store|
   json.tags tag_map[store.id] || []
   json.recommend_count recommend_count_map[store.id] || 0
   json.wake_up wake_up_map[store.id]
+  json.bookmark bookmark_map[store.id]
 end
