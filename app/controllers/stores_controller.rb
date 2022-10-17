@@ -82,6 +82,10 @@ class StoresController < ApplicationController
       store: store
     )
     tag_map = TagService::BuildStoreTagMap.call(store_ids: [store.id])
+    is_bookmark = UserBookmark.exists?(
+      user: current_user,
+      store: store
+    )
 
     render 'show', locals: {
       store: store,
@@ -92,7 +96,8 @@ class StoresController < ApplicationController
       is_hide: is_hide,
       is_review: is_review,
       review_report: review_report,
-      tags: tag_map[store.id] || []
+      tags: tag_map[store.id] || [],
+      is_bookmark: is_bookmark
     }
   end
 

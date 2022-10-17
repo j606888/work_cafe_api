@@ -56,6 +56,12 @@ Rails.application.routes.draw do
     end
 
     resources :not_cafe_reports, path: 'not-cafe-reports', only: [:create]
+
+    resources :user_bookmarks, path: 'user-bookmarks', only: [:create] do
+      collection do
+        delete '/', action: :destroy
+      end
+    end
   end
 
   resources :reviews, only: [:index]
