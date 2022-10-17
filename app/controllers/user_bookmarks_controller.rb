@@ -1,4 +1,10 @@
 class UserBookmarksController < ApplicationController
+  def index
+    stores = current_user.user_bookmarks.includes(:store).map(&:store)
+
+    render 'index', locals: { stores: stores }
+  end
+
   def create
     UserBookmarkService::Create.call(
       user_id: current_user.id,
