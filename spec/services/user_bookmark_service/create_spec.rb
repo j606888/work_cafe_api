@@ -1,28 +1,29 @@
 require 'rails_helper'
 
-describe BookmarkService::Create do
+describe UserBookmarkService::Create do
   let!(:user) { create :user }
+  let!(:store) { create :store }
   let(:params) do
     {
       user_id: user.id,
-      name: '週末工作'
+      store_id: store.id
     }
   end
+
   let(:service) { described_class.new(**params) }
 
   it 'takes required attributes to initialize' do
     described_class.new(
       user_id: 1,
-      name: 'some-category'
+      store_id: 2
     )
   end
 
-  it 'create a new book_mark' do
+  it 'create new user_bookmark' do
     res = service.perform
 
-    expect(res).to eq(Bookmark.last)
+    expect(res).to eq(UserBookmark.last)
     expect(res.user).to eq(user)
-    expect(res.name).to eq('週末工作')
-    expect(res.category).to eq('custom')
+    expect(res.store).to eq(store)
   end
 end

@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :authenticate_user!, only: [:hide, :unhide, :hidden, :bookmarks, :add_to_bookmark, :remove_from_bookmark]
+  before_action :authenticate_user!, only: [:hide, :unhide, :hidden]
 
   def hint
     results = StoreService::BuildSearchHint.call(**{
@@ -47,6 +47,9 @@ class StoresController < ApplicationController
     ).group(:store_id)
       .count
     wake_up_map = Review.where(store_id: store_ids).pluck(:store_id).uniq.index_with(true)
+    bookmark_map = UserBookmark.where(user_id: current_user&.id)
+      .pluck(:store_id)
+      .index_with(true)
 
     render 'location', locals: {
       stores: sorted_stores,
@@ -54,7 +57,8 @@ class StoresController < ApplicationController
       photos_map: photos_map,
       tag_map: tag_map,
       recommend_count_map: recommend_count_map,
-      wake_up_map: wake_up_map
+      wake_up_map: wake_up_map,
+      bookmark_map: bookmark_map
     }
   end
 
@@ -82,6 +86,10 @@ class StoresController < ApplicationController
       store: store
     )
     tag_map = TagService::BuildStoreTagMap.call(store_ids: [store.id])
+    is_bookmark = UserBookmark.exists?(
+      user: current_user,
+      store: store
+    )
 
     render 'show', locals: {
       store: store,
@@ -92,7 +100,8 @@ class StoresController < ApplicationController
       is_hide: is_hide,
       is_review: is_review,
       review_report: review_report,
-      tags: tag_map[store.id] || []
+      tags: tag_map[store.id] || [],
+      is_bookmark: is_bookmark
     }
   end
 
@@ -115,52 +124,6 @@ class StoresController < ApplicationController
     UserHiddenStoreService::Delete.call(
       user_id: current_user.id,
       store_id: store.id
-    )
-
-    head :ok
-  end
-
-  def bookmarks
-    bookmarks = current_user.bookmarks
-    store = StoreService::QueryOne.call(
-      place_id: params.require(:id)
-    )
-    bookmark_stores = BookmarkStore.where(bookmark: bookmarks, store: store)
-    bookmark_stores_map = bookmark_stores.pluck(:bookmark_id).index_with(true)
-
-    render 'bookmarks', locals: {
-      bookmarks: bookmarks,
-      bookmark_stores_map: bookmark_stores_map
-    }
-  end
-
-  def add_to_bookmark
-    store = StoreService::QueryOne.call(
-      place_id: params.require(:id)
-    )
-    bookmark = BookmarkService::QueryOne.call(
-      user_id: current_user.id,
-      bookmark_random_key: params.require(:bookmark_random_key)
-    )
-    BookmarkStoreService::Create.call(
-      store_id: store.id,
-      bookmark_id: bookmark.id
-    )
-
-    head :ok
-  end
-
-  def remove_from_bookmark
-    store = StoreService::QueryOne.call(
-      place_id: params.require(:id)
-    )
-    bookmark = BookmarkService::QueryOne.call(
-      user_id: current_user.id,
-      bookmark_random_key: params.require(:bookmark_random_key)
-    )
-    BookmarkStoreService::Delete.call(
-      store_id: store.id,
-      bookmark_id: bookmark.id
     )
 
     head :ok
