@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_131029) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_17_131735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -170,6 +170,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_131029) do
     t.index ["user_id"], name: "index_third_party_logins_on_user_id"
   end
 
+  create_table "user_bookmarks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_user_bookmarks_on_store_id"
+    t.index ["user_id"], name: "index_user_bookmarks_on_user_id"
+  end
+
   create_table "user_hidden_stores", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "store_id", null: false
@@ -209,6 +218,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_131029) do
   add_foreign_key "store_review_tags", "tags"
   add_foreign_key "store_sources", "stores"
   add_foreign_key "third_party_logins", "users"
+  add_foreign_key "user_bookmarks", "stores"
+  add_foreign_key "user_bookmarks", "users"
   add_foreign_key "user_hidden_stores", "stores"
   add_foreign_key "user_hidden_stores", "users"
 end
