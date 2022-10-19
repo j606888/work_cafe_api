@@ -18,7 +18,6 @@ class ReviewService::Delete < Service
 
     if review.present?
       review.destroy
-      review.store_review_tags.delete_all
     end
   end
 end

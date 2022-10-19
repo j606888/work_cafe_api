@@ -6,7 +6,7 @@ class Review < ApplicationRecord
 
   belongs_to :user, optional: true
   belongs_to :store
-  has_many :store_review_tags
+  has_many :store_review_tags, dependent: :delete_all
   has_many :tags, through: :store_review_tags
   has_many :store_photos
 
