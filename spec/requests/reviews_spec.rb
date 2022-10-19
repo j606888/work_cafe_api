@@ -8,9 +8,6 @@ RSpec.describe "Reviews", type: :request do
     let(:params) do
       {
         recommend: 'no',
-        room_volume: 'loud',
-        time_limit: 'yes',
-        socket_supply: 'no',
         description: 'Horrible cafe ever'
       }
     end
@@ -26,9 +23,6 @@ RSpec.describe "Reviews", type: :request do
       expect(review.user).to eq(user)
       expect(review.store).to eq(store)
       expect(review.recommend).to eq('no')
-      expect(review.room_volume).to eq('loud')
-      expect(review.time_limit).to eq('yes')
-      expect(review.socket_supply).to eq('no')
       expect(review.description).to eq('Horrible cafe ever')
     end
   end

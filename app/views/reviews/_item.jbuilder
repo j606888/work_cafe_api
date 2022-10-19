@@ -1,4 +1,4 @@
-json.(review, :id, :recommend, :room_volume, :time_limit, :socket_supply, :description)
+json.(review, :id, :recommend, :description)
 
 json.primary_tags do
   tags = review.tags.filter { |tag| tag.primary }.map do |tag|

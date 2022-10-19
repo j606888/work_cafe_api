@@ -3,7 +3,6 @@ class ReviewService::FindOrCreate < Service
   include QueryHelpers::QueryStore
 
   def initialize(user_id: nil, store_id:, recommend:,
-    room_volume: nil, time_limit: nil, socket_supply: nil,
     description: nil, tag_ids: []
   )
     @user_id = user_id
@@ -11,9 +10,6 @@ class ReviewService::FindOrCreate < Service
     @tag_ids = tag_ids
     @params = {
       recommend: recommend,
-      room_volume: room_volume,
-      time_limit: time_limit,
-      socket_supply: socket_supply,
       description: description
     }.compact
   end
