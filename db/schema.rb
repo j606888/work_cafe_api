@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_17_131735) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_164256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -82,9 +82,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_17_131735) do
     t.bigint "user_id"
     t.bigint "store_id", null: false
     t.string "recommend", null: false
-    t.string "room_volume"
-    t.string "time_limit"
-    t.string "socket_supply"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

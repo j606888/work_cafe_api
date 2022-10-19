@@ -6,9 +6,6 @@ class ReviewsController < ApplicationController
       user_id: current_user&.id,
       store_id: store.id,
       recommend: params.require(:recommend),
-      room_volume: params[:room_volume],
-      time_limit: params[:time_limit],
-      socket_supply: params[:socket_supply],
       description: params[:description],
       tag_ids: params[:tag_ids]
     }.compact)

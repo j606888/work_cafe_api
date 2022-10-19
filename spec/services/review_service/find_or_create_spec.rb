@@ -8,9 +8,6 @@ describe ReviewService::FindOrCreate do
       user_id: user.id,
       store_id: store.id,
       recommend: 'yes',
-      room_volume: 'quiet',
-      time_limit: 'no',
-      socket_supply: 'yes',
       description: 'Have cute cate'
     }
   end
@@ -30,16 +27,7 @@ describe ReviewService::FindOrCreate do
     expect(review.user).to eq(user)
     expect(review.store).to eq(store)
     expect(review.recommend).to eq('yes')
-    expect(review.room_volume).to eq('quiet')
-    expect(review.time_limit).to eq('no')
-    expect(review.socket_supply).to eq('yes')
     expect(review.description).to eq('Have cute cate')
-  end
-
-  it 'raise error if create failed' do
-    params[:socket_supply] = 'So many'
-
-    expect { service.perform }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   context 'when user review already exist' do
@@ -48,7 +36,6 @@ describe ReviewService::FindOrCreate do
         user: user,
         store: store,
         recommend: 'no',
-        room_volume: 'loud'
       }
     end
 
@@ -58,7 +45,6 @@ describe ReviewService::FindOrCreate do
       expect(Review.count).to eq(1)
       review.reload
       expect(review.recommend).to eq('yes')
-      expect(review.room_volume).to eq('quiet')
     end
   end
 

@@ -7,14 +7,11 @@ describe StoreService::ReviewReport do
   let(:params) { { store_id: store.id } }
   let(:service) { described_class.new(**params) }
 
-  def create_review(user, recommend, room_volume=nil, time_limit=nil, socket_supply=nil, tags=[])
+  def create_review(user, recommend, tags=[])
     review = create :review, {
       user: user,
       store: store,
       recommend: recommend,
-      room_volume: room_volume,
-      time_limit: time_limit,
-      socket_supply: socket_supply
     }
     tags.each do |tag|
       create :store_review_tag, store: store, review: review, tag: tag
@@ -24,11 +21,11 @@ describe StoreService::ReviewReport do
   end
 
   before do
-    create_review(users[0], 'yes', nil, 'yes', 'rare', [tags[0], tags[1]])
-    create_review(users[1], 'no', 'loud', 'weekend', nil)
-    create_review(users[2], 'yes', 'loud', 'weekend', nil, [tags[0], tags[4]])
-    create_review(users[3], 'normal', 'loud', 'yes', 'yes')
-    create_review(users[4], 'yes', nil, 'weekend', 'yes')
+    create_review(users[0], 'yes', [tags[0], tags[1]])
+    create_review(users[1], 'no')
+    create_review(users[2], 'yes', [tags[0], tags[4]])
+    create_review(users[3], 'normal')
+    create_review(users[4], 'yes')
   end
 
   it 'takes required attributes to initialize' do
@@ -43,21 +40,6 @@ describe StoreService::ReviewReport do
         no: 1,
         normal: 1,
         yes: 3
-      },
-      room_volume: {
-        quiet: 0,
-        normal: 0,
-        loud: 3
-      },
-      time_limit: {
-        no: 0,
-        weekend: 3,
-        yes: 2
-      },
-      socket_supply: {
-        no: 0,
-        rare: 1,
-        yes: 2
       },
       primary_tags: [],
       secondary_tags: [
