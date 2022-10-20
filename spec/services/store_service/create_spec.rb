@@ -11,6 +11,7 @@ describe StoreService::Create do
       place_id: place_id,
       name: '粟木小火鍋 台南東寧店',
       address: '701台灣台南市東區東寧路350號',
+      vicinity: '東區東寧路350號',
       phone: '0937 331 390',
       url: 'https://maps.google.com/?cid=14250860131006162248',
       website: "https://iding.tw/stores/2f3ff78d/menu",

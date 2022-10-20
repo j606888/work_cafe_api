@@ -1,7 +1,7 @@
 class GoogleMapPlace
   class Detail
     attr_reader :data
-    
+
     def initialize(data)
       @data = data
     end
@@ -30,13 +30,16 @@ class GoogleMapPlace
       @data['url']
     end
 
-
     def website
       @data['website']
     end
 
     def address
       @data['formatted_address']
+    end
+
+    def vicinity
+      @data['vicinity']
     end
 
     def rating

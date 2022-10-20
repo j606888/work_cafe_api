@@ -49,6 +49,7 @@ class StoreService::Create < Service
       place_id: detail.place_id,
       name: detail.name,
       address: detail.address,
+      vicinity: detail.vicinity,
       phone: detail.phone,
       url: detail.url,
       website: detail.website,
