@@ -18,9 +18,9 @@ class StorePhotoService::CreateFromGoogle < Service
 
     fetch_count = 0
     photo_references.each do |photo_reference|
-      break if fetch_count >= @limit
+      break if fetch_count > @limit
+      next if existing_reference_map[photo_reference].present?
       ActiveRecord::Base.transaction do
-        next if existing_reference_map[photo_reference].present?
 
         photo = GoogleMapPlace.photo(photo_reference)
         store_photo = StorePhoto.create!(

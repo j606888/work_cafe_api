@@ -2,7 +2,15 @@ class UserBookmarksController < ApplicationController
   def index
     stores = current_user.user_bookmarks.includes(:store).map(&:store)
 
-    render 'index', locals: { stores: stores }
+    store_ids = stores.map(&:id)
+    photos_map = StorePhotoService::QueryByStores.call(
+      store_ids: store_ids
+    )
+
+    render 'index', locals: {
+      stores: stores,
+      photos_map: photos_map
+    }
   end
 
   def create
