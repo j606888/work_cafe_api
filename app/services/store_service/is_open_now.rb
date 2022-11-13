@@ -24,7 +24,11 @@ class StoreService::IsOpenNow < Service
   end
 
   def in_period?(opening_hour, hour_time)
-    hour_time > opening_hour.open_time.to_i &&
-      hour_time < opening_hour.close_time.to_i
+    open_time = opening_hour.open_time.to_i
+    close_time = opening_hour.close_time.to_i
+
+    close_time += 2400 if opening_hour.open_day != opening_hour.close_day
+
+    hour_time.between?(open_time, close_time)
   end
 end

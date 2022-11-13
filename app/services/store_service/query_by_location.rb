@@ -57,7 +57,10 @@ class StoreService::QueryByLocation < Service
       end
 
       if open_time.present?
-        and_sql = " AND open_time < '#{open_time}' AND close_time > '#{open_time}'"
+        and_sql = " AND (
+          (open_time < '#{open_time}' AND close_time > '#{open_time}')
+          OR (open_time < '#{open_time}' AND open_day != close_day)
+        )"
       end
 
       prefix = @tag_ids.present? ? ", " : "WITH "
