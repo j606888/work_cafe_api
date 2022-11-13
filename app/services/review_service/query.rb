@@ -24,6 +24,7 @@ class ReviewService::Query < Service
 
     if @exclude_user_id.present?
       reviews = reviews.where.not(user_id: @exclude_user_id)
+        .or(reviews.where(user_id: nil))
     end
 
     if @description_not_nil
