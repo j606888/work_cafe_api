@@ -36,24 +36,26 @@ describe StoreService::QueryByLocation do
       stores[0],
       stores[3],
       stores[1],
-      stores[2],
+      stores[2]
     ]
 
-    expect(res).to eq(expect_res)
+    expect(res[:stores]).to eq(expect_res)
+    expect(res[:total_stores]).to eq(4)
   end
 
-  it 'limit by params[:limit]' do
-    params[:limit] = 2
+  it 'per by params[:per]' do
+    params[:per] = 2
     res = service.perform
 
-    expect(res.length).to eq(2)
-    expect(res).to eq([stores[0], stores[3]])
+    expect(res[:total_stores]).to eq(4)
+    expect(res[:stores].length).to eq(2)
+    expect(res[:stores]).to eq([stores[0], stores[3]])
   end
 
   it 'return with distance' do
     res = service.perform
 
-    expect(res.map(&:distance)).to eq([0, 204, 2833, 2855])
+    expect(res[:stores].map(&:distance)).to eq([0, 204, 2833, 2855])
   end
 
   it 'ignore hidden stores' do
@@ -62,7 +64,7 @@ describe StoreService::QueryByLocation do
 
     res = service.perform
 
-    expect(res).to eq([stores[3], stores[2]])
+    expect(res[:stores]).to eq([stores[3], stores[2]])
   end
 
   context 'when keyword provide' do
@@ -71,7 +73,7 @@ describe StoreService::QueryByLocation do
 
       res = service.perform
 
-      expect(res).to eq([stores[0]])
+      expect(res[:stores]).to eq([stores[0]])
     end
   end
 
@@ -101,9 +103,9 @@ describe StoreService::QueryByLocation do
 
       res = service.perform
 
-      expect(res.length).to eq(2)
-      expect(res.first.id).to eq(stores[1].id)
-      expect(res.last.id).to eq(stores[2].id)
+      expect(res[:stores].length).to eq(2)
+      expect(res[:stores].first.id).to eq(stores[1].id)
+      expect(res[:stores].last.id).to eq(stores[2].id)
     end
 
     it 'query open_at stores with open_week' do
@@ -112,7 +114,7 @@ describe StoreService::QueryByLocation do
 
       res = service.perform
 
-      expect(res.length).to eq(3)
+      expect(res[:stores].length).to eq(3)
     end
 
     it 'query open_at stores with open_week and open_hour' do
@@ -122,8 +124,8 @@ describe StoreService::QueryByLocation do
 
       res = service.perform
 
-      expect(res.length).to eq(1)
-      expect(res.first.id).to eq(stores[0].id)
+      expect(res[:stores].length).to eq(1)
+      expect(res[:stores].first.id).to eq(stores[0].id)
     end
   end
 
@@ -141,8 +143,8 @@ describe StoreService::QueryByLocation do
     it 'match stores by city or district' do
       res = service.perform
 
-      expect(res.length).to eq(2)
-      expect(res.map(&:id)).to eq([stores[0].id, stores[2].id])
+      expect(res[:stores].length).to eq(2)
+      expect(res[:stores].map(&:id)).to eq([stores[0].id, stores[2].id])
     end
   end
 
@@ -157,8 +159,8 @@ describe StoreService::QueryByLocation do
     it 'query wake_up stores' do
       res = service.perform
 
-      expect(res.length).to eq(2)
-      expect(res).to eq([stores[0], stores[3]])
+      expect(res[:stores].length).to eq(2)
+      expect(res[:stores]).to eq([stores[0], stores[3]])
     end
   end
 end

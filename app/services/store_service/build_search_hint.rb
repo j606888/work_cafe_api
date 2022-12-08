@@ -19,12 +19,12 @@ class StoreService::BuildSearchHint < Service
     stores = StoreService::QueryByLocation.call(**{
       lat: @lat,
       lng: @lng,
-      limit: 5,
+      per: 5,
       keyword: @keyword,
       open_type: @open_type,
       open_week: @open_week,
       open_hour: @open_hour
-    }.compact)
+    }.compact)[:stores]
 
     city = query_group('city', @keyword, @open_type, @open_week, @open_hour)
     answer += format_city(city)

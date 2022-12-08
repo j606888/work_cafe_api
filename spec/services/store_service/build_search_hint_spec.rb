@@ -27,7 +27,7 @@ describe StoreService::BuildSearchHint do
 
   before do
     allow(StoreService::QueryByLocation).to receive(:call)
-      .and_return([])
+      .and_return({stores: []})
   end
 
   it 'takes required attributes to initialize' do
@@ -60,7 +60,7 @@ describe StoreService::BuildSearchHint do
   end
 
   it 'build from QueryByLocation' do
-    allow(StoreService::QueryByLocation).to receive(:call).and_return([stores[1]])
+    allow(StoreService::QueryByLocation).to receive(:call).and_return({ stores: [stores[1]] } )
     params[:keyword] = "鴨母"
     params[:lat] = 23.0183537
     params[:lng] = 120.2548569
@@ -73,7 +73,7 @@ describe StoreService::BuildSearchHint do
       .with(
         lat: 23.0183537,
         lng: 120.2548569,
-        limit: 5,
+        per: 5,
         keyword: "鴨母",
         open_type: 'NONE'
       )

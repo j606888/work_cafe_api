@@ -1,13 +1,14 @@
 class StoreService::QueryByLocation < Service
-  DEFAULT_LIMIT = 60
+  DEFAULT_PER = 30
   VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, limit: DEFAULT_LIMIT, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil,
+  def initialize(lat:, lng:, per: DEFAULT_PER, offset: 0, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil,
                 tag_ids: [])
     @user_id = user_id
     @lat = lat
     @lng = lng
-    @limit = limit
+    @per = per
+    @offset = offset
     @keyword = keyword
     @open_type = open_type
     @open_week = open_week
@@ -41,7 +42,7 @@ class StoreService::QueryByLocation < Service
         )
       SQL
 
-      with_tagged_stores[:join] = "RIGHT JOIN tag_stores ON stores.id = tag_stores.store_id"
+      with_tagged_stores[:join] = 'RIGHT JOIN tag_stores ON stores.id = tag_stores.store_id'
     end
 
     with_open_stores = {}
@@ -103,15 +104,30 @@ class StoreService::QueryByLocation < Service
       #{with_wake_up_stores[:join]}
       #{where_sql}
       ORDER BY distance
-      LIMIT :limit
+      OFFSET :offset
+      LIMIT :per
     SQL
     arg = {
       lat: @lat,
       lng: @lng,
-      limit: @limit,
+      per: @per,
+      offset: @offset
     }
     query = ActiveRecord::Base.sanitize_sql_array([sql, arg])
-    Store.find_by_sql(query)
+    {
+      total_stores: count_total_stores(sql, @lat, @lng),
+      stores: Store.find_by_sql(query)
+    }
+  end
+
+  def count_total_stores(sql, lat, lng)
+    count_sql = sql.gsub("SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance", "SELECT count(*)")
+      .gsub("ORDER BY distance", "")
+      .gsub("OFFSET :offset", "")
+      .gsub("LIMIT :per", "")
+    query = ActiveRecord::Base.sanitize_sql_array([count_sql, { lat: lat, lng: lng }])
+    res = ActiveRecord::Base.connection.query(query)
+    res.last.last
   end
 
   private
@@ -124,11 +140,11 @@ class StoreService::QueryByLocation < Service
           AND (
             city ILIKE '#{keyword.downcase}'
             OR district ILIKE '#{keyword.downcase}'
-            OR address ILIKE '%#{keyword.downcase}%'
+            OR address ILIKE '%%#{keyword.downcase}%%'
           )
         SQL
       else
-        sql += " AND name ILIKE '%#{keyword.downcase}%'"
+        sql += " AND name ILIKE '%%#{keyword.downcase}%%'"
       end
     end
 

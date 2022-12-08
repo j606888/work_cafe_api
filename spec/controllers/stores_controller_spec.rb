@@ -34,7 +34,7 @@ RSpec.describe StoresController, type: :controller do
       {
         lat: 23.003043,
         lng: 120.216569,
-        limit: 5,
+        per: 5,
         open_type: 'open_at',
         open_week: 6,
         open_hour: 15,
@@ -45,7 +45,10 @@ RSpec.describe StoresController, type: :controller do
     before do
       mock_user
       stores.each { |store| create :store_source, store: store }
-      allow(StoreService::QueryByLocation).to receive(:call).and_return(stores)
+      allow(StoreService::QueryByLocation).to receive(:call).and_return({
+        stores: stores,
+        total_stores: stores.length
+      })
       allow(OpeningHourService::IsOpenNowMap).to receive(:call).and_return({})
     end
 
@@ -59,7 +62,7 @@ RSpec.describe StoresController, type: :controller do
           mode: 'address',
           lat: params[:lat],
           lng: params[:lng],
-          limit: params[:limit],
+          per: params[:per],
           open_type: params[:open_type],
           open_week: params[:open_week],
           open_hour: params[:open_hour],

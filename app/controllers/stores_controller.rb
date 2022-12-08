@@ -15,12 +15,12 @@ class StoresController < ApplicationController
   end
 
   def location
-    stores = StoreService::QueryByLocation.call(**{
+    res = StoreService::QueryByLocation.call(**{
       mode: 'address',
       user_id: current_user&.id,
       lat: helpers.to_float(params.require(:lat)),
       lng: helpers.to_float(params.require(:lng)),
-      limit: helpers.to_integer(params[:limit]),
+      per: helpers.to_integer(params[:per]),
       keyword: params[:keyword],
       open_type: params[:open_type],
       open_week: helpers.to_integer(params[:open_week]),
@@ -28,6 +28,8 @@ class StoresController < ApplicationController
       wake_up: helpers.to_boolean(params[:wake_up]),
       tag_ids: params[:tag_ids]
     }.compact)
+    stores = res.fetch(:stores)
+    total_stores = res.fetch(:total_stores)
     sorted_stores = StoreService::SortedStores.call(stores: stores)
 
     store_ids = stores.map(&:id)
@@ -53,6 +55,7 @@ class StoresController < ApplicationController
 
     render 'location', locals: {
       stores: sorted_stores,
+      total_stores: total_stores,
       open_now_map: open_now_map,
       photos_map: photos_map,
       tag_map: tag_map,
