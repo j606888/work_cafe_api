@@ -52,6 +52,15 @@ describe StoreService::QueryByLocation do
     expect(res[:stores]).to eq([stores[0], stores[3]])
   end
 
+  it 'offset by params[:offset]' do
+    params[:offset] = 1
+    res = service.perform
+
+    expect(res[:total_stores]).to eq(4)
+    expect(res[:stores].length).to eq(3)
+    expect(res[:stores]).to eq([stores[3], stores[1], stores[2]])
+  end
+
   it 'return with distance' do
     res = service.perform
 

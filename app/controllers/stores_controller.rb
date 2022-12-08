@@ -21,6 +21,7 @@ class StoresController < ApplicationController
       lat: helpers.to_float(params.require(:lat)),
       lng: helpers.to_float(params.require(:lng)),
       per: helpers.to_integer(params[:per]),
+      offset: helpers.to_integer(params[:offset]),
       keyword: params[:keyword],
       open_type: params[:open_type],
       open_week: helpers.to_integer(params[:open_week]),
