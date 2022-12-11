@@ -11,7 +11,7 @@ class StoresController < ApplicationController
       open_hour: helpers.to_integer(params[:open_hour]),
     }.compact)
 
-    render json: { results: results }
+    render json: results
   end
 
   def location
