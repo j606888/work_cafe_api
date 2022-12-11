@@ -44,11 +44,8 @@ class StoreService::BuildSearchHint < Service
     end
   end
 
-  
-
   def query_group(field, keyword, open_type, open_week, open_hour)
-    sql = "#{field} ilike '%#{keyword}%' AND hidden = false"
-
+    where_sql = "#{field} ilike '%#{keyword}%' AND hidden = false"
     if open_type == 'NONE'
     elsif open_type == 'OPEN_NOW'
       now = Time.now.in_time_zone('Taipei')
@@ -57,31 +54,69 @@ class StoreService::BuildSearchHint < Service
       cur_min = now.strftime("%M")
       cur_time = cur_hour + cur_min
 
-      sql += " AND open_day = #{open_week} AND close_day = #{open_week} and open_time <= '#{cur_time}' and close_time >='#{cur_time}'"
+      where_sql += " AND open_day = #{open_week} AND close_day = #{open_week} and open_time <= '#{cur_time}' and close_time >='#{cur_time}'"
     else
-      sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
+      where_sql += " AND open_day = #{open_week} AND close_day = #{open_week}"
 
       if open_hour.present?
         open_time = open_hour < 10 ? "0#{open_hour}00" : "#{open_hour}00"
-        sql += " AND open_time <= '#{open_time}' and close_time >= '#{open_time}'"
+        where_sql += " AND open_time <= '#{open_time}' and close_time >= '#{open_time}'"
       end
     end
 
+    with_sql = <<-SQL
+      WITH match_stores AS (
+        SELECT
+          distinct stores.id AS id
+        FROM stores
+        LEFT JOIN opening_hours ON opening_hours.store_id = stores.id
+        WHERE #{where_sql}
+      )
+    SQL
+
     if field == 'district'
-      Store.left_joins(:opening_hours).where(sql).group('city', field).order(count: :desc).count
+      sql = <<-SQL
+        #{with_sql}
+        SELECT
+          COUNT(*),
+          stores.city,
+          stores.district
+        FROM
+          match_stores
+          JOIN stores on stores.id = match_stores.id
+        GROUP BY
+          stores.city,
+          stores.district
+        ORDER BY
+          stores.count DESC
+      SQL
     else
-      Store.left_joins(:opening_hours).where(sql).group(field).order(count: :desc).count
+      sql = <<-SQL
+        #{with_sql}
+        SELECT
+          COUNT(*),
+          stores.city
+        FROM
+          match_stores
+          JOIN stores on stores.id = match_stores.id
+        GROUP BY
+          stores.city
+        ORDER BY
+          stores.count DESC
+      SQL
     end
+
+    ActiveRecord::Base.connection.query(sql)
   end
 
   def format_city(result)
-    result.map do |keyword, count|
-      SearchResult.new('city', keyword, nil, nil, count)
+    result.map do |(count, city)|
+      SearchResult.new('city', city, nil, nil, count)
     end
   end
 
   def format_district(result)
-    result.map do |(city, district), count|
+    result.map do |(count, city, district)|
       SearchResult.new('district', district, city, nil, count)
     end
   end
