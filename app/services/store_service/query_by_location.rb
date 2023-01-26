@@ -93,7 +93,7 @@ class StoreService::QueryByLocation < Service
       keyword: @keyword
     )
 
-    sql = <<-SQL
+    sql = <<-SQL.squish
       #{with_tagged_stores[:with]}
       #{with_open_stores[:with]}
       #{with_wake_up_stores[:with]}

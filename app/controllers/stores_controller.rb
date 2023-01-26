@@ -22,7 +22,7 @@ class StoresController < ApplicationController
       lng: helpers.to_float(params.require(:lng)),
       per: helpers.to_integer(params[:per]),
       offset: helpers.to_integer(params[:offset]),
-      keyword: params[:keyword],
+      keyword: params[:keyword].present? ? CGI.unescape(params[:keyword]) : nil,
       open_type: params[:open_type],
       open_week: helpers.to_integer(params[:open_week]),
       open_hour: helpers.to_integer(params[:open_hour]),
