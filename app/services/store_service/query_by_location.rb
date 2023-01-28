@@ -15,7 +15,11 @@ class StoreService::QueryByLocation < Service
     @open_hour = open_hour
     @mode = mode
     @wake_up = wake_up
-    @tag_ids = tag_ids.split(",")
+    @tag_ids = tag_ids
+
+    if @tag_ids.kind_of?(String)
+      @tag_ids = @tag_ids.split(",")
+    end
   end
 
   def perform
