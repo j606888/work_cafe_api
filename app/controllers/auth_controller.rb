@@ -46,8 +46,8 @@ class AuthController < ApplicationController
   end
 
   def google_sign_in
-    user = AuthService::GoogleSignIn.call(
-      credential: params.require(:credential)
+    user = AuthService::GoogleSignInV2.call(
+      access_token: params.require(:access_token)
     )
     token = AuthService::Encoder.call(
       user_id: user.id

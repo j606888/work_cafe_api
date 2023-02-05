@@ -1,0 +1,121 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-graphql
+
+AllCops:
+  NewCops: enable
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/LineLength:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MethodDefParentheses:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 10
+
+Bundler/OrderedGems:
+  Enabled: false
+
+GraphQL/FieldDescription:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/Rails/HaveHttpStatus:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+GraphQL/ObjectDescription:
+  Enabled: false
+
+GraphQL/OrderedFields:
+  Enabled: false
+
+GraphQL/FieldDefinitions:
+  EnforcedStyle: define_resolver_after_definition
+
+Naming/VariableName:
+  Exclude:
+    - 'spec/graphql/types/**/*'
+    - 'app/graphql/types/**/*'
+
+GraphQL/ExtractType:
+  Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+
