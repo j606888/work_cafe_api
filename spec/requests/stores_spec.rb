@@ -27,8 +27,8 @@ RSpec.describe "Stores", type: :request do
 
       expect(response.status).to eq(200)
       res_hash = JSON.parse(response.body)
-      expect(res_hash).to eq({
-        'results' => [
+      expect(res_hash).to eq(
+        [
           {
             'type' => 'city',
             'name' => '台南市',
@@ -44,7 +44,7 @@ RSpec.describe "Stores", type: :request do
             'count' => 1
           }
         ]
-      })
+      )
     end
   end
 
@@ -87,17 +87,19 @@ RSpec.describe "Stores", type: :request do
       expect(res_hash['opening_hours']).to eq([
         {
           "label"=>"星期日",
+          "weekday" => 0,
           "periods"=>[{"start"=>"09:00", "end"=>"12:00"}, {"start"=>"15:00", "end"=>"18:00"}]
         },
         {
           "label"=>"星期一",
+          "weekday" => 1,
           "periods"=>[{"start"=>"09:00", "end"=>"18:00"}]
         },
-        {"label"=>"星期二", "periods"=>[]},
-        {"label"=>"星期三", "periods"=>[]},
-        {"label"=>"星期四", "periods"=>[]},
-        {"label"=>"星期五", "periods"=>[]},
-        {"label"=>"星期六", "periods"=>[]}
+        {"label"=>"星期二", "periods"=>[], "weekday" => 2},
+        {"label"=>"星期三", "periods"=>[], "weekday" => 3},
+        {"label"=>"星期四", "periods"=>[], "weekday" => 4},
+        {"label"=>"星期五", "periods"=>[], "weekday" => 5},
+        {"label"=>"星期六", "periods"=>[], "weekday" => 6}
       ])
       expect(res_hash['is_open_now']).to be(false)
       expect(res_hash['photos']).to eq(store_photos.map(&:image_url))

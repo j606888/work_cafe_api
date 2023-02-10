@@ -16,6 +16,7 @@ class OpeningHour < ApplicationRecord
     WEEKDAY_LABELS.each_with_index do |weekday, index|
       memo[index] = {
         label: weekday,
+        weekday: index,
         periods: []
       }
     end

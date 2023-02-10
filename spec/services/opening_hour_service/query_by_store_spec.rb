@@ -31,13 +31,13 @@ describe OpeningHourService::QueryByStore do
     res = service.perform
 
     expect(res).to eq([
-      { label: '星期日', periods: [] },
-      { label: '星期一', periods: [] },
-      { label: '星期二', periods: [] },
-      { label: '星期三', periods: [] },
-      { label: '星期四', periods: [] },
-      { label: '星期五', periods: [] },
-      { label: '星期六', periods: [] }
+      { label: '星期日', periods: [], weekday: 0 },
+      { label: '星期一', periods: [], weekday: 1 },
+      { label: '星期二', periods: [], weekday: 2 },
+      { label: '星期三', periods: [], weekday: 3 },
+      { label: '星期四', periods: [], weekday: 4 },
+      { label: '星期五', periods: [], weekday: 5 },
+      { label: '星期六', periods: [], weekday: 6 }
     ])
   end
 
@@ -50,30 +50,32 @@ describe OpeningHourService::QueryByStore do
         [1, "1800", "2200"],
       ])
     end
-  
+
     it 'returns formatted opening_hours' do
       res = service.perform
-  
+
       expect(res).to eq([
-        { 
+        {
           label: '星期日',
+          weekday: 0,
           periods: [
             { start: '09:00', end: '12:00' },
             { start: '18:00', end: '22:00' }
           ]
         },
-        { 
+        {
           label: '星期一',
+          weekday: 1,
           periods: [
             { start: '09:00', end: '12:00' },
             { start: '18:00', end: '22:00' }
           ]
         },
-        { label: '星期二', periods: [] },
-        { label: '星期三', periods: [] },
-        { label: '星期四', periods: [] },
-        { label: '星期五', periods: [] },
-        { label: '星期六', periods: [] }
+        { label: '星期二', periods: [], weekday: 2 },
+        { label: '星期三', periods: [], weekday: 3 },
+        { label: '星期四', periods: [], weekday: 4 },
+        { label: '星期五', periods: [], weekday: 5 },
+        { label: '星期六', periods: [], weekday: 6 }
       ])
     end
   end
