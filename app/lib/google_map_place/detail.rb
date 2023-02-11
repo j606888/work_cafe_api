@@ -60,11 +60,11 @@ class GoogleMapPlace
     end
 
     def district
-      if parse_address('administrative_area_level_1') {
+      if parse_address('administrative_area_level_1')
         parse_address('administrative_area_level_2')
-      } else {
-        ('administrative_area_level_3')
-      }
+      else
+        parse_address('administrative_area_level_3')
+      end
     end
 
     def permanently_closed
