@@ -6,17 +6,18 @@ class OpeningHour < ApplicationRecord
 
   belongs_to :store
 
-  validates :open_day, :open_time, :close_day, :close_time, presence: true
-  validates :open_day, :close_day, numericality: { in: 0..6 }
+  validates :open_day, :open_time, presence: true
+  validates :open_day, :close_day, numericality: { in: 0..6 }, allow_nil: true
   validate :in_24_hour
-
 
   def self.empty_weekday_map
     memo = {}
     WEEKDAY_LABELS.each_with_index do |weekday, index|
       memo[index] = {
         label: weekday,
-        periods: []
+        weekday: index,
+        periods: [],
+        period_texts: []
       }
     end
 
@@ -31,7 +32,6 @@ class OpeningHour < ApplicationRecord
       errors.add(:open_time, "Time period not valid")
     end
 
-    
     if close_time.to_i > 2400 || close_time.to_i < 0
       errors.add(:close_time, "Time period not valid")
     end

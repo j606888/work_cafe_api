@@ -55,11 +55,16 @@ class GoogleMapPlace
     end
 
     def city
-      parse_address('administrative_area_level_1')
+      parse_address('administrative_area_level_1') ||
+        parse_address('administrative_area_level_2')
     end
 
     def district
-      parse_address('administrative_area_level_2') || parse_address('administrative_area_level_3')
+      if parse_address('administrative_area_level_1') {
+        parse_address('administrative_area_level_2')
+      } else {
+        ('administrative_area_level_3')
+      }
     end
 
     def permanently_closed

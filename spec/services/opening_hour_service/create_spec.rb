@@ -74,7 +74,7 @@ describe OpeningHourService::Create do
           opening_hours: {
             periods: [
               {
-                "open": { "day": 0, "time": "1100" }
+                "open": { "day": 0, "time": "0000" }
               }
             ]
           }
@@ -82,10 +82,14 @@ describe OpeningHourService::Create do
       )
     end
 
-    it "won't create any records" do
+    it "create with one record" do
       service.perform
 
-      expect(OpeningHour.count).to eq(0)
+      opening_hour = OpeningHour.last
+      expect(opening_hour.open_day).to eq(0)
+      expect(opening_hour.open_time).to eq("0000")
+      expect(opening_hour.close_day).to be_nil
+      expect(opening_hour.close_time).to be_nil
     end
   end
 

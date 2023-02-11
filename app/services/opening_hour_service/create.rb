@@ -10,15 +10,15 @@ class OpeningHourService::Create < Service
     store_source = query_store_source!(store)
 
     open_periods = store_source.source_data.dig('opening_hours', 'periods')
-    return if open_periods.blank? || store_never_close?(open_periods)
+    return if open_periods.blank?
 
     open_periods.each do |period|
-      OpeningHour.create!(
+      OpeningHour.find_or_create_by!(
         store: store,
         open_day: period['open']['day'],
         open_time: period['open']['time'],
-        close_day: period['close']['day'],
-        close_time: period['close']['time']
+        close_day: period.dig('close', 'day'),
+        close_time: period.dig('close', 'time')
       )
     end
   end
@@ -30,9 +30,5 @@ class OpeningHourService::Create < Service
     return store_source if store_source.present?
 
     raise ActiveRecord::RecordNotFound, "StoreSource for store_id `#{store.id}` not exist"
-  end
-
-  def store_never_close?(open_periods)
-    open_periods.length == 1 && open_periods.first['close'].nil?  
   end
 end
