@@ -94,6 +94,7 @@ class StoresController < ApplicationController
       user: current_user,
       store: store
     )
+    is_open_now = OpeningHourService::IsOpenNowMap.call(store_ids: [store.id])[store.id]
 
     render 'show', locals: {
       store: store,
@@ -105,7 +106,8 @@ class StoresController < ApplicationController
       is_review: is_review,
       review_report: review_report,
       tags: tag_map[store.id] || [],
-      is_bookmark: is_bookmark
+      is_bookmark: is_bookmark,
+      is_open_now: is_open_now
     }
   end
 
