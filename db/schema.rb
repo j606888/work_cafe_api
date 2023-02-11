@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_10_113622) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_11_032805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -62,8 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_113622) do
     t.bigint "store_id", null: false
     t.integer "open_day", null: false
     t.string "open_time", limit: 10, null: false
-    t.integer "close_day", null: false
-    t.string "close_time", limit: 10, null: false
+    t.integer "close_day"
+    t.string "close_time", limit: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_opening_hours_on_store_id"

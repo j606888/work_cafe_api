@@ -4,8 +4,6 @@ RSpec.describe OpeningHour, type: :model do
   it { should belong_to(:store) }
   it { should validate_presence_of(:open_day) }
   it { should validate_presence_of(:open_time) }
-  it { should validate_presence_of(:close_day) }
-  it { should validate_presence_of(:close_time) }
   # it { should validate_numericality_of(:open_day).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(6) }
 
   it 'should validate #in_24_hour' do
