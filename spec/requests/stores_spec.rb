@@ -88,18 +88,30 @@ RSpec.describe "Stores", type: :request do
         {
           "label"=>"星期日",
           "weekday" => 0,
-          "periods"=>[{"start"=>"09:00", "end"=>"12:00"}, {"start"=>"15:00", "end"=>"18:00"}]
+          "periods"=> [
+            { "start"=>"09:00", "close"=>"12:00" },
+            { "start"=>"15:00", "close"=>"18:00" }
+          ],
+          "period_texts" => [
+            "09:00 - 12:00",
+            "15:00 - 18:00"
+          ]
         },
         {
           "label"=>"星期一",
           "weekday" => 1,
-          "periods"=>[{"start"=>"09:00", "end"=>"18:00"}]
+          "periods"=> [
+            { "start"=> "09:00", "close"=>"18:00" }
+          ],
+          "period_texts" => [
+            "09:00 - 18:00"
+          ]
         },
-        {"label"=>"星期二", "periods"=>[], "weekday" => 2},
-        {"label"=>"星期三", "periods"=>[], "weekday" => 3},
-        {"label"=>"星期四", "periods"=>[], "weekday" => 4},
-        {"label"=>"星期五", "periods"=>[], "weekday" => 5},
-        {"label"=>"星期六", "periods"=>[], "weekday" => 6}
+        {"label"=>"星期二", "periods"=>[], "period_texts" => [], "weekday" => 2},
+        {"label"=>"星期三", "periods"=>[], "period_texts" => [], "weekday" => 3},
+        {"label"=>"星期四", "periods"=>[], "period_texts" => [], "weekday" => 4},
+        {"label"=>"星期五", "periods"=>[], "period_texts" => [], "weekday" => 5},
+        {"label"=>"星期六", "periods"=>[], "period_texts" => [], "weekday" => 6}
       ])
       expect(res_hash['is_open_now']).to be(false)
       expect(res_hash['photos']).to eq(store_photos.map(&:image_url))

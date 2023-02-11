@@ -16,7 +16,8 @@ class OpeningHour < ApplicationRecord
       memo[index] = {
         label: weekday,
         weekday: index,
-        periods: []
+        periods: [],
+        period_texts: []
       }
     end
 
