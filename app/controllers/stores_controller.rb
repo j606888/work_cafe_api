@@ -15,6 +15,8 @@ class StoresController < ApplicationController
   end
 
   def location
+    SearchHistory.create!(user_id: current_user&.id, keyword: params[:keyword])
+
     res = StoreService::QueryByLocation.call(**{
       mode: 'address',
       user_id: current_user&.id,

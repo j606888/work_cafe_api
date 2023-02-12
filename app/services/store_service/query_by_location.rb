@@ -28,7 +28,6 @@ class StoreService::QueryByLocation < Service
     validate_inclusion!(OpeningHour::VALID_OPEN_TYPES, @open_type)
     validate_inclusion!(OpeningHour::VALID_OPEN_WEEKS, @open_week, allow_nil: true)
     validate_inclusion!(OpeningHour::VALID_OPEN_HOURS, @open_hour, allow_nil: true)
-    SearchHistory.create!(user_id: @user_id, keyword: @keyword)
 
     with_tagged_stores = {}
     if @tag_ids.present?
