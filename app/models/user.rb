@@ -13,4 +13,17 @@ class User < ApplicationRecord
   has_many :hidden_stores, through: :user_hidden_stores, source: 'store'
   has_many :store_photos
   has_many :user_bookmarks
+
+  after_create :notify_line
+
+  private
+
+  def notify_line
+    text = <<~EOF
+      <新用戶>
+      名稱：#{name}
+      Email：#{email}
+    EOF
+    LineBotClient.push_message(text)
+  end
 end
