@@ -9,4 +9,19 @@ class Review < ApplicationRecord
 
   validates :recommend, presence: true, inclusion: { in: VALID_RECOMMENDS }
   validates :user_id, uniqueness: { scope: :store_id }, if: -> { user_id.present? }
+
+  after_create :notify_line
+
+  private
+
+  def notify_line
+    store = self.store
+    url = "#{ENV['WORK_CAFE_HOST']}/map/place/#{store.place_id}/@#{store.lat},#{store.lng},15z"
+    text = <<~EOF
+      <新評論>
+      #{store.name}
+      #{url}
+    EOF
+    LineBotClient.push_message(text)
+  end
 end

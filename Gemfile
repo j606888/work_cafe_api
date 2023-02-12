@@ -22,6 +22,7 @@ gem 'redis', '~>4.0'
 gem 'aws-sdk-s3', '~> 1'
 gem 'google-id-token'
 gem 'sidekiq'
+gem 'line-bot-api'
 
 group :development, :test do
   gem "rspec-rails", "~> 5.0.0"

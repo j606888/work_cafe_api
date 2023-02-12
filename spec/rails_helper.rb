@@ -68,6 +68,10 @@ RSpec.configure do |config|
   config.before(:each, type: :controller) do
     request.headers['Content-Type'] = 'application/json'
   end
+
+  config.before(:each) do
+    stub_request(:post, /api.line.me/).to_return(status: 200, body: '{}', headers: {})
+  end
 end
 
 Shoulda::Matchers.configure do |config|

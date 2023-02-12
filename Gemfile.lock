@@ -195,6 +195,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    line-bot-api (1.27.0)
     loofah (2.16.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -417,6 +418,7 @@ DEPENDENCIES
   jbuilder
   jwt
   kaminari
+  line-bot-api
   pg (~> 1.1)
   pry-rails
   puma (~> 3.10.0)
