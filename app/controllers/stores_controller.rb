@@ -15,7 +15,10 @@ class StoresController < ApplicationController
   end
 
   def location
-    SearchHistory.create!(user_id: current_user&.id, keyword: params[:keyword])
+    # preflight API is for find the stores center and redirect
+    if params[:preflight].blank?
+      SearchHistory.create!(user_id: current_user&.id, keyword: params[:keyword])
+    end
 
     res = StoreService::QueryByLocation.call(**{
       mode: 'address',
