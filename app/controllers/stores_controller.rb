@@ -27,6 +27,7 @@ class StoresController < ApplicationController
       open_week: helpers.to_integer(params[:open_week]),
       open_hour: helpers.to_integer(params[:open_hour]),
       wake_up: helpers.to_boolean(params[:wake_up]),
+      hide_chain: helpers.to_boolean(params[:hide_chain]),
       tag_ids: params[:tag_ids]
     }.compact)
     stores = res.fetch(:stores)

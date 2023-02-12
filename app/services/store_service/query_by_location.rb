@@ -2,8 +2,8 @@ class StoreService::QueryByLocation < Service
   DEFAULT_PER = 30
   VALID_MODES = ['normal', 'address']
 
-  def initialize(lat:, lng:, per: DEFAULT_PER, offset: 0, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil, mode: 'normal', wake_up: nil,
-                tag_ids: [])
+  def initialize(lat:, lng:, per: DEFAULT_PER, offset: 0, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil,
+                 mode: 'normal', wake_up: nil, tag_ids: [], hide_chain: false)
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -16,6 +16,7 @@ class StoreService::QueryByLocation < Service
     @mode = mode
     @wake_up = wake_up
     @tag_ids = tag_ids
+    @hide_chain = hide_chain
 
     if @tag_ids.kind_of?(String)
       @tag_ids = @tag_ids.split(",")
@@ -93,9 +94,15 @@ class StoreService::QueryByLocation < Service
       with_wake_up_stores[:join] = "RIGHT JOIN wake_up_stores ON stores.id = wake_up_stores.store_id"
     end
 
+    without_hide_chain = {}
+    if @hide_chain
+      without_hide_chain[:join] = 'LEFT JOIN chain_store_maps ON chain_store_maps.store_id = stores.id'
+    end
+
     where_sql = build_where_sql(
       mode: @mode,
-      keyword: @keyword
+      keyword: @keyword,
+      hide_chain: @hide_chain
     )
 
     sql = <<-SQL.squish
@@ -107,6 +114,7 @@ class StoreService::QueryByLocation < Service
       #{with_tagged_stores[:join]}
       #{with_open_stores[:join]}
       #{with_wake_up_stores[:join]}
+      #{without_hide_chain[:join]}
       #{where_sql}
       ORDER BY distance
       OFFSET :offset
@@ -137,7 +145,7 @@ class StoreService::QueryByLocation < Service
 
   private
 
-  def build_where_sql(mode:, keyword:)
+  def build_where_sql(mode:, keyword:, hide_chain:)
     sql = "WHERE hidden = false"
     if keyword.present?
       if should_use_address_mode?(mode, keyword)
@@ -151,6 +159,10 @@ class StoreService::QueryByLocation < Service
       else
         sql += " AND name ILIKE '%%#{keyword.downcase}%%'"
       end
+    end
+
+    if hide_chain
+      sql += " AND chain_store_maps.store_id IS NULL"
     end
 
     sql

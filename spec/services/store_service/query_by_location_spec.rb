@@ -172,4 +172,20 @@ describe StoreService::QueryByLocation do
       expect(res[:stores]).to eq([stores[0], stores[3]])
     end
   end
+
+  context 'when #hide_chain is true' do
+    before do
+      create :chain_store_map, store: stores[0]
+      create :chain_store_map, store: stores[3]
+
+      params[:hide_chain] = true
+    end
+
+    it 'reject chain_stores' do
+      res = service.perform
+
+      expect(res[:stores].length).to eq(2)
+      expect(res[:stores]).to eq([stores[1], stores[2]])
+    end
+  end
 end
