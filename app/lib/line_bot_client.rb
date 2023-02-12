@@ -6,12 +6,12 @@ class LineBotClient
 
     def client
       @client ||= Line::Bot::Client.new do |config|
-        config.channel_secret = ENV['LINE_CHANNEL_SECRET']
-        config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+        config.channel_secret = ENV['CAFE_LINE_CHANNEL_SECRET']
+        config.channel_token = ENV['CAFE_LINE_CHANNEL_TOKEN']
       end
     end
 
-    def push_message(text, to: ENV['LINE_USER_ID'])
+    def push_message(text, to: ENV['CAFE_LINE_USER_ID'])
       message = {
         type: 'text',
         text: text
