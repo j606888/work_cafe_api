@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       end
     end
     resources :blacklists, only: [:index, :create, :destroy]
+    resources :chain_stores, path: 'chain-stores', only: [:index]
     resources :users, only: [:index]
     namespace :report do
       get :dashboard
