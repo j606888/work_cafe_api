@@ -4,6 +4,9 @@ class NotCafeReportsController < ApplicationController
       user_id: current_user&.id,
       store: store
     )
+    if current_user&.role == 'admin'
+      store.update!(hidden: true)
+    end
 
     head :ok
   end

@@ -24,7 +24,8 @@ class Admin::StoresController < Admin::ApplicationController
       place_id: params.require(:id)
     )
     StorePhotoService::CreateFromGoogle.call(
-      store_id: store.id
+      store_id: store.id,
+      limit: 5
     )
 
     head :ok
