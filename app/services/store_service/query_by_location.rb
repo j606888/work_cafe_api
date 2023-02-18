@@ -156,7 +156,7 @@ class StoreService::QueryByLocation < Service
           )
         SQL
       else
-        sql += " AND name ILIKE '%%#{keyword.downcase}%%'"
+        sql += " AND (name ILIKE '%%#{keyword.downcase}%%' OR address ILIKE '%%#{keyword.downcase}%%')"
       end
     end
 
