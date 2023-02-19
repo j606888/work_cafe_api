@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       end
     end
     resources :chain_stores, path: 'chain-stores', only: [:index]
+    resources :tags, only: [:index, :create, :update, :destroy]
     resources :users, only: [:index]
     namespace :report do
       get :dashboard
