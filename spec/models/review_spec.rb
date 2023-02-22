@@ -4,6 +4,7 @@ RSpec.describe Review, type: :model do
   it { should belong_to(:user).optional }
   it { should belong_to(:store) }
   it { is_expected.to validate_inclusion_of(:recommend).in_array(described_class::VALID_RECOMMENDS) }
+  it { is_expected.to validate_inclusion_of(:visit_day).in_array(described_class::VALID_VISIT_DAYS) }
 
   it "validate unique for user & store" do
     user = create :user
