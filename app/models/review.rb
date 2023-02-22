@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   VALID_RECOMMENDS = ['yes', 'normal', 'no']
+  VALID_VISIT_DAYS = ['weekday', 'weekend']
 
   belongs_to :user, optional: true
   belongs_to :store
@@ -8,6 +9,7 @@ class Review < ApplicationRecord
   has_many :store_photos
 
   validates :recommend, presence: true, inclusion: { in: VALID_RECOMMENDS }
+  validates :visit_day, presence: true, inclusion: { in: VALID_VISIT_DAYS }
   validates :user_id, uniqueness: { scope: :store_id }, if: -> { user_id.present? }
 
   after_create :notify_line

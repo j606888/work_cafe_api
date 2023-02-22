@@ -8,7 +8,8 @@ describe ReviewService::FindOrCreate do
       user_id: user.id,
       store_id: store.id,
       recommend: 'yes',
-      description: 'Have cute cate'
+      description: 'Have cute cate',
+      visit_day: 'weekday'
     }
   end
   let(:service) { described_class.new(**params) }
@@ -17,7 +18,8 @@ describe ReviewService::FindOrCreate do
     described_class.new(
       user_id: 1,
       store_id: 2,
-      recommend: 'normal'
+      recommend: 'normal',
+      visit_day: 'weekday'
     )
   end
 
@@ -27,6 +29,7 @@ describe ReviewService::FindOrCreate do
     expect(review.user).to eq(user)
     expect(review.store).to eq(store)
     expect(review.recommend).to eq('yes')
+    expect(review.visit_day).to eq('weekday')
     expect(review.description).to eq('Have cute cate')
   end
 

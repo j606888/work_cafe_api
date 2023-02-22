@@ -8,7 +8,8 @@ RSpec.describe "Reviews", type: :request do
     let(:params) do
       {
         recommend: 'no',
-        description: 'Horrible cafe ever'
+        description: 'Horrible cafe ever',
+        visit_day: 'weekday'
       }
     end
 
@@ -24,6 +25,7 @@ RSpec.describe "Reviews", type: :request do
       expect(review.store).to eq(store)
       expect(review.recommend).to eq('no')
       expect(review.description).to eq('Horrible cafe ever')
+      expect(review.visit_day).to eq('weekday')
     end
   end
 

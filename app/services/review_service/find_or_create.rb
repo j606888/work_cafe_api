@@ -2,15 +2,14 @@ class ReviewService::FindOrCreate < Service
   include QueryHelpers::QueryUser
   include QueryHelpers::QueryStore
 
-  def initialize(user_id: nil, store_id:, recommend:,
-    description: nil, tag_ids: []
-  )
+  def initialize(user_id: nil, store_id:, recommend:, visit_day: ,description: nil,tag_ids: [])
     @user_id = user_id
     @store_id = store_id
     @tag_ids = tag_ids
     @params = {
       recommend: recommend,
-      description: description
+      description: description,
+      visit_day: visit_day
     }.compact
   end
 

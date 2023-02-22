@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
       user_id: current_user&.id,
       store_id: store.id,
       recommend: params.require(:recommend),
+      visit_day: params.require(:visit_day),
       description: params[:description],
       tag_ids: params[:tag_ids]
     }.compact)
