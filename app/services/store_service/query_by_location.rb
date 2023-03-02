@@ -3,7 +3,7 @@ class StoreService::QueryByLocation < Service
   VALID_MODES = ['normal', 'address']
 
   def initialize(lat:, lng:, per: DEFAULT_PER, offset: 0, user_id: nil, keyword: nil, open_type: 'NONE', open_week: nil, open_hour: nil,
-                 mode: 'normal', wake_up: nil, tag_ids: [], hide_chain: false)
+                 mode: 'normal', wake_up: nil, tag_ids: [], hide_chain: false, order_by: 'distance')
     @user_id = user_id
     @lat = lat
     @lng = lng
@@ -17,6 +17,7 @@ class StoreService::QueryByLocation < Service
     @wake_up = wake_up
     @tag_ids = tag_ids
     @hide_chain = hide_chain
+    @order_by = order_by
 
     if @tag_ids.kind_of?(String)
       @tag_ids = @tag_ids.split(",")
@@ -115,7 +116,7 @@ class StoreService::QueryByLocation < Service
       #{with_wake_up_stores[:join]}
       #{without_hide_chain[:join]}
       #{where_sql}
-      ORDER BY distance
+      ORDER BY #{@order_by}
       OFFSET :offset
       LIMIT :per
     SQL
@@ -134,7 +135,7 @@ class StoreService::QueryByLocation < Service
 
   def count_total_stores(sql, lat, lng)
     count_sql = sql.gsub("SELECT distinct(stores.*), earth_distance(ll_to_earth(:lat, :lng), ll_to_earth(lat, lng))::INTEGER AS distance", "SELECT count(*)")
-      .gsub("ORDER BY distance", "")
+      .gsub("ORDER BY #{@order_by}", "")
       .gsub("OFFSET :offset", "")
       .gsub("LIMIT :per", "")
     query = ActiveRecord::Base.sanitize_sql_array([count_sql, { lat: lat, lng: lng }])

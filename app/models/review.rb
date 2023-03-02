@@ -17,6 +17,8 @@ class Review < ApplicationRecord
   private
 
   def notify_line
+    return if Rails.env.development?
+
     store = self.store
     url = "#{ENV['WORK_CAFE_HOST']}/map/place/#{store.place_id}/@#{store.lat},#{store.lng},15z"
     text = <<~EOF

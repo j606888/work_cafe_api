@@ -23,7 +23,8 @@ class StoreService::BuildSearchHint < Service
       keyword: @keyword,
       open_type: @open_type,
       open_week: @open_week,
-      open_hour: @open_hour
+      open_hour: @open_hour,
+      order_by: 'user_ratings_total desc'
     }.compact)[:stores]
 
     city = query_group('city', @keyword, @open_type, @open_week, @open_hour)
