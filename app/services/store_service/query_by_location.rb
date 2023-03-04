@@ -30,6 +30,10 @@ class StoreService::QueryByLocation < Service
     validate_inclusion!(OpeningHour::VALID_OPEN_WEEKS, @open_week, allow_nil: true)
     validate_inclusion!(OpeningHour::VALID_OPEN_HOURS, @open_hour, allow_nil: true)
 
+    if @keyword.present?
+      @keyword = fuzzy_match_city(@keyword)
+    end
+
     with_tagged_stores = {}
     if @tag_ids.present?
       with_tagged_stores[:with] = <<-SQL
@@ -177,5 +181,19 @@ class StoreService::QueryByLocation < Service
     end
 
     false
+  end
+
+  def fuzzy_match_city(keyword)
+    Store::CITY_LIST.each do |city_name|
+      return keyword if keyword.include?(city_name)
+    end
+
+    Store.short_city_map.each do |short_name, full_name|
+      if keyword.include?(short_name)
+        return keyword.gsub(short_name, full_name)
+      end
+    end
+
+    keyword
   end
 end
