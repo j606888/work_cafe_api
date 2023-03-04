@@ -6,7 +6,7 @@ class Review < ApplicationRecord
   belongs_to :store
   has_many :store_review_tags, dependent: :delete_all
   has_many :tags, through: :store_review_tags
-  has_many :store_photos
+  has_many :store_photos, dependent: :delete_all
 
   validates :recommend, presence: true, inclusion: { in: VALID_RECOMMENDS }
   validates :visit_day, presence: true, inclusion: { in: VALID_VISIT_DAYS }
