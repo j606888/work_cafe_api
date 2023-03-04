@@ -12,4 +12,12 @@ class Store < ApplicationRecord
   validates :name, :url, presence: true
 
   scope :alive, -> { where(hidden: false) }
+
+  def self.short_city_map
+    CITY_LIST.each_with_object({}) do |city, memo|
+      short_name = city.chars.take(2).join('')
+      memo[short_name] = city
+      memo
+    end
+  end
 end
