@@ -15,15 +15,14 @@ class TagService::BuildStoreTagMap < Service
       tags = Tag.all
     end
 
-    tag_map = tags.each_with_object({}) do |tag, memo|
-      memo[tag.id] = tag.name
-    end
+    tag_map = tags.index_by { |tag| tag.id }
 
     result = {}
     row_result.each do |(store_id, tag_id), count|
       result[store_id] ||= []
       result[store_id] << {
-        name: tag_map[tag_id],
+        id: tag_map[tag_id].id,
+        name: tag_map[tag_id].name,
         count: count
       }
     end
