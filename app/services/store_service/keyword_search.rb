@@ -1,3 +1,4 @@
+
 class StoreService::KeywordSearch < Service
   def initialize(keyword:, location:)
     @keyword = keyword
@@ -8,15 +9,25 @@ class StoreService::KeywordSearch < Service
     args = {
       keyword: @keyword,
       location: @location,
-      radius: 20000
+      radius: 40000
     }
-    result = GoogleMapPlace::Api.query(:nearbysearch_service, args)
-
-    place_id = query_place_id(result)
-    StoreService::Create.call(place_id: place_id)
+    response = GoogleMapPlace::Api.query(:nearbysearch_service, args)
+    response['results'].map do |result|
+      parse_result(result)
+    end.reject{ |result| result[:already_exist] }
   end
 
   private
+
+  def parse_result(result)
+    {
+      place_id: result['place_id'],
+      name: result['name'],
+      rating: result['rating'],
+      user_ratings_total: result['user_ratings_total'],
+      already_exist: Store.exists?(place_id: result['place_id'])
+    }
+  end
 
   def query_place_id(result)
     search_result = GoogleMapPlace::CafeSearch.new(result)

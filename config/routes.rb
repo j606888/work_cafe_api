@@ -30,11 +30,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stores, only: [:show] do
+  resources :stores, only: [:show, :create] do
     collection do
       get :hint
       get :location
       get :hidden
+      post :google_search, path: 'google-search'
     end
 
     member do
