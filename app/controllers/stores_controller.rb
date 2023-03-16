@@ -135,4 +135,21 @@ class StoresController < ApplicationController
 
     head :ok
   end
+
+  def google_search
+    res = StoreService::KeywordSearch.call(
+      keyword: params.require(:keyword),
+      location: params.require(:location)
+    )
+
+    render json: res
+  end
+
+  def create
+    StoreService::Create.call(
+      place_id: params.require(:place_id)
+    )
+
+    head :ok
+  end
 end
