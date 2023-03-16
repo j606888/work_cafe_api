@@ -147,7 +147,8 @@ class StoresController < ApplicationController
 
   def create
     StoreService::Create.call(
-      place_id: params.require(:place_id)
+      place_id: params.require(:place_id),
+      photos_count: 6
     )
 
     head :ok

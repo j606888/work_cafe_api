@@ -1,6 +1,7 @@
 class StoreService::Create < Service
-  def initialize(place_id:)
+  def initialize(place_id:, photos_count: 2)
     @place_id = place_id
+    @photos_count = photos_count
   end
 
   def perform
@@ -13,7 +14,10 @@ class StoreService::Create < Service
       store = create_store!(detail)
       create_store_source!(store, detail)
       OpeningHourService::Create.call(store_id: store.id)
-      StorePhotoService::CreateFromGoogle.call(store_id: store.id, limit: 1)
+      StorePhotoService::CreateFromGoogle.call(
+        store_id: store.id,
+        limit: @photos_count
+      )
 
       store
     end
