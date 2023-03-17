@@ -16,8 +16,11 @@ class UserService::Query < Service
     validate_order!(@order)
     validate_order_by!(@order_by)
 
-    query = User.order("#{@order_by} #{@order} NULLS LAST").page(@page).per(@per)
-    query
+    User.left_joins(:reviews)
+      .group('users.id')
+      .select('users.*, COUNT(reviews.id) as reviews_count')
+      .order("#{@order_by} #{@order} NULLS LAST")
+      .page(@page).per(@per)
   end
 
   private
